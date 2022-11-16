@@ -7,8 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
+  isSticky: boolean = false;
   constructor() { }
 
+  
+  checkScroll() {
+    this.isSticky = window.pageYOffset >= 250;
+  }
   ngOnInit(): void {
   }
 
