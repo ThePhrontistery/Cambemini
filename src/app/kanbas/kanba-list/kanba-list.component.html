@@ -1,18 +1,18 @@
 
-
-<div class="kanbaContainer">
+<div class="kanba-main">
     <div class="buttons">
         <button mat-button>
             <mat-icon>reply</mat-icon>
         </button>
     </div>
-    <div class="kanba">
+    
         <div class="addButton">
             <button mat-fab color="dark" (click)="add()" aria-label="Example icon button with a delete icon">
             <mat-icon>add</mat-icon>
             </button>
         </div>
-        <div *ngFor="let item of kanbas;let i=index;">
+       
+        <div class="kanba" *ngFor="let item of kanbas;let i=index;">
             <!-- <div
                         cdkDropList
                         id="xlist{{i}}" [cdkDropListConnectedTo]="['xlist1','xlist0']"     
@@ -22,10 +22,9 @@
                 
                 <app-lane   [kanba]="item" [index]="i" [listId]="kanbasListId"></app-lane>
             <!-- </div> -->
-            
         </div>
     </div>
-</div>
+
 
 
 
