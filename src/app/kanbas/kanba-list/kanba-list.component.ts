@@ -12,7 +12,7 @@ import { LaneEditComponent } from '../lane-edit/lane-edit.component';
 @Component({
   selector: 'app-kanba-list',
   templateUrl: './kanba-list.component.html',
-  styleUrls: ['./kanba-list.component.css'],
+  styleUrls: ['./kanba-list.component.scss'],
 })
 export class KanbaListComponent implements OnInit {
   kanbas: Lane[] = [];
