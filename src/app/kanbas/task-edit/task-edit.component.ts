@@ -22,7 +22,7 @@ export class TaskEditComponent implements OnInit {
       this.entitie = Object.assign({}, this.data.entitie);
     } else {
       this.entitie = new Task();
-      this.entitie.LaneId = this.data.kanba.id;
+      this.entitie.id = this.data.kanba.id;
     }
   }
 

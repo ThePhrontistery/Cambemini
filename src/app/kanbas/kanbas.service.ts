@@ -25,4 +25,8 @@ export class KanbasService {
     this.emitAddKanba.emit(entitie);
   }
 
+  removeLane(id: number){
+    
+  }
+
 }

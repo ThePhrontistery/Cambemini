@@ -1,4 +1,25 @@
-   .kanba-main {
+.kanba-header{
+     display: flex;
+     margin-left: 7%;
+     width: 90%;
+
+     p {
+          font-weight: bold;
+          font-size: large;
+     }
+     .buttons{
+          display: flex;
+          margin-left: 70%;
+          button {
+               margin-left: 10px;
+               width: 65px;
+               //Está feo, habria que mirar mas adelante como se hace con justify-content o con float
+               cursor: pointer;
+          }
+     }
+}
+
+.kanba-main {
         margin-top: 10px;
         display: flex;
  

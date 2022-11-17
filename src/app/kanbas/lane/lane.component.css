@@ -3,8 +3,14 @@
   margin: 10px;
   cursor: pointer;
   /* background: #373A3B; */
-  background: dimgrey;
-  color: #ebf0f1;
+  background-color: lightseagreen;
+  color: white;
+}
+
+.addTaskButton {
+  background-color: lightgrey;
+  color: black;
+  width: 100%;
 }
 
 

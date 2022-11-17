@@ -38,7 +38,7 @@ export class KanbaListComponent implements OnInit {
     });
 
     this.KanbasService.emitAddCard.subscribe((entitie: Task) => {
-      let kanba = this.kanbas.find((x) => x.id == entitie.LaneId);
+      let kanba = this.kanbas.find((x) => x.id == entitie.id);
 
       if (entitie.id == null) {
         entitie.id = this.getId();

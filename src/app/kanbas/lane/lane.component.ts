@@ -58,4 +58,8 @@ export class LaneComponent implements OnInit {
       data: { entitie: this.kanba },
     });
   }
+  delete(){
+    
+    //kanvaService.deleteLane(id);
+  }
 }

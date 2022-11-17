@@ -1,14 +1,22 @@
 
-<div class="buttons">
+<div>
     <button mat-button>
-        <mat-icon>reply</mat-icon>
+        <mat-icon>arrow_back</mat-icon>
     </button>
+</div>
+<div class="kanba-header">
+    <p class="kanba-title">
+        Angular Kanva Development
+    </p>
+    <div class="buttons">
+        <button mat-raised-button color="accent"><mat-icon>share</mat-icon></button>
+    </div>  
 </div>
 <div class="kanba-main">
         <div class="addButton">
             <button mat-fab color="dark" (click)="add()" aria-label="Example icon button with a delete icon">
             <mat-icon>add</mat-icon>
-            </button>
+        </button>
         </div>
         <div class="kanba">
         <div *ngFor="let item of kanbas;let i=index;">

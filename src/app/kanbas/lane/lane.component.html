@@ -9,12 +9,15 @@ cdkDropList
     <mat-card-header>
         <div class="space-between w-100">
             <mat-card-title>{{kanba.title}}</mat-card-title>
-            <button mat-icon-button (click)="edit()"> <mat-icon>edit</mat-icon></button>
+            <div>
+                <button mat-icon-button (click)="edit()"> <mat-icon>edit</mat-icon></button>
+                <button mat-icon-button (click)="delete()"> <mat-icon>close</mat-icon></button>
+            </div>
         </div>
     </mat-card-header>
     <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
     <mat-card-content>
-        <button (click)="add()" mat-stroked-button   color="secondary"style="width: 100%"><mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="add"></mat-icon>
+        <button (click)="add()" mat-stroked-button   class="addTaskButton"><mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="add"></mat-icon>
         </button>
        
     </mat-card-content>

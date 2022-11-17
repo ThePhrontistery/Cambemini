@@ -1,9 +1,3 @@
-.mat-toolbar {
-    background-color: rgb(43, 43, 44);
-    color: white;
-    display: flex;
-    width: 100vw;
-  }
   
   .header_container {
       display: flex;
@@ -34,17 +28,17 @@
                 font-weight: lighter;
                 text-decoration: none;
                 cursor: pointer;
-                color: white;
+                color: black;
               }
   
               a:hover {
-                color: grey;
+                color: black;
               }
   
               a.active {
                 font-weight: normal;
                 text-decoration: underline;
-                color: lightyellow;
+                color: black;
               }
   
           }
