@@ -1,17 +1,17 @@
-<!--  [ngStyle]="{background: kanba.color}" -->
+<!--  [ngStyle]="{background: lane.color}" -->
 
 <div
 cdkDropList
             id="list{{index}}" [cdkDropListConnectedTo]="listId"     
-            [cdkDropListData]="kanba.items"
-            (cdkDropListDropped)="drop($event,kanba.id)">
-<mat-card class="kanbas">
+            [cdkDropListData]="lane.tasks"
+            (cdkDropListDropped)="drop($event,lane.id)">
+<mat-card class="lanes">
     <mat-card-header>
         <div class="space-between w-100">
-            <mat-card-title>{{kanba.title}}</mat-card-title>
+            <mat-card-title>{{lane.title}}</mat-card-title>
             <div>
                 <button mat-icon-button (click)="edit()"> <mat-icon>edit</mat-icon></button>
-                <button mat-icon-button (click)="delete()"> <mat-icon>close</mat-icon></button>
+                <button mat-icon-button (click)="delete(lane.id)"> <mat-icon>close</mat-icon></button>
             </div>
         </div>
     </mat-card-header>
@@ -22,7 +22,7 @@ cdkDropList
        
     </mat-card-content>
 
-    <app-task  [Kanba]="kanba"  [index]="i" [indexY]="index" *ngFor="let itemKanba of kanba.items;let i=index;" [item]="itemKanba"></app-task>
+    <app-task  [lane]="lane"  [index]="i" [indexY]="index" *ngFor="let taskLane of lane.tasks;let i=index;" [task]="taskLane"></app-task>
     
   </mat-card>
 </div>

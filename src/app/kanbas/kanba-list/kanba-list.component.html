@@ -19,7 +19,7 @@
         </button>
         </div>
         <div class="kanba">
-        <div *ngFor="let item of kanbas;let i=index;">
+        <div *ngFor="let item of lanes;let i=index;">
             <!-- <div
                         cdkDropList
                         id="xlist{{i}}" [cdkDropListConnectedTo]="['xlist1','xlist0']"     
@@ -27,7 +27,7 @@
                         (cdkDropListDropped)="drop($event)"> -->
                 
                 
-                <app-lane   [kanba]="item" [index]="i" [listId]="kanbasListId"></app-lane>
+                <app-lane   [lane]="item" [index]="i" [listId]="kanbasListId"></app-lane>
             <!-- </div> -->
         </div>
         </div>

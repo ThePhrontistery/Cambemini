@@ -1,3 +1,4 @@
+import { LoginModule } from './login/login.module';
 import { KanbasModule } from './kanbas/kanbas.module';
 import { CoreModule } from './core/core.module';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
@@ -18,7 +19,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppRoutingModule,
     BrowserAnimationsModule,
     CoreModule,
-    KanbasModule
+    KanbasModule,
+    LoginModule
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

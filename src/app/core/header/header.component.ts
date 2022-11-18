@@ -1,3 +1,7 @@
+import { Observable } from 'rxjs';
+import { LoginService } from './../../login/login.service';
+import { User } from './../../kanbas/model/Kanbas';
+import { KanbasService } from './../../kanbas/kanbas.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,15 +10,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  isLoggedIn: Observable<boolean>;
+  users:User[]=[];
+  constructor(public kanbasService:KanbasService, public loginService:LoginService) { }
 
-  isSticky: boolean = false;
-  constructor() { }
-
-  
-  checkScroll() {
-    this.isSticky = window.pageYOffset >= 250;
-  }
   ngOnInit(): void {
+
+    this.kanbasService.emitKankaSelect.subscribe(x=>{
+      this.users=x.users
+       
+    })
+    this.isLoggedIn = this.loginService.isLoggedIn;
+  }
+  onLogout() {
+    this.loginService.logout();
   }
 
 }

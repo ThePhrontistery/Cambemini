@@ -1,10 +1,10 @@
 <mat-card class="mt-1" cdkDrag>     
-    {{item.id}}
+    {{task.LaneId}}
     <mat-card-header style="display: block;" > 
 
         <div class="space-between" >
             <div class="flet-start">  
-                <div class="title">{{item.title}}</div> 
+                <div class="title">{{task.title}}</div> 
             </div>
             
             <div>
@@ -22,7 +22,7 @@
     <mat-divider></mat-divider>
     
     <mat-card-content class="pad">
-        <p>{{item.description}}</p>
+        <p>{{task.description}}</p>
         <button><mat-icon>attach_file</mat-icon></button>
     </mat-card-content>
 

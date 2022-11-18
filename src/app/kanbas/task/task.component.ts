@@ -11,10 +11,10 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class TaskComponent implements OnInit {
 
-  @Input() item:Task; 
+  @Input()task:Task; 
   @Input()index:number;
   @Input()indexY:number;
-  @Input()Kanba:Lane;
+  @Input()lane:Lane;
 
  
   constructor(private kanbasService:KanbasService,   public dialog: MatDialog,  ) { }
@@ -28,8 +28,8 @@ export class TaskComponent implements OnInit {
 
   edit(){
     const dialogRef = this.dialog.open(TaskEditComponent, {
-      data: { entitie: this.item ,
-              kanba:this.Kanba
+      data: { task: this.task ,
+              lane: this.lane
         }
   });
 

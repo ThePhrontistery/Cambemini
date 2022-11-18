@@ -1,18 +1,29 @@
-export class Kanban {
-    id: number;
-    title: string;
-    swimlanes: Lane[];
-}
-
+import { Title } from '@angular/platform-browser';
 export class Lane {
     id:number;
     title: string;
     order:number;
-    items:Task[];
+    tasks:Task[];
+    color:string;
     
 }
+
 export class Task {
     title:string;
     description:string;
-    id:number;       
+    LaneId:number; 
+    id:number;           
+}
+
+export class kanba{
+    id:number;
+    title:string;
+    icon:string;
+    select:boolean;
+    users:User[];
+}
+
+export class User{
+    email:string;
+    online:boolean;
 }

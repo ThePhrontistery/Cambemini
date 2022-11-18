@@ -1,23 +1,33 @@
-<mat-toolbar>
+<mat-toolbar *ngIf="isLoggedIn | async ">
     <mat-toolbar-row>
         <div class="header_container">
-            <div class="header_title" routerLink="/kanbas">              
+            <!-- <div class="header_title" routerLink="/kanbas">              
                 <mat-icon>grid_on</mat-icon>
             </div>
 
-            <div class="header_separator"> | </div>
+            <div class="header_separator"> | </div> -->
 
             <div class="header_menu">
-                <div class="header_button">
+                
+                <app-kanba-select ></app-kanba-select>
+                <!-- <div class="header_button">
                     <a routerLink="/kanbas" routerLinkActive="active">Kanbas</a>
-                </div>
+                </div> -->
+               
            
             </div>
 
+            
+
+            
             <div class="header_login">
-                <mat-icon>account_circle</mat-icon> Sign in
+               <div class="space-between"> 
+                <mat-icon (click)="onLogout()">exit_to_app</mat-icon>
+                    <app-user-select [users]="users"></app-user-select>
+                    <!-- <mat-icon>account_circle</mat-icon>  -->
+                    ejemplo@email.com
+                </div>
             </div>
         </div>
     </mat-toolbar-row>
 </mat-toolbar>
-

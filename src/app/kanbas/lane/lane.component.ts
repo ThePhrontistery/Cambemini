@@ -16,7 +16,7 @@ import { KanbasService } from '../kanbas.service';
   styleUrls: ['./lane.component.css'],
 })
 export class LaneComponent implements OnInit {
-  @Input() kanba: Lane;
+  @Input() lane: Lane;
   @Input() index: number;
   @Input() listId: string[];
   constructor(
@@ -53,16 +53,18 @@ export class LaneComponent implements OnInit {
 
   add() {
     const dialogRef = this.matDialog.open(TaskEditComponent, {
-      data: { kanba: this.kanba },
+      data: { lane: this.lane },
     });
   }
  
   edit() {
     const dialogRef = this.matDialog.open(LaneEditComponent, {
-      data: { entitie: this.kanba },
+      data: { task: this.lane },
     });
   }
-  delete(){
-    this.kanbaService.deleteLane(this.index);
+  delete(id: number){
+    this.kanbaService.deleteLane(id);
   }
 }
+
+

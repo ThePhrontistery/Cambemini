@@ -15,7 +15,7 @@ import { LaneEditComponent } from '../lane-edit/lane-edit.component';
   styleUrls: ['./kanba-list.component.scss'],
 })
 export class KanbaListComponent implements OnInit {
-  kanbas: Lane[] = [];
+  lanes: Lane[] = [];
   kanbasListId: string[] = [];
 
   constructor(
@@ -25,48 +25,44 @@ export class KanbaListComponent implements OnInit {
 
   ngOnInit(): void {
     this.KanbasService.getKanbas().subscribe((kanbasList) => {
-      this.kanbas.push(...kanbasList);
+      this.lanes.push(...kanbasList);
 
-      this.kanbas.forEach((e, i) => {
+      this.lanes.forEach((e, i) => {
         this.kanbasListId.push('list' + i);
       });
     });
 
     this.KanbasService.emitDeleteCard.subscribe((y) => {
       console.log('aqui elminar', y);
-      this.kanbas[y.KanbaIndex].items.splice(y.Itemindex, 1);
+      this.lanes[y.KanbaIndex].tasks.splice(y.Itemindex, 1);
     });
 
-    this.KanbasService.emitAddCard.subscribe((entitie: Task) => {
-      let kanba = this.kanbas.find((x) => x.id == entitie.id);
+    this.KanbasService.emitAddCard.subscribe((task: Task) => {
+      let lane = this.lanes.find((x) => x.id == task.id);
 
-      if (entitie.id == null) {
-        entitie.id = this.getId();
-        kanba.items.push(entitie);
+      if (task.id == null) {
+        task.id = this.getId();
+        lane.tasks.push(task);
       } else {
-        let index = kanba.items.findIndex((item) => item.id == entitie.id);
-        kanba.items[index] = entitie;
+        let index = lane.tasks.findIndex((item) => item.id == task.id);
+        lane.tasks[index] = task;
       }
     });
     
-    this.KanbasService.emitAddKanba.subscribe((entitie: Lane) => {
+    this.KanbasService.emitAddKanba.subscribe((lane: Lane) => {
       
 
-      if (entitie.id == null) {
-        entitie.id = this.kanbas.length + 1;
-        this.kanbas.push(entitie);
+      if (lane.id == null) {
+        lane.id = this.lanes.length + 1;
+        this.lanes.push(lane);
       } else {
-        let index = this.kanbas.findIndex((item) => item.id == entitie.id);
-        this.kanbas[index].title = entitie.title;
+        let index = this.lanes.findIndex((item) => item.id == lane.id);
+        this.lanes[index].title = lane.title;
       }
-      this.kanbas.forEach((e, i) => {
+      this.lanes.forEach((e, i) => {
         this.kanbasListId.push('list' + i);
       });
     });
-
-    this.KanbasService.emitDeleteLane.subscribe((index: number) => {
-      this.kanbas.splice(index, 1);
-    })
   }
 
   drop(event: any) {
@@ -89,14 +85,13 @@ export class KanbaListComponent implements OnInit {
     console.log('event.previousIndex', event.previousIndex);
     console.log('event.currentIndex', event.currentIndex);
 
-    console.log('lista', this.kanbas);
+    console.log('lista', this.lanes);
   }
-
 
   getId() {
     let c = 1;
-    this.kanbas.forEach((r) => {
-      r.items.forEach((l) => {
+    this.lanes.forEach((r) => {
+      r.tasks.forEach((l) => {
         c++;
       });
     });

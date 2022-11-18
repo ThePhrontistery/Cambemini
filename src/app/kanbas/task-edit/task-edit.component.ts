@@ -9,7 +9,7 @@ import { Component, Inject, OnInit } from '@angular/core';
   styleUrls: ['./task-edit.component.css'],
 })
 export class TaskEditComponent implements OnInit {
-  entitie: Task;
+  task: Task;
 
   constructor(
     public dialogRef: MatDialogRef<TaskEditComponent>,
@@ -18,16 +18,16 @@ export class TaskEditComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (this.data.entitie != null) {
-      this.entitie = Object.assign({}, this.data.entitie);
+    if (this.data.task != null) {
+      this.task = Object.assign({}, this.data.task);
     } else {
-      this.entitie = new Task();
-      this.entitie.id = this.data.kanba.id;
+      this.task = new Task();
+      this.task.LaneId = this.data.lane.id;
     }
   }
 
   onSave() {
-    this.KanbasService.saveItem(this.entitie);
+    this.KanbasService.saveTask(this.task);
     this.dialogRef.close();
   }
 

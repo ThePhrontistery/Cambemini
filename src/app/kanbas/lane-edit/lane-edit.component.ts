@@ -9,25 +9,25 @@ import { Component, Inject, OnInit } from '@angular/core';
   styleUrls: ['./lane-edit.component.css'],
 })
 export class LaneEditComponent implements OnInit {
-  entitie: Lane;
+  lane: Lane;
 
   constructor(
     public dialogRef: MatDialogRef<LaneEditComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private KanbasService: KanbasService
+    private kanbanService: KanbasService
   ) {}
 
   ngOnInit(): void {
-    if (this.data.entitie != null) {
-      this.entitie = Object.assign({}, this.data.entitie);
+    if (this.data.lane != null) {
+      this.lane = Object.assign({}, this.data.lane);
     } else {
-      this.entitie = new Lane();
-      this.entitie.items = [];
+      this.lane = new Lane();
+      this.lane.tasks = [];
     }
   }
 
   onSave() {
-    this.KanbasService.save(this.entitie);
+    this.kanbanService.save(this.lane);
     this.dialogRef.close();
   }
 
