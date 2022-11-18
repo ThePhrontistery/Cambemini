@@ -1,4 +1,4 @@
-export class Kanvan {
+export class Kanban {
     id: number;
     title: string;
     swimlanes: Lane[];

@@ -10,6 +10,7 @@ export class KanbasService {
   emitDeleteCard: EventEmitter<any> = new EventEmitter();
   emitAddCard: EventEmitter<Task> = new EventEmitter();
   emitAddKanba: EventEmitter<Lane> = new EventEmitter();
+  emitDeleteLane: EventEmitter<number> = new EventEmitter();
   
   constructor() { }
 
@@ -25,8 +26,8 @@ export class KanbasService {
     this.emitAddKanba.emit(entitie);
   }
 
-  removeLane(id: number){
-    
+  deleteLane(index: number){
+    this.emitDeleteLane.emit(index);
   }
 
 }

@@ -8,6 +8,7 @@ import {
 } from '@angular/cdk/drag-drop';
 import { Lane } from '../model/Kanbas';
 import { Component, Input, OnInit } from '@angular/core';
+import { KanbasService } from '../kanbas.service';
 
 @Component({
   selector: 'app-lane',
@@ -18,7 +19,10 @@ export class LaneComponent implements OnInit {
   @Input() kanba: Lane;
   @Input() index: number;
   @Input() listId: string[];
-  constructor(public matDialog: MatDialog) {}
+  constructor(
+    public matDialog: MatDialog,
+    private kanbaService: KanbasService
+    ) {}
 
   ngOnInit(): void {}
 
@@ -59,7 +63,6 @@ export class LaneComponent implements OnInit {
     });
   }
   delete(){
-    
-    //kanvaService.deleteLane(id);
+    this.kanbaService.deleteLane(this.index);
   }
 }

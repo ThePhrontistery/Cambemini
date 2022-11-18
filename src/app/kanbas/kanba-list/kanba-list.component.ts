@@ -63,6 +63,10 @@ export class KanbaListComponent implements OnInit {
         this.kanbasListId.push('list' + i);
       });
     });
+
+    this.KanbasService.emitDeleteLane.subscribe((index: number) => {
+      this.kanbas.splice(index, 1);
+    })
   }
 
   drop(event: any) {
@@ -87,6 +91,7 @@ export class KanbaListComponent implements OnInit {
 
     console.log('lista', this.kanbas);
   }
+
 
   getId() {
     let c = 1;
