@@ -1,6 +1,6 @@
 import { KANBAS_DATA_LIST } from './model/mock-kanbas-list';
 import { Task, Lane, kanba } from './model/Kanbas';
-import { Injectable, EventEmitter } from '@angular/core';
+import { Injectable, EventEmitter} from '@angular/core';
 import { Observable, of } from 'rxjs';
 
 @Injectable({
@@ -14,6 +14,8 @@ export class KanbasService {
   emitDeleteLane: EventEmitter<number> = new EventEmitter();
   emitKankaSelect: EventEmitter<kanba> = new EventEmitter();
   
+
+
   constructor() { }
 
   getKanbas():Observable<Lane[]> {
@@ -27,9 +29,8 @@ export class KanbasService {
   save(lane:Lane){
     this.emitAddKanba.emit(lane);
   }
-
-  deleteLane(id: number) {
-    this.emitDeleteLane.emit(id);
-  }
+ deleteLane(index)  {
+   this.emitDeleteLane.emit(index)
+ }
 
 }

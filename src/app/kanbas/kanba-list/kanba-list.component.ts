@@ -48,6 +48,11 @@ export class KanbaListComponent implements OnInit {
         lane.tasks[index] = task;
       }
     });
+//suscribirse a emitDeleteLane y eliminar con splice
+    this.KanbasService.emitDeleteLane.subscribe((i)=>{
+      console.log('aqui elminar lane', i);
+      this.lanes.splice(i,1);
+    });
     
     this.KanbasService.emitAddKanba.subscribe((lane: Lane) => {
       

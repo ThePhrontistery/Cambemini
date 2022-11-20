@@ -19,6 +19,8 @@ export class LaneComponent implements OnInit {
   @Input() lane: Lane;
   @Input() index: number;
   @Input() listId: string[];
+
+
   constructor(
     public matDialog: MatDialog,
     private kanbaService: KanbasService
@@ -56,15 +58,25 @@ export class LaneComponent implements OnInit {
       data: { lane: this.lane },
     });
   }
- 
+//cambio edit() porque no estaba editando, estaba creando un nuevo kanban
   edit() {
     const dialogRef = this.matDialog.open(LaneEditComponent, {
-      data: { task: this.lane },
-    });
+      data: { 
+              lane: this.lane
+        }
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+      this.ngOnInit();
+  });   
   }
-  delete(id: number){
-    this.kanbaService.deleteLane(id);
+  
+  
+  deleteLane() {
+    console.log("eliminando")
+    this.kanbaService.deleteLane(this.index)
   }
+  
 }
 
 
