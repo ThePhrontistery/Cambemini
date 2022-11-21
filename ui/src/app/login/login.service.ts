@@ -19,14 +19,14 @@ export class LoginService {
 
   login(user: User) {
     
-    this.loggedIn.next(true);
+    // this.loggedIn.next(true);
     
-    //  if (user.email === 'ejemplo@email.com' && user.password === 'hola' ) {
-    //    this.loggedIn.next(true);
-    //    this.router.navigate(['/']);
-    //  }else{
-    //    alert("Usuario o contraseña incorrectos!")
-    //  }
+     if (user.email === 'ejemplo@email.com' && user.password === 'hola' ) {
+       this.loggedIn.next(true);
+       this.router.navigate(['/']);
+     }else{
+       alert("Usuario o contraseña incorrectos!")
+     }
   }
 
   logout() {

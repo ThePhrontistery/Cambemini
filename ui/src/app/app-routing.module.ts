@@ -16,7 +16,7 @@ const routes: Routes = [
   {
     path: 'kanbas/:code',
     component: KanbaListComponent,
-    //  canActivate: [LoginGuard],
+     canActivate: [LoginGuard],
     children: [
       {
         path: 'kanbas/:code',
@@ -27,7 +27,7 @@ const routes: Routes = [
   {
     path: 'kanbas',
     component: KanbasComponent,
-    //  canActivate: [LoginGuard],
+     canActivate: [LoginGuard],
     children: [
       {
         path: 'kanbas',
