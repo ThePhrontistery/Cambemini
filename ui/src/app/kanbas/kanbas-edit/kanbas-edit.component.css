@@ -1,0 +1,19 @@
+form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom:20px;
+}
+
+.buttons {
+  text-align: right; 
+}
+
+button {
+    margin-left: 10px;
+}
+
+.container {
+    min-width: 350px;
+    max-width: 500px;
+    width: 100%;
+}

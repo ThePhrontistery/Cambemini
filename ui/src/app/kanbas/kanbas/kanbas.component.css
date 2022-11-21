@@ -1,0 +1,23 @@
+.kamba-card {
+    width: 400px;
+    padding: 1rem;
+    margin: 1rem;
+    cursor: pointer;
+    height: fit-content;
+  }
+  
+  .example-header-image {
+    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-size: cover;
+  }
+  
+.user{
+    width: 40px;
+    display: flex;
+    height: 40px;
+    align-items: center;    
+    border-radius: 100%;
+    border: 1px solid;
+    justify-content: center;
+}
+  

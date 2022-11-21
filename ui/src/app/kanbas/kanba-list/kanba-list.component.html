@@ -1,0 +1,30 @@
+
+
+
+<div class="justify-content-center mt" >
+    <div class="addButton">
+        <button mat-fab color="primary" (click)="add()" aria-label="Example icon button with a delete icon">
+            <mat-icon>add</mat-icon>
+            </button>
+    </div>
+
+    <div class="justify-content-center" >
+        <div *ngFor="let item of lanes;let i=index;">
+            <!-- <div
+                        cdkDropList
+                        id="xlist{{i}}" [cdkDropListConnectedTo]="['xlist1','xlist0']"     
+                        [cdkDropListData]="kanbas"
+                        (cdkDropListDropped)="drop($event)"> -->
+                
+                
+                <app-lane   [kanba]="item" [index]="i" [listId]="kanbasListId"></app-lane>
+            <!-- </div> -->
+        </div>
+    </div>
+</div>
+
+
+
+
+  
+  
