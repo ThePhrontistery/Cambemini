@@ -1,7 +1,5 @@
 package es.capgemini.cca.canbemini.kanban.swimlane.note.attachment;
 
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,7 +21,7 @@ public class Attachment {
 
     @ManyToOne
     @JoinColumn(name = "note_id")
-    private Set<Note> note;
+    private Note note;
 
     public Long getId() {
         return id;
@@ -33,11 +31,11 @@ public class Attachment {
         this.id = id;
     }
 
-    public Set<Note> getNote() {
+    public Note getNote() {
         return note;
     }
 
-    public void setNote(Set<Note> note) {
+    public void setNote(Note note) {
         this.note = note;
     }
 

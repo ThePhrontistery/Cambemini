@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -26,10 +25,8 @@ public class Note {
     @Column(name = "content", nullable = false)
     private String content;
 
-    @OneToMany
-    @JoinColumn(name = "attachment_id")
+    @OneToMany(mappedBy = "note")
     private Set<Attachment> attachment;
-    
 
     public long getId() {
         return id;
