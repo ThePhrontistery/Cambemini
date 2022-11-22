@@ -50,7 +50,9 @@ export class KanbasComponent implements OnInit {
   newKanba(){
     const dialogRef = this.matDialog.open(KanbasEditComponent, {
       data: null,
-    });
+    });    
+    
+    return true;
   }
 
   edit(kanba:Kanba){
