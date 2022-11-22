@@ -16,7 +16,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./lane.component.css'],
 })
 export class LaneComponent implements OnInit {
-  @Input() kanba: Lane;
+  @Input() lane: Lane;
   @Input() index: number;
   @Input() listId: string[];
   constructor(public matDialog: MatDialog) {}
@@ -52,13 +52,13 @@ export class LaneComponent implements OnInit {
 
   add() {
     const dialogRef = this.matDialog.open(TaskEditComponent, {
-      data: { kanba: this.kanba },
+      data: { lane: this.lane },
     });
   }
 
   edit() {
     const dialogRef = this.matDialog.open(LaneEditComponent, {
-      data: { entitie: this.kanba },
+      data: { entitie: this.lane },
     });
   }
   delete() {

@@ -36,15 +36,14 @@ export class KanbasEditComponent implements OnInit {
   onSave(){
 
     if(this.busy === true) return ;
-
-    this.busy =true;
+    this.busy = true;
     this.kanba.code = this.kanba.title;
     setTimeout(()=>{
       this.kanbasService.emitSaveKanba.emit(this.kanba);
-      this.dialogRef.close();
-      this.busy= false;
-    },200);
+      this.busy = false;
+    },300);
     
+    this.dialogRef.close();
   }
 
 }

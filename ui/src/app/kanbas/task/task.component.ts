@@ -13,10 +13,10 @@ import { Task } from '../model/Task';
 })
 export class TaskComponent implements OnInit {
 
-  @Input() item:Task; 
+  @Input()item:Task; 
   @Input()index:number;
   @Input()indexY:number;
-  @Input()Kanba:Lane;
+  @Input()taskLane: Lane;
 
  
   constructor(private kanbasService:KanbasService,   public dialog: MatDialog,  ) { }
@@ -30,8 +30,8 @@ export class TaskComponent implements OnInit {
 
   edit(){
     const dialogRef = this.dialog.open(TaskEditComponent, {
-      data: { entitie: this.item ,
-              kanba:this.Kanba
+      data: { task: this.item ,
+              lane:this.taskLane
         }
   });
 
