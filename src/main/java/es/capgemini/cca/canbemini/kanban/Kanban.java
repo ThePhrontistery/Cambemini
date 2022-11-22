@@ -8,8 +8,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import es.capgemini.cca.canbemini.kanban.swimlane.Swimlane;
 import es.capgemini.cca.canbemini.users.Users;
 
 @Entity
@@ -26,6 +28,9 @@ public class Kanban {
     @Column(name = "user_id", nullable = false)
     @ManyToMany(mappedBy = "kanban")
     private Set<Users> user;
+
+    @OneToMany(mappedBy = "kanban")
+    private Set<Swimlane> swimlanes;
 
     public Kanban(String title) {
         this.title = title;
@@ -63,4 +68,13 @@ public class Kanban {
     public String toString() {
         return String.format("Kanban[id=%d, title='%s']", id, title);
     }
+
+    public Set<Swimlane> getSwimlanes() {
+        return swimlanes;
+    }
+
+    public void setSwimlanes(Set<Swimlane> swimlanes) {
+        this.swimlanes = swimlanes;
+    }
+
 }

@@ -1,5 +1,7 @@
 package es.capgemini.cca.canbemini.kanban.swimlane.note;
 
-public class NoteRepository {
+import org.springframework.data.repository.CrudRepository;
+
+public interface NoteRepository extends CrudRepository<Note, Long> {
 
 }
