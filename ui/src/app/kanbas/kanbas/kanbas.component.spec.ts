@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { of } from 'rxjs';
 import { KanbasService } from './../kanbas.service';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, Component } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { KanbasComponent } from './kanbas.component';
 
 

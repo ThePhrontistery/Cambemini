@@ -1,3 +1,4 @@
+
 import { Lane } from './../model/Lane';
 import { Title } from '@angular/platform-browser';
 import { MatDialog } from '@angular/material/dialog';
@@ -19,31 +20,30 @@ import { Task } from '../model/Task';
 export class KanbaListComponent implements OnInit {
   lanes: Lane[] = [];
   kanbasListId: string[] = [];
-  code:string;
+  code: string;
   constructor(
     private KanbasService: KanbasService,
     private dialog: MatDialog,
-    private activatedRoute: ActivatedRoute,
-
+    private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-
     this.code = this.activatedRoute.snapshot.params.code;
-
-    this.lanes.push(...this.KanbasService.kanba.lanes);
+    this.KanbasService.getKanbas().subscribe((kanbas) => {
+      let kanba = kanbas.find((kanba) => kanba.code == this.code);
+      // this.lanes.push(...this.KanbasService.kanba.lanes);
+      this.lanes.push(...kanba.lanes);
+    });
 
     this.lanes.forEach((e, i) => {
-           this.kanbasListId.push('list' + i);
+      this.kanbasListId.push('list' + i);
     });
 
     this.KanbasService.emitDeleteCard.subscribe((y) => {
-      console.log('aqui elminar', y);
       this.lanes[y.KanbaIndex].items.splice(y.Itemindex, 1);
     });
 
     this.KanbasService.emitAddCard.subscribe((entitie: Task) => {
-
       let kanba = this.lanes.find((x) => x.id == entitie.laneId);
 
       if (entitie.id == null) {
@@ -54,10 +54,8 @@ export class KanbaListComponent implements OnInit {
         kanba.items[index] = entitie;
       }
     });
-    
-    this.KanbasService.emitAddKanba.subscribe((entitie: Lane) => {
-      
 
+    this.KanbasService.emitAddKanba.subscribe((entitie: Lane) => {
       if (entitie.id == null) {
         entitie.id = this.lanes.length + 1;
         this.lanes.push(entitie);
@@ -70,34 +68,15 @@ export class KanbaListComponent implements OnInit {
       });
     });
 
-    this.KanbasService.emitKankaSelect.subscribe(
-      x=>{
-        debugger
-        this.lanes =[];
-        this.lanes.push(...x.lanes)
-      }
-    )
-  }
+    this.KanbasService.emitKankaSelect.subscribe((x) => {
+      this.lanes = [];
+      this.lanes.push(...x.lanes);
+    });
 
-  drop(event: any) {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
-    } else {
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
-    }
-    console.log('event.previousContainer.data', event.previousContainer.data);
-    console.log('event.container.data', event.container.data);
-    console.log('event.previousIndex', event.previousIndex);
-    console.log('event.currentIndex', event.currentIndex);
+    this.KanbasService.emitRemoveLane.subscribe((lane) => {
+      let index = this.lanes.findIndex((xLane) => lane.id == xLane.id);
+      if (index != -1) this.lanes.splice(index, 1);
+    });
   }
 
   getId() {
@@ -108,12 +87,13 @@ export class KanbaListComponent implements OnInit {
       });
     });
     return c++;
-  }  
-  
+  }
+
   add() {
     const dialogRef = this.dialog.open(LaneEditComponent, {
       data: {},
     });
-  }
 
+    return true;
+  }
 }

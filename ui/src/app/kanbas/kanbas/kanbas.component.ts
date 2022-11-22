@@ -22,18 +22,18 @@ export class KanbasComponent implements OnInit {
   ngOnInit(): void {
     
     this.kanbaService.getKanbas().subscribe(kanba=>{
-      this.listKanbas = kanba      
+      this.listKanbas = kanba  
+         
     });
 
     this.kanbaService.emitSaveKanba.subscribe(kanba=>{
         if(kanba.id== null){
           this.listKanbas.push(kanba);
         }else{
-
           let index = this.listKanbas.findIndex(listItenKanba=>listItenKanba.id == kanba.id);
           this.listKanbas[index]=kanba;
-
-        }      
+        } 
+      
     });
     
   }

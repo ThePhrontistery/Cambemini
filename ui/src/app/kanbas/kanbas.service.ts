@@ -14,9 +14,11 @@ export class KanbasService {
   emitAddKanba: EventEmitter<Lane> = new EventEmitter();
   emitKankaSelect: EventEmitter<Kanba> = new EventEmitter();
   emitSaveKanba: EventEmitter<Kanba> = new EventEmitter();
+  emitRemoveLane: EventEmitter<Lane> = new EventEmitter();
 
   
   kanba:Kanba;
+  kanbas:Kanba[];
   constructor() { }
 
   
@@ -32,8 +34,9 @@ export class KanbasService {
     this.emitAddKanba.emit(entitie);
   }
 
-  removeLane(id: number){
-    
+  removeLane(lane:Lane){
+    this.emitRemoveLane.emit(lane);
+    return true;
   }
 
 }
