@@ -10,8 +10,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import es.capgemini.cca.canbemini.kanban.Kanban;
-//import es.capgemini.cca.canbemini.user.User;
-/*
+import es.capgemini.cca.canbemini.users.Users;
+
 @Entity
 @Table(name = "Permission")
 public class Permission {
@@ -20,12 +20,12 @@ public class Permission {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "permission", nullable = false)
+    @Column(name = "permission_type", nullable = false)
     private int permission;
 
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    private Users user;
 
     @OneToOne
     @JoinColumn(name = "kanban_id", nullable = false)
@@ -47,11 +47,11 @@ public class Permission {
         this.permission = permission;
     }
 
-    public User getUser() {
+    public Users getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(Users user) {
         this.user = user;
     }
 
@@ -81,4 +81,3 @@ public class Permission {
 
     }
 }
-*/

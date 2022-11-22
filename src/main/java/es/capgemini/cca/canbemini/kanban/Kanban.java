@@ -24,7 +24,7 @@ public class Kanban {
     private String title;
 
     @Column(name = "user_id", nullable = false)
-    @ManyToMany
+    @ManyToMany(mappedBy = "kanban")
     private Set<Users> user;
 
     public Kanban(String title) {
