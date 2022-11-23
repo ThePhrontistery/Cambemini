@@ -19,4 +19,9 @@ public class SwimlaneServiceImpl implements SwimlaneService {
         return null;
     }
 
+    @Override
+    public void saveSwimlane(Long id, SwimlaneDto swimlaneDto) {
+
+    }
+
 }

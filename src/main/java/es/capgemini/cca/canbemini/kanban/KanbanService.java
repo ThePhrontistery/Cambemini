@@ -10,5 +10,6 @@ public interface KanbanService {
 
     void deleteKanban(Long id);
 
-    void saveKanban(Kanban kanban);
+    void saveKanban(Long id, KanbanDto kanbanDto);
+
 }

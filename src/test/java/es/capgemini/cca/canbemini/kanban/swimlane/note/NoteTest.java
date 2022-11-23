@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
@@ -22,6 +23,7 @@ public class NoteTest {
     NoteServiceImpl noteService;
 
     private static final Long EXISTS_NOTE_ID = 1L;
+    private static final String NOTE_CONTENT = "New Content";
 
     @Test
     public void findAllShouldReturnAllNotes() {
@@ -55,4 +57,33 @@ public class NoteTest {
         assertEquals(EXISTS_NOTE_ID, note.getId());
     }
 
+    @Test
+    public void saveNotExistsNoteIdShouldInsert() {
+
+        NoteDto noteDto = new NoteDto();
+        noteDto.setContent(NOTE_CONTENT);
+
+        ArgumentCaptor<Note> note = ArgumentCaptor.forClass(Note.class);
+
+        noteService.saveNote(null, noteDto);
+
+        verify(noteRepository).save(note.capture());
+
+        assertEquals(NOTE_CONTENT, note.getValue().getContent());
+    }
+
+    @Test
+    public void saveExistsNoteIdShouldUpdate() {
+
+        NoteDto noteDto = new NoteDto();
+        noteDto.setContent(NOTE_CONTENT);
+
+        Note note = mock(Note.class);
+
+        when(noteRepository.findById(EXISTS_NOTE_ID)).thenReturn(Optional.of(note));
+
+        noteService.saveNote(EXISTS_NOTE_ID, noteDto);
+
+        verify(noteRepository).save(note);
+    }
 }

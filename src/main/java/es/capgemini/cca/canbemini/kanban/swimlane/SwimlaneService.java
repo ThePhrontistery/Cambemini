@@ -9,4 +9,6 @@ public interface SwimlaneService {
     Swimlane findSwimlane(Long id);
 
     void deleteSwimlane(Long id);
+
+    void saveSwimlane(Long id, SwimlaneDto swimlaneDto);
 }

@@ -19,7 +19,7 @@ public class KanbanServiceImpl implements KanbanService {
     }
 
     @Override
-    public void saveKanban(Kanban kanban) {
+    public void saveKanban(Long id, KanbanDto kanbanDto) {
 
     }
 

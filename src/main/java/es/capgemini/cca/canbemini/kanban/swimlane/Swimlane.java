@@ -24,6 +24,9 @@ public class Swimlane {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @Column(name = "title", nullable = false)
+    private String title;
+
     @ManyToOne
     @JoinColumn(name = "kanban_id")
     private Kanban kanban;
@@ -39,6 +42,22 @@ public class Swimlane {
         this.id = id;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Kanban getKanban() {
+        return kanban;
+    }
+
+    public void setKanban(Kanban kanban) {
+        this.kanban = kanban;
+    }
+
     public Set<Note> getNotes() {
         return notes;
     }
@@ -46,4 +65,5 @@ public class Swimlane {
     public void setNotes(Set<Note> notes) {
         this.notes = notes;
     }
+
 }
