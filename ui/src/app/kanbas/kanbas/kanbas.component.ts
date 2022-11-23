@@ -41,6 +41,7 @@ export class KanbasComponent implements OnInit {
   go(item: Kanba) {
     this.kanbaService.kanba = item;
     this.router.navigate(['kanbas',item.code]);
+    return true;
   }
 
   remove(index: number) {
@@ -59,5 +60,7 @@ export class KanbasComponent implements OnInit {
     const dialogRef = this.matDialog.open(KanbasEditComponent, {
       data: kanba,
     });
+    
+    return true;
   }
 }

@@ -1,7 +1,6 @@
-import { Kanba } from './../model/Kanbas';
 import { of } from 'rxjs';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { KanbasService } from './../kanbas.service';
+import { KanbasService } from '../kanbas.service';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { KanbasEditComponent } from './kanbas-edit.component';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/compiler';
@@ -15,16 +14,7 @@ const MatDialogRefMock = {
 };
 
 // value from new
-const data:Kanba ={
-  id:1,
-  code:'code-01',
-  description:'description',
-  lanes:[],
-  icon:'icon',
-  select:false,
-  title:'title',
-  users:[]
-} ;
+const data = null;
 
 const MatDialogMock = {
   open() {
@@ -42,7 +32,7 @@ const ActivatedRouteMock = {
   },
 };
 
-fdescribe('KanbasEditComponent', () => {
+fdescribe('KanbasAddComponent', () => {
   let component: KanbasEditComponent;
   let fixture: ComponentFixture<KanbasEditComponent>;
   let kanbasService: KanbasService;
@@ -91,4 +81,16 @@ fdescribe('KanbasEditComponent', () => {
       expect(kanbasService.kanbas.length).toEqual(1);
     });
   });
+
+  it('should onCancel', () => {
+    let onCancelResult = component.onCancel();
+    expect(onCancelResult).toBeTrue();
+  })
+  
+  it('should busy', () => {
+    component.busy =true;
+    let onCancelResult = component.onSave();
+    expect(onCancelResult).toBeFalse()
+  })
+    
 });

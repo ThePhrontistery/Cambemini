@@ -19,8 +19,6 @@ export class LoginService {
 
   login(user: User) {
     
-    // this.loggedIn.next(true);
-    
      if (user.email === 'ejemplo@email.com' && user.password === 'hola' ) {
        this.loggedIn.next(true);
        this.router.navigate(['/']);
@@ -30,6 +28,7 @@ export class LoginService {
   }
 
   logout() {
+    
     this.loggedIn.next(false);
     this.router.navigate(['/login']);
   }

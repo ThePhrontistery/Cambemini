@@ -34,8 +34,11 @@ export class KanbaSelectComponent implements OnInit {
     this.listKanbas.forEach(x=>{
       
       if(x.id!=item.id)x.select=false;
-      else 
+      else {
+        x.select=true;
         item.select=true;
+      }
+        
     })
     
   }

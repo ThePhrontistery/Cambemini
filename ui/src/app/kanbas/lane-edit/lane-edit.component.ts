@@ -30,9 +30,11 @@ export class LaneEditComponent implements OnInit {
   onSave() {
     this.KanbasService.save(this.entitie);
     this.dialogRef.close();
+    return true;
   }
 
   onClose() {
     this.dialogRef.close();
+    return true;
   }
 }

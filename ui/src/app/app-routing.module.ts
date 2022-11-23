@@ -12,28 +12,28 @@ const routes: Routes = [
 ];*/
 
 const routes: Routes = [
-  { path: '', redirectTo: '/kanbas', pathMatch: 'full'},
+  { path: '', redirectTo: '/kanbas', pathMatch: 'full' },
   {
     path: 'kanbas/:code',
     component: KanbaListComponent,
-     canActivate: [LoginGuard],
+    canActivate: [LoginGuard],
     children: [
       {
         path: 'kanbas/:code',
-        component: KanbaListComponent
-      }
-    ]
+        component: KanbaListComponent,
+      },
+    ],
   },
   {
     path: 'kanbas',
     component: KanbasComponent,
-     canActivate: [LoginGuard],
+    canActivate: [LoginGuard],
     children: [
       {
         path: 'kanbas',
-        component: KanbaListComponent
-      }
-    ]
+        component: KanbaListComponent,
+      },
+    ],
   },
   {
     path: 'login',
@@ -41,17 +41,15 @@ const routes: Routes = [
     children: [
       {
         path: 'login',
-        component: LoginComponent
-      }
-    ]
+        component: LoginComponent,
+      },
+    ],
   },
-  { path: '**', redirectTo: '' }
+  { path: '**', redirectTo: '' },
 ];
-
-
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

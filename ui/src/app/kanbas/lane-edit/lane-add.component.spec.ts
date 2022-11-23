@@ -7,27 +7,7 @@ import { NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 // value from new
 const data = {
-  entitie: {
-    id: 1,
-    title: 'To do',
-    color: '',
-    order: 0,
-    items: [
-      {
-        id: 1,
-        title: 'Cloud design',
-        description: 'Design of our cloud-based backend',
-        laneId: 1,
-      },
-      {
-        id: 2,
-        title: 'Client tasks usability',
-        description:
-          'Think and design how clients will interact with notes at the same time',
-        laneId: 1,
-      },
-    ],
-  },
+  entitie: null,
 };
 
 const MatDialogRefMock = {
@@ -38,7 +18,7 @@ const MatDialogRefMock = {
   },
 };
 
-fdescribe('LaneEditComponent1', () => {
+fdescribe('LaneAddComponent', () => {
   let component: LaneEditComponent;
   let fixture: ComponentFixture<LaneEditComponent>;
   let kanbasService: KanbasService;
@@ -61,7 +41,6 @@ fdescribe('LaneEditComponent1', () => {
     fixture = TestBed.createComponent(LaneEditComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    
 
     kanbasService = TestBed.inject(KanbasService);
     // spyOn(kanbasService, 'getBooksFromCart').and.callFake(() => listBook);

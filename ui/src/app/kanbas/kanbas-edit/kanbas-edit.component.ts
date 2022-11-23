@@ -18,7 +18,6 @@ export class KanbasEditComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit(): void {
-    
     if(this.data == null){
       this.kanba = new Kanba();
 
@@ -31,11 +30,12 @@ export class KanbasEditComponent implements OnInit {
 
   onCancel(){
     this.dialogRef.close();
+    return true;
   }
 
   onSave(){
 
-    if(this.busy === true) return ;
+    if(this.busy === true) return false ;
     this.busy = true;
     this.kanba.code = this.kanba.title;
     setTimeout(()=>{
@@ -44,6 +44,8 @@ export class KanbasEditComponent implements OnInit {
     },300);
     
     this.dialogRef.close();
+    return true;
+    
   }
 
 }
