@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { User } from './login/model/User';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, map, take } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
   public loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  public checkIsLoggedIn: boolean;
 
   get isLoggedIn() {
     return this.loggedIn.asObservable();
@@ -15,7 +16,11 @@ export class LoginService {
 
   constructor(
     private router: Router
-  ) {}
+  ) {
+    this.loggedIn.subscribe(result => {
+      this.checkIsLoggedIn = result;
+    })
+  }
 
   login(user: User) {
     // this.loggedIn.next(true);
@@ -33,4 +38,5 @@ export class LoginService {
     this.loggedIn.next(false);
     this.router.navigate(['/login']);
   }
+  
 }

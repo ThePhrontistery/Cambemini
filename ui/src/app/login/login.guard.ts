@@ -24,6 +24,8 @@ export class LoginGuard implements CanActivate {
     );
   }
 
-  
+  checkLogin() {
+    return this.loginService.checkIsLoggedIn;
+  }
   
 }
