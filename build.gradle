@@ -2,6 +2,8 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '2.7.5'
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+	  // Allow configuration calls for setting up the eclipse annotation processing configuration.
+    id 'com.diffplug.eclipse.apt' version '3.37.2'
 }
 
 group = 'es.capgemini.cca'
@@ -20,8 +22,13 @@ dependencies {
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'com.h2database:h2'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	
+	//MapStruct
+	 implementation 'org.mapstruct:mapstruct:1.5.3.Final'
+	 annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.3.Final'
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
