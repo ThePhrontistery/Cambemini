@@ -6,7 +6,7 @@
             <form [formGroup]="form" (ngSubmit)="onSubmit()">
                 <mat-form-field appearance="outline">
                     <mat-label for="email">Email</mat-label>
-                    <input type="email" matInput formControlName="email" placeholder="Email" name="email" required>
+                    <input type="email" matInput formControlName="email" placeholder="Email" name="email" pattern="[a-zA-Z0-9_.-]+@capgemini.com" required>
                     <mat-icon matPrefix>mail</mat-icon>
                     <mat-error>El correo no puede estar vacío</mat-error>
                     

@@ -7,7 +7,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class LoginService {
-  private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  public loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   get isLoggedIn() {
     return this.loggedIn.asObservable();
@@ -18,8 +18,9 @@ export class LoginService {
   ) {}
 
   login(user: User) {
+    // this.loggedIn.next(true);
     
-     if (user.email === 'ejemplo@email.com' && user.password === 'hola' ) {
+     if (user.email === 'ejemplo@capgemini.com' && user.password === 'hola' ) {
        this.loggedIn.next(true);
        this.router.navigate(['/']);
      }else{

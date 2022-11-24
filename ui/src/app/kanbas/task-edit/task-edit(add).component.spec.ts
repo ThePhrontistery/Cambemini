@@ -35,7 +35,7 @@ const mockLane: Lane = {
 }
 const data = {
   lane: mockLane,
-  task: null
+  task: mockTask
 }
 
 const MatDialogMock = {
@@ -44,10 +44,6 @@ const MatDialogMock = {
           afterClosed: () => of(true)
       };
   }
-};
-
-const dialogMock = {
-  close: () => { }
 };
 
 fdescribe('KambaItemEditComponent', () => {
@@ -66,7 +62,7 @@ fdescribe('KambaItemEditComponent', () => {
       providers: [
         KanbasService,
         { provide: MatDialog, useValue: MatDialogMock },
-        { provide: MatDialogRef, useValue: dialogMock }, { provide: MAT_DIALOG_DATA, useValue: data }
+        { provide: MatDialogRef, useValue: {} }, { provide: MAT_DIALOG_DATA, useValue: data }
       ]
       
     })
@@ -83,17 +79,5 @@ fdescribe('KambaItemEditComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
-
-  it('dialog should close after saving', ()=> {
-    let spy = spyOn(component.dialogRef, 'close').and.callThrough();
-    component.onSave();
-    expect(spy).toHaveBeenCalled();
-  });
-
-  it('dialog should close after cancel', ()=> {
-    let spy = spyOn(component.dialogRef, 'close').and.callThrough();
-    component.onClose();
-    expect(spy).toHaveBeenCalled();
   });
 });

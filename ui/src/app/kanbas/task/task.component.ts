@@ -13,9 +13,9 @@ import { Task } from '../model/Task';
 })
 export class TaskComponent implements OnInit {
 
-  @Input()item:Task; 
-  @Input()index:number;
-  @Input()indexY:number;
+  @Input()item: Task; 
+  @Input()index: number;
+  @Input()indexY: number;
   @Input()taskLane: Lane;
 
  
@@ -25,7 +25,9 @@ export class TaskComponent implements OnInit {
   }
 
   remove(){
-    this.kanbasService.emitDeleteCard.emit({KanbaIndex:this.indexY,Itemindex:this.index})
+    this.kanbasService.emitDeleteCard.emit({KanbaIndex:this.indexY,Itemindex:this.index});
+
+    return true;
   }
 
   edit(){
@@ -33,11 +35,13 @@ export class TaskComponent implements OnInit {
       data: { task: this.item ,
               lane:this.taskLane
         }
-  });
+    });
 
-  dialogRef.afterClosed().subscribe(result => {
-      this.ngOnInit();
-  });   
+    dialogRef.afterClosed().subscribe(result => {
+        this.ngOnInit();
+    }); 
+    
+    return true;
   }
 
 }
