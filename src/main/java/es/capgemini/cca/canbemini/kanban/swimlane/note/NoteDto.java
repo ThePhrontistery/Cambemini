@@ -7,7 +7,7 @@ import es.capgemini.cca.canbemini.kanban.swimlane.note.attachment.Attachment;
 
 public class NoteDto {
 
-    private long id;
+    private Long id;
 
     private String content;
 
@@ -15,11 +15,11 @@ public class NoteDto {
 
     private Swimlane swimlane;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

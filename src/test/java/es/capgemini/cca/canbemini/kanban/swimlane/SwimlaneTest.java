@@ -17,16 +17,26 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import es.capgemini.cca.canbemini.kanban.KanbanRepository;
+import es.capgemini.cca.canbemini.kanban.KanbanServiceImpl;
+
 @ExtendWith(MockitoExtension.class)
 public class SwimlaneTest {
 
     @Mock
     SwimlaneRepository swimlaneRepository;
 
+    @Mock
+    KanbanRepository kanbanRepository;
+
     @InjectMocks
     SwimlaneServiceImpl swimlaneService;
 
+    @InjectMocks
+    KanbanServiceImpl kanbanService;
+
     private static final Long EXISTS_SWIMLANE_ID = 1L;
+    private static final Long EXISTS_KANBAN_ID = 1L;
     private static final String SWIMLANE_NAME = "New Swimlane";
 
     @Test
@@ -34,12 +44,12 @@ public class SwimlaneTest {
         List<Swimlane> list = new ArrayList<>();
         list.add(mock(Swimlane.class));
 
-        when(swimlaneRepository.findAll()).thenReturn(list);
+        when(swimlaneRepository.findAll(EXISTS_KANBAN_ID)).thenReturn(list);
 
-        List<Swimlane> swimlanes = swimlaneService.findAll();
+        List<Swimlane> swimlanes = swimlaneService.findAll(EXISTS_KANBAN_ID);
 
         assertNotNull(swimlanes);
-        assertEquals(3, swimlanes.size());
+        assertEquals(1, swimlanes.size());
     }
 
     @Test

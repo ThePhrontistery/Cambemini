@@ -3,7 +3,7 @@ package es.capgemini.cca.canbemini.kanban;
 import java.util.Set;
 
 import es.capgemini.cca.canbemini.kanban.swimlane.Swimlane;
-import es.capgemini.cca.canbemini.users.Users;
+import es.capgemini.cca.canbemini.user_kanban_permission.User_Kanban_Permission;
 
 public class KanbanDto {
 
@@ -11,7 +11,7 @@ public class KanbanDto {
 
     private String title;
 
-    private Set<Users> user;
+    private Set<User_Kanban_Permission> user_kanban_permission;
 
     private Set<Swimlane> swimlanes;
 
@@ -39,12 +39,12 @@ public class KanbanDto {
         this.title = title;
     }
 
-    public Set<Users> getUser() {
-        return user;
+    public Set<User_Kanban_Permission> getUser_kanban_permission() {
+        return user_kanban_permission;
     }
 
-    public void setUser(Set<Users> user) {
-        this.user = user;
+    public void setUser_kanban_permission(Set<User_Kanban_Permission> user_kanban_permission) {
+        this.user_kanban_permission = user_kanban_permission;
     }
 
     public Set<Swimlane> getSwimlanes() {

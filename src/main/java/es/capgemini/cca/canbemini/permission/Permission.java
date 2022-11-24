@@ -1,16 +1,16 @@
 package es.capgemini.cca.canbemini.permission;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import es.capgemini.cca.canbemini.kanban.Kanban;
-import es.capgemini.cca.canbemini.users.Users;
+import es.capgemini.cca.canbemini.user_kanban_permission.User_Kanban_Permission;
 
 @Entity
 @Table(name = "Permission")
@@ -20,16 +20,11 @@ public class Permission {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "permission_type", nullable = false)
-    private int permission;
+    @Column(name = "rol", nullable = false, unique = true)
+    private String rol;
 
-    @OneToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private Users user;
-
-    @OneToOne
-    @JoinColumn(name = "kanban_id", nullable = false)
-    private Kanban kanban;
+    @OneToMany(mappedBy = "permission")
+    private Set<User_Kanban_Permission> user_kanban_permission;
 
     public Long getId() {
         return id;
@@ -39,45 +34,20 @@ public class Permission {
         this.id = id;
     }
 
-    public int getPermission() {
-        return permission;
+    public String getRol() {
+        return rol;
     }
 
-    public void setPermission(int permission) {
-        this.permission = permission;
+    public void setRol(String rol) {
+        this.rol = rol;
     }
 
-    public Users getUser() {
-        return user;
+    public Set<User_Kanban_Permission> getUser_kanban_permission() {
+        return user_kanban_permission;
     }
 
-    public void setUser(Users user) {
-        this.user = user;
+    public void setUser_kanban_permission(Set<User_Kanban_Permission> user_kanban_permission) {
+        this.user_kanban_permission = user_kanban_permission;
     }
 
-    public Kanban getKanban() {
-        return kanban;
-    }
-
-    public void setKanban(Kanban kanban) {
-        this.kanban = kanban;
-    }
-
-    public String toString() {
-        String result = "";
-
-        switch (permission) {
-        case 1:
-            result = "owner";
-            break;
-        case 2:
-            result = "editor";
-            break;
-        case 3:
-            result = "colaborator";
-            break;
-        }
-        return result;
-
-    }
 }

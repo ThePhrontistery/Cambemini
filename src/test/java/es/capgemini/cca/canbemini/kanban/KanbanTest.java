@@ -42,7 +42,7 @@ public class KanbanTest {
         List<Kanban> kanbans = kanbanService.findAll();
 
         assertNotNull(kanbans);
-        assertEquals(2, kanbans.size());
+        assertEquals(1, kanbans.size());
     }
 
     @Test

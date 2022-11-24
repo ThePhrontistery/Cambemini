@@ -2,56 +2,51 @@ package es.capgemini.cca.canbemini.users;
 
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import es.capgemini.cca.canbemini.kanban.Kanban;
-import es.capgemini.cca.canbemini.permission.Permission;
+import es.capgemini.cca.canbemini.user_kanban_permission.User_Kanban_Permission;
 
 @Entity
 @Table(name = "Users")
 public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
 
-    @JoinColumn(name = "permission_id", nullable = false)
-    @OneToOne
-    private Permission permission;
+    @Column(name = "username")
+    private String username;
 
-    @ManyToMany
-    @JoinTable(name = "user_kanban", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "kanban_id"))
-    private Set<Kanban> kanban;
+    @OneToMany(mappedBy = "users")
+    private Set<User_Kanban_Permission> user_kanban_permission;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Permission getPermission() {
-        return permission;
+    public String getUsername() {
+        return username;
     }
 
-    public void setPermission(Permission permission) {
-        this.permission = permission;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public Set<Kanban> getKanban() {
-        return kanban;
+    public Set<User_Kanban_Permission> getUser_kanban_permission() {
+        return user_kanban_permission;
     }
 
-    public void setKanban(Set<Kanban> kanban) {
-        this.kanban = kanban;
+    public void setUser_kanban_permission(Set<User_Kanban_Permission> user_kanban_permission) {
+        this.user_kanban_permission = user_kanban_permission;
     }
 
 }

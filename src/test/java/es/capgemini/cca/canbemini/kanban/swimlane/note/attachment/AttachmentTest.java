@@ -11,9 +11,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+@ExtendWith(MockitoExtension.class)
 public class AttachmentTest {
 
     @Mock
@@ -34,7 +37,7 @@ public class AttachmentTest {
         List<Attachment> attachment = attachmentService.findAll();
 
         assertNotNull(attachment);
-        assertEquals(3, attachment.size());
+        assertEquals(1, attachment.size());
     }
 
     @Test

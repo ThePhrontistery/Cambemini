@@ -2,38 +2,37 @@ package es.capgemini.cca.canbemini.users;
 
 import java.util.Set;
 
-import es.capgemini.cca.canbemini.kanban.Kanban;
-import es.capgemini.cca.canbemini.permission.Permission;
+import es.capgemini.cca.canbemini.user_kanban_permission.User_Kanban_Permission;
 
 public class UsersDto {
-    private long id;
+    private Long id;
 
-    private Permission permission;
+    private String username;
 
-    private Set<Kanban> kanban;
+    private Set<User_Kanban_Permission> user_kanban_permission;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Permission getPermission() {
-        return permission;
+    public String getUsername() {
+        return username;
     }
 
-    public void setPermission(Permission permission) {
-        this.permission = permission;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public Set<Kanban> getKanban() {
-        return kanban;
+    public Set<User_Kanban_Permission> getUser_kanban_permission() {
+        return user_kanban_permission;
     }
 
-    public void setKanban(Set<Kanban> kanban) {
-        this.kanban = kanban;
+    public void setUser_kanban_permission(Set<User_Kanban_Permission> user_kanban_permission) {
+        this.user_kanban_permission = user_kanban_permission;
     }
 
 }

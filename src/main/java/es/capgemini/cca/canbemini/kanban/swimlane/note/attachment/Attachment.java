@@ -19,6 +19,9 @@ public class Attachment {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @Column(name = "document_path")
+    private String document_path;
+
     @ManyToOne
     @JoinColumn(name = "note_id")
     private Note note;
@@ -29,6 +32,14 @@ public class Attachment {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getDocument_path() {
+        return document_path;
+    }
+
+    public void setDocument_path(String document_path) {
+        this.document_path = document_path;
     }
 
     public Note getNote() {

@@ -1,5 +1,7 @@
 package es.capgemini.cca.canbemini.permission;
 
-public class PermissionRepository {
+import org.springframework.data.repository.CrudRepository;
+
+public interface PermissionRepository extends CrudRepository<Permission, Long> {
 
 }

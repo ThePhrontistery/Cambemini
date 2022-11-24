@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface SwimlaneService {
 
-    List<Swimlane> findAll();
+    List<Swimlane> findAll(Long id);
 
     Swimlane findSwimlane(Long id);
 
