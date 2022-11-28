@@ -1,0 +1,17 @@
+<div class="space-between">
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+         <mat-icon>person</mat-icon>
+    </button>   
+   </div>
+   
+    <mat-menu #menu="matMenu">
+          <button mat-menu-item *ngFor="let item of users"  style="display: flex; align-items: center;">
+           
+            <span>{{item.email}}</span>
+            <!-- <mat-icon *ngIf="item.online" style="color: #dcdf5e; ">check_circle</mat-icon>
+            <mat-icon *ngIf="item.online==false"  >check_circle</mat-icon> -->            
+             <div *ngIf="item.online" style="width: 20px; height:20px; background: #dcdf5e;border-radius: 100%; margin-left: 10px;"></div>
+             <div *ngIf="item.online==false" style="width: 20px; height:20px; background: #c7c7c4;border-radius: 100%; margin-left: 10px;"></div>
+
+          </button>
+   </mat-menu>
