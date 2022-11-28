@@ -1,10 +1,10 @@
 <!--  [ngStyle]="{background: kanba.color}" -->
-
 <div
     cdkDropList
     id="list{{index}}" [cdkDropListConnectedTo]="listId"     
     [cdkDropListData]="lane.items"
     (cdkDropListDropped)="drop($event,lane.id)"
+    class = "task-list"
 >
 <mat-card class="kanbas">
     <mat-card-header>
@@ -22,8 +22,8 @@
         </button>
        
     </mat-card-content>
-
-    <app-task  [taskLane]="lane"  [index]="i" [indexY]="index" *ngFor="let itemKanba of lane.items;let i=index;" [item]="itemKanba"></app-task>
-    
+        <div class="min-width">
+            <app-task [taskLane]="lane"  [index]="i" [indexY]="index" *ngFor="let itemKanba of lane.items;let i=index;" [item]="itemKanba"></app-task>
+        </div>
   </mat-card>
 </div>

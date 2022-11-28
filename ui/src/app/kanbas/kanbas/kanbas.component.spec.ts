@@ -1,6 +1,6 @@
 import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
-import { Kanba } from './../model/Kanbas';
+import { Kanba } from '../model/Kanbas';
 import { KANBAS_DATA_LIST, LANE_DATA_LIST } from './../model/mock-kanbas-list';
 import { MatDialog } from '@angular/material/dialog';
 import { of } from 'rxjs';

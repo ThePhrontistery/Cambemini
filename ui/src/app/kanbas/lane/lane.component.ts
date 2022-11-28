@@ -49,13 +49,7 @@ export class LaneComponent implements OnInit {
     event.container.data.forEach((element) => {
       element.laneId = laneId;
     });
-    
-    console.log('event.previousContainer.data', event.previousContainer.data);
-    console.log('event.container.data', event.container.data);
-    console.log('event.previousIndex', event.previousIndex);
-    console.log('event.currentIndex', event.currentIndex);
 
-    console.log('event.currentIndex', console.log(laneId));
     return event;
   }
 

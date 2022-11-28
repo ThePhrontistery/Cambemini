@@ -96,4 +96,9 @@ export class KanbaListComponent implements OnInit {
 
     return true;
   }
+
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.lanes, event.previousIndex, event.currentIndex);
+  }
+    
 }

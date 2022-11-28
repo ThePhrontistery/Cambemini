@@ -1,4 +1,4 @@
-import { Kanba } from './Kanbas';
+import { Kanban } from './Kanbas';
 import { Lane } from "./Lane";
 
 export const LANE_DATA_LIST: Lane[] = [
@@ -119,7 +119,7 @@ export const LANE_DATA_LIST1: Lane[] = [
   },
 ];
 
-export const KANBAS_DATA_LIST: Kanba[] = [
+export const KANBAS_DATA_LIST: Kanban[] = [
   {
     id: 1,
     title: 'Escape',

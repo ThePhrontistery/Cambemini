@@ -1,4 +1,4 @@
-import { Kanba } from '../../kanbas/model/Kanbas';
+import { Kanban } from '../../kanbas/model/Kanbas';
 import { KanbasService } from '../../kanbas/kanbas.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Component, Inject, OnInit } from '@angular/core';
@@ -10,11 +10,11 @@ import { Component, Inject, OnInit } from '@angular/core';
 })
 export class KanbaSelectComponent implements OnInit {
    
-  listKanbas:Kanba[] = [
+  listKanbas:Kanban[] = [
     
   ] ;
 
-  select:Kanba = null;
+  select:Kanban = null;
   constructor( 
      private KanbasService: KanbasService
     ) { }
@@ -27,7 +27,7 @@ export class KanbaSelectComponent implements OnInit {
     this.KanbasService.emitKankaSelect.emit(this.select);
   }
 
-  selectKanba(item:Kanba){
+  selectKanba(item:Kanban){
    
     this.select = item;     
     this.KanbasService.emitKankaSelect.emit(item);

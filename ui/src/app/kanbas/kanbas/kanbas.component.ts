@@ -2,7 +2,7 @@ import { KanbasEditComponent } from './../kanbas-edit/kanbas-edit.component';
 import { MatDialog } from '@angular/material/dialog';
 import { KanbasService } from './../kanbas.service';
 import { Router } from '@angular/router';
-import { Kanba } from './../model/Kanbas';
+import { Kanban } from '../model/Kanbas';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -11,7 +11,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./kanbas.component.css'],
 })
 export class KanbasComponent implements OnInit {
-  listKanbas: Kanba[] = [];
+  listKanbas: Kanban[] = [];
 
   constructor(
     private router: Router, 
@@ -38,7 +38,7 @@ export class KanbasComponent implements OnInit {
     
   }
 
-  go(item: Kanba) {
+  go(item: Kanban) {
     this.kanbaService.kanba = item;
     this.router.navigate(['kanbas',item.code]);
     return true;
@@ -56,7 +56,7 @@ export class KanbasComponent implements OnInit {
     return true;
   }
 
-  edit(kanba:Kanba){
+  edit(kanba:Kanban){
     const dialogRef = this.matDialog.open(KanbasEditComponent, {
       data: kanba,
     });

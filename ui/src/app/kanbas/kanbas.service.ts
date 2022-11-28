@@ -1,5 +1,5 @@
 import { KANBAS_DATA_LIST } from './model/mock-kanbas-list';
-import {  Kanba } from './model/Kanbas';
+import {  Kanban } from './model/Kanbas';
 import { Injectable, EventEmitter } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Lane } from './model/Lane';
@@ -12,17 +12,17 @@ export class KanbasService {
   emitDeleteCard: EventEmitter<any> = new EventEmitter();
   emitAddCard: EventEmitter<Task> = new EventEmitter();
   emitAddKanba: EventEmitter<Lane> = new EventEmitter();
-  emitKankaSelect: EventEmitter<Kanba> = new EventEmitter();
-  emitSaveKanba: EventEmitter<Kanba> = new EventEmitter();
+  emitKankaSelect: EventEmitter<Kanban> = new EventEmitter();
+  emitSaveKanba: EventEmitter<Kanban> = new EventEmitter();
   emitRemoveLane: EventEmitter<Lane> = new EventEmitter();
 
   
-  kanba:Kanba;
-  kanbas:Kanba[];
+  kanba:Kanban;
+  kanbas:Kanban[];
   constructor() { }
 
   
-  getKanbas():Observable<Kanba[]> {
+  getKanbas():Observable<Kanban[]> {
       return  of(KANBAS_DATA_LIST);
   }
 

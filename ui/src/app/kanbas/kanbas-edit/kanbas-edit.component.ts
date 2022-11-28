@@ -2,7 +2,7 @@ import { Component, OnInit, Inject} from '@angular/core';
 import { KanbasService } from '../kanbas.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Kanba } from '../model/Kanbas';
+import { Kanban } from '../model/Kanbas';
 
 @Component({
   selector: 'app-kanbas-edit',
@@ -11,7 +11,7 @@ import { Kanba } from '../model/Kanbas';
 })
 export class KanbasEditComponent implements OnInit {
 
-  kanba:Kanba;
+  kanba:Kanban;
   busy:boolean = false;  
   constructor(private kanbasService:KanbasService,
               public dialogRef:MatDialogRef<KanbasEditComponent>,
@@ -19,7 +19,7 @@ export class KanbasEditComponent implements OnInit {
 
   ngOnInit(): void {
     if(this.data == null){
-      this.kanba = new Kanba();
+      this.kanba = new Kanban();
 
       this.kanba.lanes=[];
     }      
@@ -41,7 +41,7 @@ export class KanbasEditComponent implements OnInit {
     setTimeout(()=>{
       this.kanbasService.emitSaveKanba.emit(this.kanba);
       this.busy = false;
-    },300);
+    },500);
     
     this.dialogRef.close();
     return true;

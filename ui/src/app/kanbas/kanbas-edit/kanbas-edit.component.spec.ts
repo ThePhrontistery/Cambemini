@@ -1,4 +1,4 @@
-import { Kanba } from './../model/Kanbas';
+import { Kanba } from '../model/Kanbas';
 import { of } from 'rxjs';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { KanbasService } from './../kanbas.service';

@@ -1,5 +1,5 @@
 import { LANE_DATA_LIST, KANBAS_DATA_LIST, LANE_DATA_LIST1 } from './../../kanbas/model/mock-kanbas-list';
-import { Kanba } from './../../kanbas/model/Kanbas';
+import { Kanba } from '../../kanbas/model/Kanbas';
 import { CoreModule } from './../core.module';
 import { MatMenuModule } from '@angular/material/menu';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';

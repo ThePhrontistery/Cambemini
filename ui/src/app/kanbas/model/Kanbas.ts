@@ -1,7 +1,7 @@
 import { Lane } from './Lane';
 import { User } from './User';
 
-export class Kanba{
+export class Kanban{
     id:number;
     title:string;
     description:string;
