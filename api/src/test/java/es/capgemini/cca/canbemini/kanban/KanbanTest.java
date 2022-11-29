@@ -30,16 +30,17 @@ public class KanbanTest {
     public static final Long EXISTS_KANBAN_ID = 1L;
     public static final Long NOT_EXISTS_KANBAN_ID = 9L;
     public static final String KANBAN_NAME = "KANBAN1";
+    private static final Long EXISTS_USER_ID = 1L;
 
     @Test
-    public void findAllShouldReturnAllKanbans() {
+    public void findAllShouldReturnAllUserKanbans() {
 
         List<Kanban> list = new ArrayList<>();
         list.add(mock(Kanban.class));
 
-        when(kanbanRepository.findAll()).thenReturn(list);
+        when(kanbanRepository.findUserKanbans(EXISTS_USER_ID)).thenReturn(list);
 
-        List<Kanban> kanbans = kanbanService.findAll();
+        List<Kanban> kanbans = kanbanService.findUserKanbans(EXISTS_USER_ID);
 
         assertNotNull(kanbans);
         assertEquals(1, kanbans.size());

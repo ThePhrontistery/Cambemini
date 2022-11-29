@@ -11,7 +11,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import es.capgemini.cca.canbemini.kanban.swimlane.Swimlane;
-import es.capgemini.cca.canbemini.user_kanban_permission.User_Kanban_Permission;
+import es.capgemini.cca.canbemini.userKanbanPermission.UserKanbanPermission;
 
 @Entity
 @Table(name = "Kanban")
@@ -25,7 +25,7 @@ public class Kanban {
     private String title;
 
     @OneToMany(mappedBy = "kanban")
-    private Set<User_Kanban_Permission> user_kanban_permission;
+    private Set<UserKanbanPermission> userKanbanPermission;
 
     @OneToMany(mappedBy = "kanban")
     private Set<Swimlane> swimlanes;
@@ -36,6 +36,14 @@ public class Kanban {
 
     protected Kanban() {
 
+    }
+
+    public Set<UserKanbanPermission> getUserKanbanPermission() {
+        return userKanbanPermission;
+    }
+
+    public void setUserKanbanPermission(Set<UserKanbanPermission> userKanbanPermission) {
+        this.userKanbanPermission = userKanbanPermission;
     }
 
     public Long getId() {
@@ -52,14 +60,6 @@ public class Kanban {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public Set<User_Kanban_Permission> getUser_kanban_permission() {
-        return user_kanban_permission;
-    }
-
-    public void setUser_kanban_permission(Set<User_Kanban_Permission> user_kanban_permission) {
-        this.user_kanban_permission = user_kanban_permission;
     }
 
     @Override

@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface KanbanService {
 
-    List<Kanban> findAll();
+    List<Kanban> findUserKanbans(Long userId);
 
     Kanban getKanban(Long id);
 

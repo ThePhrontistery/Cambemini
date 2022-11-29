@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.capgemini.cca.canbemini.mapppers.KanbanMapper;
+import es.capgemini.cca.canbemini.mapppers.UserKanbanPermissionMapper;
+import es.capgemini.cca.canbemini.userKanbanPermission.UserKanbanPermissionDto;
+import es.capgemini.cca.canbemini.userKanbanPermission.UserKanbanPermissionService;
 
 //import com.devonfw.module.beanmapping.common.api.BeanMapper;
 
@@ -25,6 +28,12 @@ public class KanbanController {
     @Autowired
     KanbanMapper kanbanMapper;
 
+    @Autowired
+    UserKanbanPermissionMapper userKanbanPermissionMapper;
+
+    @Autowired
+    UserKanbanPermissionService userKanbanPermisssionService;
+
     public KanbanController() {
 
     }
@@ -36,9 +45,9 @@ public class KanbanController {
     }
 
     // @GetMapping("/api/kanban")
-    @RequestMapping(path = "", method = RequestMethod.GET)
-    public List<KanbanDto> getAllKanbans() {
-        return kanbanMapper.map(kanbanService.findAll());
+    @RequestMapping(path = "/{userId}", method = RequestMethod.GET)
+    public List<KanbanDto> getAllUserKanbans(@PathVariable("userId") Long userId) {
+        return kanbanMapper.map(kanbanService.findUserKanbans(userId));
     }
 
     @RequestMapping(path = { "", "/{id}" }, method = RequestMethod.PUT)
@@ -51,4 +60,8 @@ public class KanbanController {
         kanbanService.deleteKanban(id);
     }
 
+    @RequestMapping(path = "", method = RequestMethod.GET)
+    public List<UserKanbanPermissionDto> getAllUserKanbanPermission() {
+        return userKanbanPermissionMapper.map(this.userKanbanPermisssionService.get());
+    }
 }

@@ -44,12 +44,13 @@ public class KanbanIT {
     private static final Long DELETE_KANBAN_ID = 1L;
     private static final Long MODIFY_KANBAN_ID = 1L;
     private static final String MODIFY_KANBAN_TITLE = "KANBAN_NUEVO";
+    private static final Long EXIST_USER_ID = 2L;
 
     @Test
-    public void findAllShouldReturnAllKanbans() {
+    public void findAllShouldReturnAllUserKanbans() {
 
-        ResponseEntity<List<KanbanDto>> response = restTemplate.exchange(LOCALHOST + port + SERVICE_PATH,
-                HttpMethod.GET, null, responseType);
+        ResponseEntity<List<KanbanDto>> response = restTemplate
+                .exchange(LOCALHOST + port + SERVICE_PATH + EXIST_USER_ID, HttpMethod.GET, null, responseType);
 
         assertNotNull(response);
         assertEquals(2, response.getBody().size());
@@ -63,8 +64,8 @@ public class KanbanIT {
 
         restTemplate.exchange(LOCALHOST + port + SERVICE_PATH, HttpMethod.PUT, new HttpEntity<>(dto), Void.class);
 
-        ResponseEntity<List<KanbanDto>> response = restTemplate.exchange(LOCALHOST + port + SERVICE_PATH,
-                HttpMethod.GET, null, responseType);
+        ResponseEntity<List<KanbanDto>> response = restTemplate
+                .exchange(LOCALHOST + port + SERVICE_PATH + EXIST_USER_ID, HttpMethod.GET, null, responseType);
 
         assertNotNull(response);
         assertEquals(3, response.getBody().size());
@@ -84,8 +85,8 @@ public class KanbanIT {
         restTemplate.exchange(LOCALHOST + port + SERVICE_PATH + MODIFY_KANBAN_ID, HttpMethod.PUT, new HttpEntity<>(dto),
                 Void.class);
 
-        ResponseEntity<List<KanbanDto>> response = restTemplate.exchange(LOCALHOST + port + SERVICE_PATH,
-                HttpMethod.GET, null, responseType);
+        ResponseEntity<List<KanbanDto>> response = restTemplate
+                .exchange(LOCALHOST + port + SERVICE_PATH + EXIST_USER_ID, HttpMethod.GET, null, responseType);
         assertNotNull(response);
         assertEquals(2, response.getBody().size());
 
@@ -100,8 +101,8 @@ public class KanbanIT {
 
         restTemplate.exchange(LOCALHOST + port + SERVICE_PATH + DELETE_KANBAN_ID, HttpMethod.DELETE, null, Void.class);
 
-        ResponseEntity<List<KanbanDto>> response = restTemplate.exchange(LOCALHOST + port + SERVICE_PATH,
-                HttpMethod.GET, null, responseType);
+        ResponseEntity<List<KanbanDto>> response = restTemplate
+                .exchange(LOCALHOST + port + SERVICE_PATH + EXIST_USER_ID, HttpMethod.GET, null, responseType);
         assertNotNull(response);
         assertEquals(1, response.getBody().size());
     }

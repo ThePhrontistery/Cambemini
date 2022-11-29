@@ -5,7 +5,6 @@ INSERT INTO USERS (id, username) VALUES (3, 'Jacques');
 INSERT INTO USERS (id, username) VALUES (4, 'Raul');
 INSERT INTO USERS (id, username) VALUES (5, 'Fredy');
 
-
 INSERT INTO KANBAN (id, title) VALUES (1, 'kanban1');
 INSERT INTO KANBAN (id, title) VALUES (2, 'kanban1');
 INSERT INTO KANBAN (id, title) VALUES (3, 'kanban2');
@@ -15,14 +14,6 @@ INSERT INTO KANBAN (id, title) VALUES (5, 'kanban2');
 INSERT INTO PERMISSION (id, rol) VALUES (1, 'Owner');
 INSERT INTO PERMISSION (id, rol) VALUES (2, 'Editor');
 INSERT INTO PERMISSION (id, rol) VALUES (3, 'Collaborator');
-
-INSERT INTO USER_KANBAN_PERMISSION (id, user_id, kanban_id, permission_id) VALUES (1, 1, 1, 1);
-INSERT INTO USER_KANBAN_PERMISSION (id, user_id, kanban_id, permission_id) VALUES (2, 2, 1, 2);
-INSERT INTO USER_KANBAN_PERMISSION (id, user_id, kanban_id, permission_id) VALUES (3, 3, 1, 3);
-INSERT INTO USER_KANBAN_PERMISSION (id, user_id, kanban_id, permission_id) VALUES (4, 4, 2, 1);
-INSERT INTO USER_KANBAN_PERMISSION (id, user_id, kanban_id, permission_id) VALUES (5, 5, 2, 2);
-INSERT INTO USER_KANBAN_PERMISSION (id, user_id, kanban_id, permission_id) VALUES (6, 2, 2, 3);
-
 
 INSERT INTO SWIMLANE (id, kanban_id, title) VALUES (1, 1,'TO DO');
 INSERT INTO SWIMLANE (id, kanban_id, title) VALUES (2, 1,'DOING');
@@ -46,3 +37,10 @@ INSERT INTO ATTACHMENT (id, document_path, note_id) VALUES (1,'url1', 1);
 INSERT INTO ATTACHMENT (id, document_path, note_id) VALUES (2,'url2', 2);
 INSERT INTO ATTACHMENT (id, document_path, note_id) VALUES (3,'url3', 3);
 INSERT INTO ATTACHMENT (id, document_path, note_id) VALUES (4,'url4', 4);
+
+INSERT INTO USER_KANBAN_PERMISSION (id, user_id, kanban_id, permission_id) VALUES (1, 1, 1, 1);
+INSERT INTO USER_KANBAN_PERMISSION (id, user_id, kanban_id, permission_id) VALUES (2, 2, 1, 2);
+INSERT INTO USER_KANBAN_PERMISSION (id, user_id, kanban_id, permission_id) VALUES (3, 3, 1, 3);
+INSERT INTO USER_KANBAN_PERMISSION (id, user_id, kanban_id, permission_id) VALUES (4, 4, 2, 1);
+INSERT INTO USER_KANBAN_PERMISSION (id, user_id, kanban_id, permission_id) VALUES (5, 5, 2, 2);
+INSERT INTO USER_KANBAN_PERMISSION (id, user_id, kanban_id, permission_id) VALUES (6, 2, 2, 3);

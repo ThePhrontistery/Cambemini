@@ -1,34 +1,16 @@
-package es.capgemini.cca.canbemini.user_kanban_permission;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+package es.capgemini.cca.canbemini.userKanbanPermission;
 
 import es.capgemini.cca.canbemini.kanban.Kanban;
 import es.capgemini.cca.canbemini.permission.Permission;
 import es.capgemini.cca.canbemini.users.Users;
 
-@Entity
-@Table(name = "User_kanban_permission")
-public class User_Kanban_Permission {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+public class UserKanbanPermissionDto {
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
     private Users users;
 
-    @ManyToOne
-    @JoinColumn(name = "kanban_id")
     private Kanban kanban;
 
-    @ManyToOne
-    @JoinColumn(name = "permission_id")
     private Permission permission;
 
     public Long getId() {
@@ -62,5 +44,4 @@ public class User_Kanban_Permission {
     public void setPermission(Permission permission) {
         this.permission = permission;
     }
-
 }
