@@ -45,7 +45,7 @@ const event = {
   currentIndex: 0,
 };
 
-fdescribe('LaneComponent', () => {
+describe('LaneComponent', () => {
   let component: LaneComponent;
   let fixture: ComponentFixture<LaneComponent>;
   let kanbasService: KanbasService;

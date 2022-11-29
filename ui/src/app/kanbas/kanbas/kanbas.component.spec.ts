@@ -1,3 +1,4 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Kanban } from './../model/Kanbas';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
@@ -39,7 +40,7 @@ const kanba: Kanban = {
     { email: 'fredy@test.com', initial: 'FHO', online: true },
     { initial: 'DAV', email: 'david@test.com', online: false },
   ],
-  lanes: LANE_DATA_LIST,
+  swimlanes: LANE_DATA_LIST,
 };
 
 fdescribe('KanbasComponent', () => {
@@ -47,10 +48,11 @@ fdescribe('KanbasComponent', () => {
   let fixture: ComponentFixture<KanbasComponent>;
   let kanbasService: KanbasService;
 
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        // HttpClientTestingModule,
+         HttpClientTestingModule,
       ],
       declarations: [KanbasComponent],
 
@@ -73,14 +75,16 @@ fdescribe('KanbasComponent', () => {
     fixture.detectChanges();
 
     kanbasService = TestBed.inject(KanbasService);
-    spyOn(kanbasService, 'getKanbas').and.callFake(() => of(KANBAS_DATA_LIST));
+   
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should remove', () => {
+  xit('should remove', () => {
+   
+   
     component.listKanbas = [
       {
         id: 20,
@@ -95,12 +99,17 @@ fdescribe('KanbasComponent', () => {
           { email: 'fredy@test.com', initial: 'FHO', online: true },
           { initial: 'DAV', email: 'david@test.com', online: false },
         ],
-        lanes: LANE_DATA_LIST,
+        swimlanes: LANE_DATA_LIST,
       },
     ];
-    expect(component.listKanbas.length).toEqual(1);
-    component.remove(0);
-    expect(component.listKanbas.length).toEqual(0);
+    // expect(component.listKanbas.length).toEqual(1);
+    
+    
+    let spyOnRemove = spyOn(kanbasService,"removeKanban").and.callFake(()=>of(null));
+    component.remove(component.listKanbas[0]);
+   
+    expect(spyOnRemove).toHaveBeenCalled();
+    
   });
 
   it('should newKanba', () => {
@@ -121,27 +130,6 @@ fdescribe('KanbasComponent', () => {
   });
 
   
-  it('should emitSaveKanba', () => {
-    
-    // let spyOnGo = spyOn(component,'go').withArgs(kanba).and.callFake(()=>null);
-        let kanbaNew = new Kanban();
-        kanbaNew.code = "cod-002"
-        kanbaNew.title = "titulo"
-        kanbaNew.description = "description"
-        kanbaNew.lanes =[];
-        kanbaNew.icon ='icon';
-        kanbaNew.select = false;
-      
-      kanbasService.emitSaveKanba.emit(kanbaNew);
-       expect(component.listKanbas.length).toBeGreaterThan(0);
-  });
-
-  it('should emitSaveKanba exist', () => {  
-      kanbasService.emitSaveKanba.emit(kanba);
-      expect(component.listKanbas.length).toBeGreaterThan(0);
-  });
-
-
-
+ 
 
 });

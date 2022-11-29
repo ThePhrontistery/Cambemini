@@ -9,6 +9,6 @@ export class Kanban{
     select:boolean;
     users:User[];
     code:string;
-    lanes:Lane[];
+    swimlanes:Lane[];
 };
 

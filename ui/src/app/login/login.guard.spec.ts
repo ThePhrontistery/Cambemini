@@ -1,3 +1,4 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
@@ -10,7 +11,7 @@ function fakeRouterState(url: string): RouterStateSnapshot {
   } as RouterStateSnapshot;
 }
 
-fdescribe('LoginGuard', () => {
+describe('LoginGuard', () => {
   let guard: LoginGuard;
   let routerSpy: jasmine.SpyObj<Router>;
   let serviceStub: Partial<LoginService>;
@@ -19,7 +20,7 @@ fdescribe('LoginGuard', () => {
     routerSpy = jasmine.createSpyObj<Router>('Router', ['navigate']); // [1]
     TestBed.configureTestingModule({
       imports: [
-          // HttpClientTestingModule
+           HttpClientTestingModule
       ],
       providers: [
         LoginService,
@@ -33,7 +34,7 @@ fdescribe('LoginGuard', () => {
   const dummyRoute = {} as ActivatedRouteSnapshot;
   const fakeUrls = ['/', '/kanbas'];
 
-  fdescribe('when the user is logged in', () => {
+  describe('when the user is logged in', () => {
     beforeEach(() => {
       serviceStub.loggedIn.next(true);
     });
@@ -55,7 +56,7 @@ fdescribe('LoginGuard', () => {
     });
   });
 
-  fdescribe('when the user is logged out', () => {
+  describe('when the user is logged out', () => {
     beforeEach(() => {
       serviceStub.loggedIn.next(false);
     });

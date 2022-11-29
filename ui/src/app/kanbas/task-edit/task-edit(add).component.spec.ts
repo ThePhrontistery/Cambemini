@@ -46,7 +46,7 @@ const MatDialogMock = {
   }
 };
 
-fdescribe('KambaItemEditComponent', () => {
+describe('KambaItemEditComponent', () => {
   let component: TaskEditComponent;
   let fixture: ComponentFixture<TaskEditComponent>;
 

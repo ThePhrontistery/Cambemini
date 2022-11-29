@@ -32,7 +32,7 @@ const ActivatedRouteMock = {
   },
 };
 
-fdescribe('KanbasAddComponent', () => {
+describe('KanbasAddComponent', () => {
   let component: KanbasEditComponent;
   let fixture: ComponentFixture<KanbasEditComponent>;
   let kanbasService: KanbasService;
@@ -72,7 +72,7 @@ fdescribe('KanbasAddComponent', () => {
 
     component.kanba.title = 'titulo';
     component.kanba.description = 'description';
-    component.kanba.lanes = [];
+    component.kanba.swimlanes = [];
     component.onSave();
 
     kanbasService.emitSaveKanba.subscribe((x) => {

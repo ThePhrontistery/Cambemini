@@ -40,7 +40,7 @@ export class LoginService {
 
   loginGoogle(credencial:any){
     try{
-      debugger
+      
       let objectUser = this.decodificarJwt(credencial);
     
     let user = new UserJwt();

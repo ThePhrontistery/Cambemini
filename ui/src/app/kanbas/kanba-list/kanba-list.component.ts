@@ -29,10 +29,10 @@ export class KanbaListComponent implements OnInit {
 
   ngOnInit(): void {
     this.code = this.activatedRoute.snapshot.params.code;
-    this.KanbasService.getKanbas().subscribe((kanbas) => {
+    this.KanbasService.getKanban().subscribe((kanbas) => {
       let kanba = kanbas.find((kanba) => kanba.code == this.code);
       // this.lanes.push(...this.KanbasService.kanba.lanes);
-      this.lanes.push(...kanba.lanes);
+      this.lanes.push(...kanba.swimlanes);
     });
 
     this.lanes.forEach((e, i) => {
@@ -70,7 +70,7 @@ export class KanbaListComponent implements OnInit {
 
     this.KanbasService.emitKankaSelect.subscribe((x) => {
       this.lanes = [];
-      this.lanes.push(...x.lanes);
+      this.lanes.push(...x.swimlanes);
     });
 
     this.KanbasService.emitRemoveLane.subscribe((lane) => {

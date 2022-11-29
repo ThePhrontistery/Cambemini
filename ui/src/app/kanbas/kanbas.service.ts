@@ -1,9 +1,11 @@
+import { environment } from 'src/environments/environment';
 import { KANBAS_DATA_LIST } from './model/mock-kanbas-list';
 import {  Kanban } from './model/Kanbas';
 import { Injectable, EventEmitter } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Lane } from './model/Lane';
 import { Task } from './model/Task';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -19,12 +21,33 @@ export class KanbasService {
   
   kanba:Kanban;
   kanbas:Kanban[];
-  constructor() { }
+  url = environment.url+"kanban";
+  constructor(
+    private httpClient:HttpClient
+  ) { }
 
   
-  getKanbas():Observable<Kanban[]> {
-      return  of(KANBAS_DATA_LIST);
+  getKanban():Observable<Kanban[]> {
+      return  this.httpClient.get<Kanban[]>(this.url);
   }
+
+  saveKanban(kanban:Kanban):Observable<void> {
+    
+    let url = this.url;
+    if (kanban.id != null) url += '/'+kanban.id;
+     return this.httpClient.put<void>(url, kanban);
+ 
+  }
+ 
+  removeKanban(kanban:Kanban):Observable<any> {
+    
+    let url = this.url;
+    if (kanban.id != null) url += '/'+kanban.id;
+    return this.httpClient.delete(url);
+ 
+  }
+
+ 
 
   saveItem(entitie:Task){
     this.emitAddCard.emit(entitie);

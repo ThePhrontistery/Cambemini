@@ -132,7 +132,7 @@ export const KANBAS_DATA_LIST: Kanban[] = [
       { email: 'fredy@test.com', initial: 'FHO', online: true },
       { initial: 'DAV', email: 'david@test.com', online: false },
     ],
-    lanes:LANE_DATA_LIST
+    swimlanes:LANE_DATA_LIST
   },
   {
     id: 2,
@@ -145,6 +145,6 @@ export const KANBAS_DATA_LIST: Kanban[] = [
       { email: 'mercedes@test.com', initial: 'FHO', online: false },
       { email: 'raul@test.com', initial: 'RAU', online: true },
     ],
-    lanes:LANE_DATA_LIST1
+    swimlanes:LANE_DATA_LIST1
   },
 ];

@@ -19,7 +19,7 @@ const MatDialogMock = {
   }
 };
 
-fdescribe('TaskComponent', () => {
+describe('TaskComponent', () => {
   let component: TaskComponent;
   let fixture: ComponentFixture<TaskComponent>;
   let kanbasService: KanbasService

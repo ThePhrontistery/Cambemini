@@ -23,7 +23,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
 
     this.kanbasService.emitKankaSelect.subscribe(x=>{
-      this.users=x.users
+      if(x!=null) this.users=x.users
        
     })
     this.isLoggedIn = this.loginService.isLoggedIn;

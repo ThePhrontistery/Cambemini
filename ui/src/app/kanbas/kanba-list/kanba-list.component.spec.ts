@@ -24,7 +24,7 @@ const ActivatedRouteMock = {
   },
 };
 
-fdescribe('KanbaListComponent', () => {
+describe('KanbaListComponent', () => {
   let component: KanbaListComponent;
   let fixture: ComponentFixture<KanbaListComponent>;
   let kanbasService: KanbasService;

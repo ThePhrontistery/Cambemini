@@ -38,7 +38,7 @@ const MatDialogRefMock = {
   },
 };
 
-fdescribe('LaneEditComponent1', () => {
+describe('LaneEditComponent1', () => {
   let component: LaneEditComponent;
   let fixture: ComponentFixture<LaneEditComponent>;
   let kanbasService: KanbasService;

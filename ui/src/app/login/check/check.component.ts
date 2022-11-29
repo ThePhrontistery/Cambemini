@@ -17,6 +17,7 @@ export class CheckComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+    
     let token = sessionStorage.getItem("token");
 
     let result = this.loginService.loginGoogle(token);

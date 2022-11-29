@@ -1,4 +1,4 @@
-import { Kanba } from '../model/Kanbas';
+import { Kanban } from '../model/Kanbas';
 import { of } from 'rxjs';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { KanbasService } from './../kanbas.service';
@@ -15,11 +15,11 @@ const MatDialogRefMock = {
 };
 
 // value from new
-const data:Kanba ={
+const data:Kanban ={
   id:1,
   code:'code-01',
   description:'description',
-  lanes:[],
+  swimlanes:[],
   icon:'icon',
   select:false,
   title:'title',
@@ -42,7 +42,7 @@ const ActivatedRouteMock = {
   },
 };
 
-fdescribe('KanbasEditComponent', () => {
+describe('KanbasEditComponent', () => {
   let component: KanbasEditComponent;
   let fixture: ComponentFixture<KanbasEditComponent>;
   let kanbasService: KanbasService;
@@ -82,7 +82,7 @@ fdescribe('KanbasEditComponent', () => {
 
     component.kanba.title = 'titulo';
     component.kanba.description = 'description';
-    component.kanba.lanes = [];
+    component.kanba.swimlanes = [];
     component.onSave();
 
     kanbasService.emitSaveKanba.subscribe((x) => {

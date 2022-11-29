@@ -1,3 +1,4 @@
+import { Kanban } from './../../kanbas/model/Kanbas';
 import { LANE_DATA_LIST } from './../../kanbas/model/mock-kanbas-list';
 
 import { take, map } from 'rxjs/operators';
@@ -16,7 +17,7 @@ const loginMock = {
     };
   },
 };
-fdescribe('HeaderComponent', () => {
+describe('HeaderComponent', () => {
   let component: HeaderComponent;
   let fixture: ComponentFixture<HeaderComponent>;
   let kanbasService: KanbasService;
@@ -59,7 +60,7 @@ fdescribe('HeaderComponent', () => {
       { email: 'raul@test.com', initial: 'RAU', online: true },
     ];
 
-    let kanba = {
+    let kanba:Kanban = {
       id: 1,
       title: 'Escape',
       description:
@@ -72,7 +73,7 @@ fdescribe('HeaderComponent', () => {
         { email: 'fredy@test.com', initial: 'FHO', online: true },
         { initial: 'DAV', email: 'david@test.com', online: false },
       ],
-      lanes: LANE_DATA_LIST,
+      swimlanes: LANE_DATA_LIST,
     };
 
     kanbasService.emitKankaSelect.emit(kanba);

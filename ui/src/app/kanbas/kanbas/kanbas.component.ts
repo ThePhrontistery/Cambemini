@@ -1,3 +1,4 @@
+import { DialogConfirmationComponent } from './../../core/dialog-confirmation/dialog-confirmation.component';
 import { KanbasEditComponent } from './../kanbas-edit/kanbas-edit.component';
 import { MatDialog } from '@angular/material/dialog';
 import { KanbasService } from './../kanbas.service';
@@ -14,53 +15,67 @@ export class KanbasComponent implements OnInit {
   listKanbas: Kanban[] = [];
 
   constructor(
-    private router: Router, 
+    private router: Router,
     private kanbaService: KanbasService,
-    public matDialog: MatDialog,
-    ) {}
+    public matDialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
-    
-    this.kanbaService.getKanbas().subscribe(kanba=>{
-      this.listKanbas = kanba  
-         
+    this.kanbaService.getKanban().subscribe((kanba) => {
+      this.listKanbas = kanba;
     });
-
-    this.kanbaService.emitSaveKanba.subscribe(kanba=>{
-        if(kanba.id== null){
-          this.listKanbas.push(kanba);
-        }else{
-          let index = this.listKanbas.findIndex(listItenKanba=>listItenKanba.id == kanba.id);
-          this.listKanbas[index]=kanba;
-        } 
-      
-    });
-    
+   
   }
 
   go(item: Kanban) {
     this.kanbaService.kanba = item;
-    this.router.navigate(['kanbas',item.code]);
+    this.router.navigate(['kanbas', item.code]);
     return true;
   }
 
-  remove(index: number) {
-    this.listKanbas.splice(index, 1);
+  remove(kanban: Kanban) {
+    const dialogRef = this.matDialog.open(DialogConfirmationComponent, {
+      data: {
+        title: 'Eliminar kanban',
+        description:
+          'Atención si borra el kanban:' +
+          kanban.title +
+          ' se perderán sus datos.<br> ¿Desea eliminar el kanban?',
+      },
+    });
+    this.kanbaService.removeKanban(kanban).subscribe((result) => {
+      this.ngOnInit();
+    });
+    // dialogRef.afterClosed().subscribe((result) => {
+    //   if (result) {
+    //     this.kanbaService.removeKanban(kanban).subscribe((result) => {
+    //       this.ngOnInit();
+    //     });
+    //   }
+    // });
   }
 
-  newKanba(){
+  newKanba() {
     const dialogRef = this.matDialog.open(KanbasEditComponent, {
       data: null,
-    });    
-    
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      this.ngOnInit();
+    });
+
     return true;
   }
 
-  edit(kanba:Kanban){
+  edit(kanba: Kanban) {
     const dialogRef = this.matDialog.open(KanbasEditComponent, {
       data: kanba,
     });
-    
+
+    dialogRef.afterClosed().subscribe((result) => {
+      this.ngOnInit();
+    });
+
     return true;
   }
 }

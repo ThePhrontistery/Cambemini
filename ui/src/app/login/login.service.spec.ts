@@ -25,7 +25,7 @@ const RouterMock = {
 
 };
 
-fdescribe('LoginService', () => {
+describe('LoginService', () => {
   let service: LoginService;
 
   beforeEach(() => {

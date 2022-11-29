@@ -21,7 +21,7 @@ export class KanbasEditComponent implements OnInit {
     if(this.data == null){
       this.kanba = new Kanban();
 
-      this.kanba.lanes=[];
+      this.kanba.swimlanes=[];
     }      
     else{
       this.kanba = Object.assign({}, this.data);        
@@ -38,12 +38,11 @@ export class KanbasEditComponent implements OnInit {
     if(this.busy === true) return false ;
     this.busy = true;
     this.kanba.code = this.kanba.title;
-    setTimeout(()=>{
-      this.kanbasService.emitSaveKanba.emit(this.kanba);
-      this.busy = false;
-    },500);
     
-    this.dialogRef.close();
+    this.kanbasService.saveKanban(this.kanba).subscribe(result =>  {
+      this.dialogRef.close();
+    }); 
+         
     return true;
     
   }
