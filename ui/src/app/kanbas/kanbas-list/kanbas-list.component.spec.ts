@@ -1,15 +1,15 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { Kanban } from './../model/Kanbas';
+import { Kanban } from '../model/Kanbas';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
 
-import { KANBAS_DATA_LIST, LANE_DATA_LIST } from './../model/mock-kanbas-list';
+import { KANBAS_DATA_LIST, LANE_DATA_LIST } from '../model/mock-kanbas-list';
 import { MatDialog } from '@angular/material/dialog';
 import { of } from 'rxjs';
-import { KanbasService } from './../kanbas.service';
+import { KanbasService } from '../kanbas.service';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
-import { KanbasComponent } from './kanbas.component';
+import { KanbasListComponent } from './kanbas-list.component';
 
 const MatDialogMock = {
   open() {
@@ -44,8 +44,8 @@ const kanba: Kanban = {
 };
 
 fdescribe('KanbasComponent', () => {
-  let component: KanbasComponent;
-  let fixture: ComponentFixture<KanbasComponent>;
+  let component: KanbasListComponent;
+  let fixture: ComponentFixture<KanbasListComponent>;
   let kanbasService: KanbasService;
 
 
@@ -54,7 +54,7 @@ fdescribe('KanbasComponent', () => {
       imports: [
          HttpClientTestingModule,
       ],
-      declarations: [KanbasComponent],
+      declarations: [KanbasListComponent],
 
       providers: [
         KanbasService,
@@ -64,13 +64,13 @@ fdescribe('KanbasComponent', () => {
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(KanbasComponent);
+    fixture = TestBed.createComponent(KanbasListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(KanbasComponent);
+    fixture = TestBed.createComponent(KanbasListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
 
@@ -82,7 +82,7 @@ fdescribe('KanbasComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  xit('should remove', () => {
+  it('should remove', () => {
    
    
     component.listKanbas = [
@@ -104,8 +104,11 @@ fdescribe('KanbasComponent', () => {
     ];
     // expect(component.listKanbas.length).toEqual(1);
     
-    
-    let spyOnRemove = spyOn(kanbasService,"removeKanban").and.callFake(()=>of(null));
+    /*
+    * El método callFake hace que, al llamar a esa función, realice una función mockeada pasada por
+    * parámetro, esto hace que ejecute esa funcion mock en lugar de la definida en el servicio.
+    */
+    let spyOnRemove = spyOn(kanbasService,"removeKanban").and.callFake(() => {return of()});
     component.remove(component.listKanbas[0]);
    
     expect(spyOnRemove).toHaveBeenCalled();

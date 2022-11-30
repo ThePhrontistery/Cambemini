@@ -1,17 +1,17 @@
-import { DialogConfirmationComponent } from './../../core/dialog-confirmation/dialog-confirmation.component';
-import { KanbasEditComponent } from './../kanbas-edit/kanbas-edit.component';
+import { DialogConfirmationComponent } from '../../core/dialog-confirmation/dialog-confirmation.component';
+import { KanbanEditComponent } from '../kanban-edit/kanban-edit.component';
 import { MatDialog } from '@angular/material/dialog';
-import { KanbasService } from './../kanbas.service';
+import { KanbasService } from '../kanbas.service';
 import { Router } from '@angular/router';
 import { Kanban } from '../model/Kanbas';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-kanbas',
-  templateUrl: './kanbas.component.html',
-  styleUrls: ['./kanbas.component.css'],
+  templateUrl: './kanbas-list.component.html',
+  styleUrls: ['./kanbas-list.component.css'],
 })
-export class KanbasComponent implements OnInit {
+export class KanbasListComponent implements OnInit {
   listKanbas: Kanban[] = [];
 
   constructor(
@@ -56,7 +56,7 @@ export class KanbasComponent implements OnInit {
   }
 
   newKanba() {
-    const dialogRef = this.matDialog.open(KanbasEditComponent, {
+    const dialogRef = this.matDialog.open(KanbanEditComponent, {
       data: null,
     });
 
@@ -68,7 +68,7 @@ export class KanbasComponent implements OnInit {
   }
 
   edit(kanba: Kanban) {
-    const dialogRef = this.matDialog.open(KanbasEditComponent, {
+    const dialogRef = this.matDialog.open(KanbanEditComponent, {
       data: kanba,
     });
 

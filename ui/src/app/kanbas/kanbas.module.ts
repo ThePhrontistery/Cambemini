@@ -2,7 +2,7 @@ import { TaskEditComponent } from './task-edit/task-edit.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { KanbaListComponent } from './kanba-list/kanba-list.component';
+import { KanbanComponent } from './kanban/kanban.component';
 import { TaskComponent } from './task/task.component';
 import { LaneComponent } from './lane/lane.component';
 import {  NgModule } from '@angular/core';
@@ -14,18 +14,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { LaneEditComponent } from './lane-edit/lane-edit.component';
-import { KanbasComponent } from './kanbas/kanbas.component';
-import { KanbasEditComponent } from './kanbas-edit/kanbas-edit.component';
+import { KanbasListComponent } from './kanbas-list/kanbas-list.component';
+import { KanbanEditComponent } from './kanban-edit/kanban-edit.component';
 @NgModule({
   declarations: [
     LaneComponent,
     TaskComponent,
-    KanbaListComponent,
-    KanbasEditComponent,
+    KanbanComponent,
+    KanbanEditComponent,
     TaskComponent,
     TaskEditComponent,
     LaneEditComponent,
-    KanbasComponent,    
+    KanbasListComponent,    
   ],
   imports: [
     CommonModule,

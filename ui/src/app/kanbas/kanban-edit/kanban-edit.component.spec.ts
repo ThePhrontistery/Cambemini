@@ -1,9 +1,11 @@
+import { Kanban } from '../model/Kanbas';
 import { of } from 'rxjs';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { KanbasService } from '../kanbas.service';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { KanbasEditComponent } from './kanbas-edit.component';
+import { KanbanEditComponent } from './kanban-edit.component';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/compiler';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 const MatDialogRefMock = {
   close() {
@@ -14,7 +16,16 @@ const MatDialogRefMock = {
 };
 
 // value from new
-const data = null;
+const data:Kanban ={
+  id:1,
+  code:'code-01',
+  description:'description',
+  swimlanes:[],
+  icon:'icon',
+  select:false,
+  title:'title',
+  users:[]
+} ;
 
 const MatDialogMock = {
   open() {
@@ -32,17 +43,17 @@ const ActivatedRouteMock = {
   },
 };
 
-describe('KanbasAddComponent', () => {
-  let component: KanbasEditComponent;
-  let fixture: ComponentFixture<KanbasEditComponent>;
+fdescribe('KanbasEditComponent', () => {
+  let component: KanbanEditComponent;
+  let fixture: ComponentFixture<KanbanEditComponent>;
   let kanbasService: KanbasService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        // HttpClientTestingModule,
+        HttpClientTestingModule,
       ],
-      declarations: [KanbasEditComponent],
+      declarations: [KanbanEditComponent],
       providers: [
         KanbasService,
         { provide: MatDialogRef, useValue: MatDialogRefMock },
@@ -53,7 +64,7 @@ describe('KanbasAddComponent', () => {
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(KanbasEditComponent);
+    fixture = TestBed.createComponent(KanbanEditComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
 
@@ -81,16 +92,4 @@ describe('KanbasAddComponent', () => {
       expect(kanbasService.kanbas.length).toEqual(1);
     });
   });
-
-  it('should onCancel', () => {
-    let onCancelResult = component.onCancel();
-    expect(onCancelResult).toBeTrue();
-  })
-  
-  it('should busy', () => {
-    component.busy =true;
-    let onCancelResult = component.onSave();
-    expect(onCancelResult).toBeFalse()
-  })
-    
 });

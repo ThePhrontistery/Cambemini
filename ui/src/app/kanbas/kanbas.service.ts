@@ -31,11 +31,11 @@ export class KanbasService {
       return  this.httpClient.get<Kanban[]>(this.url);
   }
 
-  saveKanban(kanban:Kanban):Observable<void> {
+  saveKanban(kanban:Kanban):Observable<Kanban> {
     
     let url = this.url;
     if (kanban.id != null) url += '/'+kanban.id;
-     return this.httpClient.put<void>(url, kanban);
+     return this.httpClient.put<Kanban>(url, kanban);
  
   }
  

@@ -1,10 +1,10 @@
-import { Lane } from './../model/Lane';
-import { Task } from './../model/Task';
+import { Lane } from '../model/Lane';
+import { Task } from '../model/Task';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
-import { KanbasService } from './../kanbas.service';
+import { KanbasService } from '../kanbas.service';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { KanbaListComponent } from './kanba-list.component';
+import { KanbanComponent } from './kanban.component';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -25,8 +25,8 @@ const ActivatedRouteMock = {
 };
 
 describe('KanbaListComponent', () => {
-  let component: KanbaListComponent;
-  let fixture: ComponentFixture<KanbaListComponent>;
+  let component: KanbanComponent;
+  let fixture: ComponentFixture<KanbanComponent>;
   let kanbasService: KanbasService;
 
   beforeEach(async () => {
@@ -34,7 +34,7 @@ describe('KanbaListComponent', () => {
       imports: [
         // HttpClientTestingModule,
       ],
-      declarations: [KanbaListComponent],
+      declarations: [KanbanComponent],
       providers: [
         KanbasService,
         { provide: MatDialog, useValue: MatDialogMock },
@@ -45,7 +45,7 @@ describe('KanbaListComponent', () => {
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(KanbaListComponent);
+    fixture = TestBed.createComponent(KanbanComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
     console.log('lanes', component.lanes);

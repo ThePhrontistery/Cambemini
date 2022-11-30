@@ -52,7 +52,7 @@ describe('LaneComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        // HttpClientTestingModule,
+        //HttpClientTestingModule,
       ],
       declarations: [LaneComponent],
       providers: [
