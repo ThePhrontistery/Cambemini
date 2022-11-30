@@ -43,7 +43,7 @@ const ActivatedRouteMock = {
   },
 };
 
-fdescribe('KanbasEditComponent', () => {
+describe('KanbasEditComponent', () => {
   let component: KanbanEditComponent;
   let fixture: ComponentFixture<KanbanEditComponent>;
   let kanbasService: KanbasService;

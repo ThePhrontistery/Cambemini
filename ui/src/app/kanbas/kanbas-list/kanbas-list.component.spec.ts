@@ -43,7 +43,7 @@ const kanba: Kanban = {
   swimlanes: LANE_DATA_LIST,
 };
 
-fdescribe('KanbasComponent', () => {
+describe('KanbasComponent', () => {
   let component: KanbasListComponent;
   let fixture: ComponentFixture<KanbasListComponent>;
   let kanbasService: KanbasService;
@@ -75,7 +75,6 @@ fdescribe('KanbasComponent', () => {
     fixture.detectChanges();
 
     kanbasService = TestBed.inject(KanbasService);
-   
   });
 
   it('should create', () => {
@@ -131,8 +130,4 @@ fdescribe('KanbasComponent', () => {
     let goResult = component.go(kanba); 
     expect(goResult).toBeTruthy();
   });
-
-  
- 
-
 });

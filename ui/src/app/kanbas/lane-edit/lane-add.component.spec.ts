@@ -4,6 +4,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LaneEditComponent } from './lane-edit.component';
 import { KanbasService } from '../kanbas.service';
 import { NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 // value from new
 const data = {
@@ -25,7 +26,7 @@ describe('LaneAddComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        // HttpClientTestingModule,
+        HttpClientTestingModule,
       ],
       declarations: [LaneEditComponent],
       providers: [

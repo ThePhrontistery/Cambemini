@@ -9,6 +9,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HeaderComponent } from './header.component';
 import { of, Observable } from 'rxjs';
 import { User } from 'src/app/login/login/model/User';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 const loginMock = {
   logout() {
@@ -26,7 +27,7 @@ describe('HeaderComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        // HttpClientTestingModule,
+        HttpClientTestingModule,
       ],
       declarations: [HeaderComponent],
 

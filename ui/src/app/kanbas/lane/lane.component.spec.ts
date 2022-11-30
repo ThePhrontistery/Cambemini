@@ -5,6 +5,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { KanbasService } from '../kanbas.service';
 
 import { LaneComponent } from './lane.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 const MatDialogMock = {
   open() {
     return {
@@ -52,7 +53,7 @@ describe('LaneComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        //HttpClientTestingModule,
+        HttpClientTestingModule,
       ],
       declarations: [LaneComponent],
       providers: [
