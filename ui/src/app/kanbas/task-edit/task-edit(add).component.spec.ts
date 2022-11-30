@@ -1,3 +1,4 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { of } from 'rxjs';
@@ -46,18 +47,18 @@ const MatDialogMock = {
   }
 };
 
-describe('KambaItemEditComponent', () => {
+describe('TaskEditComponent', () => {
   let component: TaskEditComponent;
   let fixture: ComponentFixture<TaskEditComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-
+        HttpClientTestingModule
       ],
       declarations: [ 
         TaskEditComponent,
-
+        
       ],
       providers: [
         KanbasService,

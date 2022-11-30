@@ -10,6 +10,7 @@ import { LaneComponent } from '../lane/lane.component';
 import { Task } from '../model/Task';
 import { Lane } from '../model/Lane';
 import { isNgTemplate } from '@angular/compiler';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 const MatDialogMock = {
   open() {
@@ -22,12 +23,13 @@ const MatDialogMock = {
 describe('TaskComponent', () => {
   let component: TaskComponent;
   let fixture: ComponentFixture<TaskComponent>;
-  let kanbasService: KanbasService
+  let kanbasService: KanbasService;
+  let httpMock: HttpTestingController;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        // HttpClientTestingModule,
+        HttpClientTestingModule,
     ],
       declarations: [ 
         TaskComponent
@@ -79,7 +81,12 @@ describe('TaskComponent', () => {
     fixture.detectChanges();
 
     kanbasService = TestBed.inject(KanbasService);
+    httpMock = TestBed.inject(HttpTestingController);
   });
+
+  afterEach(() => {
+    httpMock.verify();
+  })
 
   it('should remove', () => {
     let checkCode = component.remove();
