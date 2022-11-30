@@ -5,8 +5,8 @@ Canbemeni [Spring Boot](http://projects.spring.io/spring-boot/) sample app.
 
 ## Application use
 
-[H2 Data Base](https://www.h2database.com/html/main.html)
-[JPA](https://spring.io/projects/spring-data-jpa)
+- [H2 Data Base](https://www.h2database.com/html/main.html)
+- [JPA](https://spring.io/projects/spring-data-jpa)
 
 ## Requirements
 
