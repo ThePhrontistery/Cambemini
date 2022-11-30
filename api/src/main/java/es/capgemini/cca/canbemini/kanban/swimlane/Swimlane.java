@@ -16,7 +16,7 @@ import es.capgemini.cca.canbemini.kanban.Kanban;
 import es.capgemini.cca.canbemini.kanban.swimlane.note.Note;
 
 @Entity
-@Table(name = "swimlane")
+@Table(name = "Swimlane")
 public class Swimlane {
 
     @Id
@@ -33,6 +33,14 @@ public class Swimlane {
 
     @OneToMany(mappedBy = "swimlane")
     private Set<Note> notes;
+
+    public Swimlane(String title) {
+        this.title = title;
+    }
+
+    protected Swimlane() {
+
+    }
 
     public Long getId() {
         return id;

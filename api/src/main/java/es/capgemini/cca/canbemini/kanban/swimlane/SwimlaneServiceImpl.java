@@ -3,15 +3,17 @@ package es.capgemini.cca.canbemini.kanban.swimlane;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class SwimlaneServiceImpl implements SwimlaneService {
 
     @Autowired
     SwimlaneRepository swimlaneRepository;
 
     @Override
-    public List<Swimlane> findAll(Long id) {
-        return (List<Swimlane>) this.swimlaneRepository.findAll(id);
+    public List<Swimlane> findAll(Long kanbanId) {
+        return (List<Swimlane>) this.swimlaneRepository.findAll(kanbanId);
 
     }
 

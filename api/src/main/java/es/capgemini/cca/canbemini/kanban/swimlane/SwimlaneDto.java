@@ -14,6 +14,14 @@ public class SwimlaneDto {
 
     private String title;
 
+    public SwimlaneDto(String title) {
+        this.title = title;
+    }
+
+    protected SwimlaneDto() {
+
+    }
+
     public Long getId() {
         return id;
     }
