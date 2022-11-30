@@ -16,14 +16,22 @@ import es.capgemini.cca.canbemini.userKanbanPermission.UserKanbanPermission;
 @Table(name = "Users")
 public class Users {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "username")
-    private String username;
+    private String email;
 
     @OneToMany(mappedBy = "users")
     private Set<UserKanbanPermission> user_kanban_permission;
+
+    public Users(String email) {
+        this.email = email;
+    }
+
+    protected Users() {
+
+    }
 
     public Long getId() {
         return id;
@@ -33,12 +41,12 @@ public class Users {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Set<UserKanbanPermission> getUser_kanban_permission() {

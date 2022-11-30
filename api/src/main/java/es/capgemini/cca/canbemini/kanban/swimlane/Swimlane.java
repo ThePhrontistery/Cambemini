@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import es.capgemini.cca.canbemini.kanban.Kanban;
 import es.capgemini.cca.canbemini.kanban.swimlane.note.Note;
 
@@ -20,13 +22,14 @@ import es.capgemini.cca.canbemini.kanban.swimlane.note.Note;
 public class Swimlane {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
     @Column(name = "title", nullable = false)
     private String title;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "kanban_id")
     private Kanban kanban;
@@ -34,8 +37,9 @@ public class Swimlane {
     @OneToMany(mappedBy = "swimlane")
     private Set<Note> notes;
 
-    public Swimlane(String title) {
+    public Swimlane(String title, Kanban kanban) {
         this.title = title;
+        this.kanban = kanban;
     }
 
     protected Swimlane() {

@@ -17,12 +17,15 @@ import es.capgemini.cca.canbemini.userKanbanPermission.UserKanbanPermission;
 @Table(name = "Kanban")
 public class Kanban {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
     @Column(name = "title", nullable = false)
     private String title;
+
+    @Column(name = "description", nullable = false)
+    private String description;
 
     @OneToMany(mappedBy = "kanban")
     private Set<UserKanbanPermission> userKanbanPermission;
@@ -30,8 +33,9 @@ public class Kanban {
     @OneToMany(mappedBy = "kanban")
     private Set<Swimlane> swimlanes;
 
-    public Kanban(String title) {
+    public Kanban(String title, String description) {
         this.title = title;
+        this.description = description;
     }
 
     protected Kanban() {
@@ -62,9 +66,17 @@ public class Kanban {
         this.title = title;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public String toString() {
-        return String.format("Kanban[id=%d, title='%s']", id, title);
+        return String.format("Kanban[id=%d, title='%s', description='%s']", id, title, description);
     }
 
     public Set<Swimlane> getSwimlanes() {

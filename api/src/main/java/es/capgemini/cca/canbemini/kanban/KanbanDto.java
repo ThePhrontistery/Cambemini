@@ -11,6 +11,8 @@ public class KanbanDto {
 
     private String title;
 
+    private String description;
+
     private Set<UserKanbanPermission> userKanbanPermission;
 
     private Set<Swimlane> swimlanes;
@@ -37,6 +39,14 @@ public class KanbanDto {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Set<UserKanbanPermission> getUserKanbanPermission() {
