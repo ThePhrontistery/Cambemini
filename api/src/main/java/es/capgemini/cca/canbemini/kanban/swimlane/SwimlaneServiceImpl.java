@@ -37,6 +37,7 @@ public class SwimlaneServiceImpl implements SwimlaneService {
             swimlane = this.findSwimlane(id);
 
         swimlane.setTitle(swimlaneDto.getTitle());
+        swimlane.setKanban(swimlaneDto.getKanban());
         this.swimlaneRepository.save(swimlane);
     }
 

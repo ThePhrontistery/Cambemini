@@ -9,8 +9,7 @@ import es.capgemini.cca.canbemini.kanban.swimlane.note.Note;
 
 public class SwimlaneDto {
     private Long id;
-
-    @JsonIgnore
+   
     private Kanban kanban;
 
     private Set<Note> notes;
