@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatMenu } from '@angular/material/menu';
 
 import { UserSelectComponent } from './user-select.component';
 
@@ -8,7 +9,7 @@ describe('UserSelectComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UserSelectComponent ]
+      declarations: [ UserSelectComponent, MatMenu ]
     })
     .compileComponents();
 

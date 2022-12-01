@@ -26,6 +26,14 @@ public class Permission {
     @OneToMany(mappedBy = "permission")
     private Set<UserKanbanPermission> user_kanban_permission;
 
+    public Permission(String role) {
+        this.rol = role;
+    }
+
+    protected Permission() {
+
+    }
+
     public Long getId() {
         return id;
     }

@@ -1,12 +1,13 @@
-import { Lane } from './../model/Lane';
-import { Task } from './../model/Task';
+import { Lane } from '../model/Lane';
+import { Task } from '../model/Task';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
-import { KanbasService } from './../kanbas.service';
+import { KanbasService } from '../kanbas.service';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { KanbaListComponent } from './kanba-list.component';
+import { KanbanComponent } from './kanban.component';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 const MatDialogMock = {
   open() {
@@ -24,17 +25,18 @@ const ActivatedRouteMock = {
   },
 };
 
-describe('KanbaListComponent', () => {
-  let component: KanbaListComponent;
-  let fixture: ComponentFixture<KanbaListComponent>;
+describe('KanbaComponent', () => {
+  let component: KanbanComponent;
+  let fixture: ComponentFixture<KanbanComponent>;
   let kanbasService: KanbasService;
+  let httpMock: HttpTestingController;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        // HttpClientTestingModule,
+        HttpClientTestingModule,
       ],
-      declarations: [KanbaListComponent],
+      declarations: [KanbanComponent],
       providers: [
         KanbasService,
         { provide: MatDialog, useValue: MatDialogMock },
@@ -45,11 +47,33 @@ describe('KanbaListComponent', () => {
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(KanbaListComponent);
+    fixture = TestBed.createComponent(KanbanComponent);
     component = fixture.componentInstance;
+    component.lanes = [{
+      id: 1,
+      title: 'To do',
+      color: '',
+      order: 0,
+      items: [
+        {
+          id: 1,
+          title: 'Cloud design',
+          description: 'Design of our cloud-based backend',
+          laneId: 1,
+        },
+        {
+          id: 2,
+          title: 'Client tasks usability',
+          description:
+            'Think and design how clients will interact with notes at the same time',
+          laneId: 1,
+        },
+      ],
+    }];
     fixture.detectChanges();
     console.log('lanes', component.lanes);
     kanbasService = TestBed.inject(KanbasService);
+    httpMock = TestBed.inject(HttpTestingController);
     // spyOn(kanbasService, 'getBooksFromCart').and.callFake(() => listBook);
   });
 
@@ -68,7 +92,7 @@ describe('KanbaListComponent', () => {
     task.title = 'UI implementation';
     task.description = 'Implementation of our Angular 14 Kanva UI';
     task.laneId = 1;
-
+    
     component.lanes[0].items = [task];
     console.log(component.lanes[0].items.length);
     expect(component.lanes[0].items.length).toEqual(1);

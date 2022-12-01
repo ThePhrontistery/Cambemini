@@ -6,15 +6,15 @@ import { Kanban } from '../model/Kanbas';
 
 @Component({
   selector: 'app-kanbas-edit',
-  templateUrl: './kanbas-edit.component.html',
-  styleUrls: ['./kanbas-edit.component.css']
+  templateUrl: './kanban-edit.component.html',
+  styleUrls: ['./kanban-edit.component.css']
 })
-export class KanbasEditComponent implements OnInit {
+export class KanbanEditComponent implements OnInit {
 
   kanba:Kanban;
   busy:boolean = false;  
   constructor(private kanbasService:KanbasService,
-              public dialogRef:MatDialogRef<KanbasEditComponent>,
+              public dialogRef:MatDialogRef<KanbanEditComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit(): void {

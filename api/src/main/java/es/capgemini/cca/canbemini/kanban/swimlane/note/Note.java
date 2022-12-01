@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import es.capgemini.cca.canbemini.kanban.swimlane.Swimlane;
 
 @Entity
@@ -17,7 +19,7 @@ import es.capgemini.cca.canbemini.kanban.swimlane.Swimlane;
 public class Note {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
@@ -26,9 +28,19 @@ public class Note {
     /*
      * @OneToMany(mappedBy = "note") private Set<Attachment> attachment;
      */
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "swimlane_id")
     private Swimlane swimlane;
+
+    public Note(String content, Swimlane swimlane) {
+        this.content = content;
+        this.swimlane = swimlane;
+    }
+
+    protected Note() {
+
+    }
 
     public Long getId() {
         return id;

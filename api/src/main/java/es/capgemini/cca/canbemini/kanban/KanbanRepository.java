@@ -10,7 +10,7 @@ public interface KanbanRepository extends CrudRepository<Kanban, Long> {
 
     List<Kanban> findByTitle(String title);
 
-    @Query("select k from Kanban k")
+    @Query("select distinct k from Kanban k JOIN UserKanbanPermission ukp ON k.id = ukp.kanban.id WHERE ukp.users.id = :userId")
     List<Kanban> findUserKanbans(@Param("userId") Long userId);
     // Kanban findById(Long id);
 }

@@ -8,6 +8,7 @@ import { KanbasService } from 'src/app/kanbas/kanbas.service';
 
 import { KanbaSelectComponent } from './kanba-select.component';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('KanbaSelectComponent', () => {
   let component: KanbaSelectComponent;
@@ -17,7 +18,7 @@ describe('KanbaSelectComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        // HttpClientTestingModule,
+        HttpClientTestingModule,
         CoreModule
       ],
       declarations: [KanbaSelectComponent],

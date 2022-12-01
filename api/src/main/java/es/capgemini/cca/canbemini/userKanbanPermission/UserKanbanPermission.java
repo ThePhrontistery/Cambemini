@@ -8,6 +8,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import es.capgemini.cca.canbemini.kanban.Kanban;
 import es.capgemini.cca.canbemini.permission.Permission;
 import es.capgemini.cca.canbemini.users.Users;
@@ -16,20 +18,33 @@ import es.capgemini.cca.canbemini.users.Users;
 @Table(name = "User_kanban_permission")
 public class UserKanbanPermission {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
     private Users users;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "kanban_id")
     private Kanban kanban;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "permission_id")
     private Permission permission;
+
+    public UserKanbanPermission(Users user, Kanban kanban, Permission permission) {
+        this.users = user;
+        this.kanban = kanban;
+        this.permission = permission;
+    }
+
+    protected UserKanbanPermission() {
+
+    }
 
     public Long getId() {
         return id;

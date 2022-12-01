@@ -1,5 +1,5 @@
 
-import { Lane } from './../model/Lane';
+import { Lane } from '../model/Lane';
 import { Title } from '@angular/platform-browser';
 import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit } from '@angular/core';
@@ -14,10 +14,10 @@ import { ActivatedRoute } from '@angular/router';
 import { Task } from '../model/Task';
 @Component({
   selector: 'app-kanba-list',
-  templateUrl: './kanba-list.component.html',
-  styleUrls: ['./kanba-list.component.scss'],
+  templateUrl: './kanban.component.html',
+  styleUrls: ['./kanban.component.scss'],
 })
-export class KanbaListComponent implements OnInit {
+export class KanbanComponent implements OnInit {
   lanes: Lane[] = [];
   kanbasListId: string[] = [];
   code: string;

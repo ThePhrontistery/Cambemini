@@ -36,7 +36,7 @@ public class UsersServiceImpl implements UsersService {
         else
             users = this.findUsers(id);
 
-        users.setUsername(usersDto.getUsername());
+        users.setEmail(usersDto.getEmail());
 
         this.usersRepository.save(users);
     }
