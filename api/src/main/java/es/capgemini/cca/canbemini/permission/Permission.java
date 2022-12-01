@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import es.capgemini.cca.canbemini.userKanbanPermission.UserKanbanPermission;
 
 @Entity
@@ -24,6 +26,7 @@ public class Permission {
     private String rol;
 
     @OneToMany(mappedBy = "permission")
+    @JsonIgnore
     private Set<UserKanbanPermission> user_kanban_permission;
 
     public Permission(String role) {

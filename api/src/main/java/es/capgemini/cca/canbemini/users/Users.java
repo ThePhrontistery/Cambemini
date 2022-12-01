@@ -13,6 +13,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import es.capgemini.cca.canbemini.userKanbanPermission.UserKanbanPermission;
 
 @Entity
@@ -26,6 +28,7 @@ public class Users {
     private String email;
 
     @OneToMany(mappedBy = "users")
+    @JsonIgnore
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<UserKanbanPermission> user_kanban_permission;
 

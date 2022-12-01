@@ -21,7 +21,7 @@ public class UserKanbanPermission {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonIgnore
+    //@JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
     private Users users;
@@ -31,7 +31,7 @@ public class UserKanbanPermission {
     @JoinColumn(name = "kanban_id")
     private Kanban kanban;
 
-    @JsonIgnore
+    //@JsonIgnore
     @ManyToOne
     @JoinColumn(name = "permission_id")
     private Permission permission;
