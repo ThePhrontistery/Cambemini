@@ -19,8 +19,8 @@
                {{item.description}}
               </p>
               <div class="flet-start">
-                <div class="user ml" *ngFor="let user of item.users">
-                      {{user.initial}}
+                <div class="user ml" *ngFor="let itemUserKanbanPermission of item.userKanbanPermission">
+                      {{itemUserKanbanPermission.users.email |  slice:0:3 }}
                  </div>
               </div>
             </mat-card-content>

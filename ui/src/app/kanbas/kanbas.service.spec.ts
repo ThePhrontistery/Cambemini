@@ -1,4 +1,4 @@
-import { Kanban } from './model/Kanbas';
+import { Kanban } from './model/Kanban';
 import { KanbasService } from 'src/app/kanbas/kanbas.service';
 import { TestBed } from '@angular/core/testing';
 

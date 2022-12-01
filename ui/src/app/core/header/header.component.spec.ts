@@ -1,4 +1,4 @@
-import { Kanban } from './../../kanbas/model/Kanbas';
+import { Kanban } from '../../kanbas/model/Kanban';
 import { LANE_DATA_LIST } from './../../kanbas/model/mock-kanbas-list';
 
 import { take, map } from 'rxjs/operators';

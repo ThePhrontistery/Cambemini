@@ -2,7 +2,7 @@ import { Component, OnInit, Inject} from '@angular/core';
 import { KanbasService } from '../kanbas.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Kanban } from '../model/Kanbas';
+import { Kanban } from '../model/Kanban';
 
 @Component({
   selector: 'app-kanbas-edit',
@@ -37,7 +37,7 @@ export class KanbanEditComponent implements OnInit {
 
     if(this.busy === true) return false ;
     this.busy = true;
-    this.kanba.code = this.kanba.title;
+    
     
     this.kanbasService.saveKanban(this.kanba).subscribe(result =>  {
       this.dialogRef.close();

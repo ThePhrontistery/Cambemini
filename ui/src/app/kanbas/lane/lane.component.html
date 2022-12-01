@@ -2,7 +2,7 @@
 <div
     cdkDropList
     id="list{{index}}" [cdkDropListConnectedTo]="listId"     
-    [cdkDropListData]="lane.items"
+    [cdkDropListData]="lane.notes"
     (cdkDropListDropped)="drop($event,lane.id)"
     class = "task-list"
 >
@@ -23,7 +23,7 @@
        
     </mat-card-content>
         <div class="min-width">
-            <app-task [taskLane]="lane"  [index]="i" [indexY]="index" *ngFor="let itemKanba of lane.items;let i=index;" [item]="itemKanba"></app-task>
+            <app-note [taskLane]="lane"  [index]="i" [indexY]="index" *ngFor="let itemKanba of lane.notes;let i=index;" [item]="itemKanba"></app-note>
         </div>
   </mat-card>
 </div>

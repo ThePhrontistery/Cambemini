@@ -1,9 +1,9 @@
-import { TaskEditComponent } from './task-edit/task-edit.component';
+import { NoteEditComponent } from './note-edit/note-edit.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { KanbanComponent } from './kanban/kanban.component';
-import { TaskComponent } from './task/task.component';
+import { NoteComponent } from './note/note.component';
 import { LaneComponent } from './lane/lane.component';
 import {  NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -19,11 +19,10 @@ import { KanbanEditComponent } from './kanban-edit/kanban-edit.component';
 @NgModule({
   declarations: [
     LaneComponent,
-    TaskComponent,
+    NoteComponent,
     KanbanComponent,
     KanbanEditComponent,
-    TaskComponent,
-    TaskEditComponent,
+    NoteEditComponent,
     LaneEditComponent,
     KanbasListComponent,    
   ],

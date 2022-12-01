@@ -1,19 +1,19 @@
-import { TaskEditComponent } from '../task-edit/task-edit.component';
+import { NoteEditComponent } from '../note-edit/note-edit.component';
 import { KanbasService } from '../kanbas.service';
 
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Lane } from '../model/Lane';
-import { Task } from '../model/Task';
+import { Notes } from '../model/Notes';
 
 @Component({
-  selector: 'app-task',
-  templateUrl: './task.component.html',
-  styleUrls: ['./task.component.css']
+  selector: 'app-note',
+  templateUrl: './note.component.html',
+  styleUrls: ['./note.component.css']
 })
-export class TaskComponent implements OnInit {
+export class NoteComponent implements OnInit {
 
-  @Input()item: Task; 
+  @Input()item: Notes; 
   @Input()index: number;
   @Input()indexY: number;
   @Input()taskLane: Lane;
@@ -31,7 +31,7 @@ export class TaskComponent implements OnInit {
   }
 
   edit(){
-    const dialogRef = this.dialog.open(TaskEditComponent, {
+    const dialogRef = this.dialog.open(NoteEditComponent, {
       data: { task: this.item ,
               lane:this.taskLane
         }

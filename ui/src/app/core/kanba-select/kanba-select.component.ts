@@ -1,4 +1,4 @@
-import { Kanban } from '../../kanbas/model/Kanbas';
+import { Kanban } from '../../kanbas/model/Kanban';
 import { KanbasService } from '../../kanbas/kanbas.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Component, Inject, OnInit } from '@angular/core';
@@ -20,7 +20,7 @@ export class KanbaSelectComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.KanbasService.getKanban().subscribe(x=>{
+    this.KanbasService.getKanbans(1).subscribe(x=>{
       this.listKanbas=x;
     })
     this.select = this.listKanbas.find(x=>x.select==true);

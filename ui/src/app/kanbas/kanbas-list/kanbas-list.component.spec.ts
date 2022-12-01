@@ -1,5 +1,5 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { Kanban } from '../model/Kanbas';
+import { Kanban } from '../model/Kanban';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
 

@@ -1,10 +1,11 @@
-import { Kanban } from "./Kanbas";
+import { Kanban } from './Kanban';
+
 import { Permission } from "./Permission";
 import { User } from "./User";
 
 export interface UserKanbanPermission {
     id: number,
-    user: User,
-    kanban: Kanban,
+    users: User, 
+    Kanban ?:Kanban,   
     permission: Permission
 }

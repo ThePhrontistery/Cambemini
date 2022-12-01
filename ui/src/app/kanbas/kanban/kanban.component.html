@@ -3,12 +3,12 @@
 
 <div class="justify-content-center mt" >
     <div class="addButton">
-        <button mat-fab color="primary" (click)="add()" aria-label="Example icon button with a delete icon">
+        <button mat-fab color="primary" (click)="add()">
             <mat-icon>add</mat-icon>
-            </button>
+        </button>
     </div>
 
-    <div class="justify-content-center oauto" >
+    <div class="justify-content-center" >
         <div class="lane-list" cdkDropList cdkDropListOrientation="horizontal"
          (cdkDropListDropped)="drop($event)">
             <div class="list-box" *ngFor="let item of lanes;let i=index; " cdkDrag>
@@ -17,7 +17,7 @@
                             id="xlist{{i}}" [cdkDropListConnectedTo]="['xlist1','xlist0']"     
                             [cdkDropListData]="kanbas"
                             (cdkDropListDropped)="drop($event)"> -->
-                    <app-lane [lane]="item" [index]="i" [listId]="kanbasListId"></app-lane>
+                    <app-lane [lane]="item" [index]="i" [kanbanId]="kanbanId" [listId]="kanbasListId"></app-lane>
                 <!-- </div> -->
             </div>
             </div>

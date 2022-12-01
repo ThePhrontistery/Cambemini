@@ -3,7 +3,7 @@ import { KanbanEditComponent } from '../kanban-edit/kanban-edit.component';
 import { MatDialog } from '@angular/material/dialog';
 import { KanbasService } from '../kanbas.service';
 import { Router } from '@angular/router';
-import { Kanban } from '../model/Kanbas';
+import { Kanban } from '../model/Kanban';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -17,19 +17,21 @@ export class KanbasListComponent implements OnInit {
   constructor(
     private router: Router,
     private kanbaService: KanbasService,
-    public matDialog: MatDialog
+    public matDialog: MatDialog,
+    
+
   ) {}
 
   ngOnInit(): void {
-    this.kanbaService.getKanban().subscribe((kanba) => {
+    this.kanbaService.getKanbans(1).subscribe((kanba) => {
       this.listKanbas = kanba;
     });
    
   }
-
+ 
   go(item: Kanban) {
     this.kanbaService.kanba = item;
-    this.router.navigate(['kanbas', item.code]);
+    this.router.navigate(['kanbas', item.id]);
     return true;
   }
 
@@ -46,13 +48,13 @@ export class KanbasListComponent implements OnInit {
     this.kanbaService.removeKanban(kanban).subscribe((result) => {
       this.ngOnInit();
     });
-    // dialogRef.afterClosed().subscribe((result) => {
-    //   if (result) {
-    //     this.kanbaService.removeKanban(kanban).subscribe((result) => {
-    //       this.ngOnInit();
-    //     });
-    //   }
-    // });
+     dialogRef.afterClosed().subscribe((result) => {
+       if (result) {
+         this.kanbaService.removeKanban(kanban).subscribe((result) => {
+           this.ngOnInit();
+         });
+       }
+     });
   }
 
   newKanba() {

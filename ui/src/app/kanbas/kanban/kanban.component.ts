@@ -1,6 +1,6 @@
 
 import { Lane } from '../model/Lane';
-import { Title } from '@angular/platform-browser';
+
 import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit } from '@angular/core';
 import { KanbasService } from '../kanbas.service';
@@ -11,7 +11,7 @@ import {
 } from '@angular/cdk/drag-drop';
 import { LaneEditComponent } from '../lane-edit/lane-edit.component';
 import { ActivatedRoute } from '@angular/router';
-import { Task } from '../model/Task';
+import { Notes } from '../model/Notes';
 @Component({
   selector: 'app-kanba-list',
   templateUrl: './kanban.component.html',
@@ -20,7 +20,8 @@ import { Task } from '../model/Task';
 export class KanbanComponent implements OnInit {
   lanes: Lane[] = [];
   kanbasListId: string[] = [];
-  code: string;
+  kanbanId:number;
+  userId:number = 1;
   constructor(
     private KanbasService: KanbasService,
     private dialog: MatDialog,
@@ -28,30 +29,31 @@ export class KanbanComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.code = this.activatedRoute.snapshot.params.code;
-    this.KanbasService.getKanban().subscribe((kanbas) => {
-      let kanba = kanbas.find((kanba) => kanba.code == this.code);
-      // this.lanes.push(...this.KanbasService.kanba.lanes);
-      this.lanes.push(...kanba.swimlanes);
+    
+    this.kanbanId = Number(this.activatedRoute.snapshot.params.id);
+    
+    this.KanbasService.getKanban(this.userId,this.kanbanId).subscribe((kanban) => {
+      this.lanes.push(...kanban[0].swimlanes);
+      this.lanes.forEach((e, i) => {
+        this.kanbasListId.push('list' + i);
+      });
     });
-
-    this.lanes.forEach((e, i) => {
-      this.kanbasListId.push('list' + i);
-    });
+    
 
     this.KanbasService.emitDeleteCard.subscribe((y) => {
-      this.lanes[y.KanbaIndex].items.splice(y.Itemindex, 1);
+      this.lanes[y.KanbaIndex].notes.splice(y.Itemindex, 1);
     });
 
-    this.KanbasService.emitAddCard.subscribe((entitie: Task) => {
-      let kanba = this.lanes.find((x) => x.id == entitie.laneId);
+    this.KanbasService.emitAddCard.subscribe((noteDrop: any) => {
+      
+      let kanba = this.lanes.find((x) => x.id == noteDrop.laneId);
 
-      if (entitie.id == null) {
-        entitie.id = this.getId();
-        kanba.items.push(entitie);
+      if (noteDrop.note.id == null) {
+        noteDrop.note.id = this.getId();
+        kanba.notes.push(noteDrop.note);
       } else {
-        let index = kanba.items.findIndex((item) => item.id == entitie.id);
-        kanba.items[index] = entitie;
+        let index = kanba.notes.findIndex((item) => item.id == noteDrop.note.id);
+        kanba.notes[index] = noteDrop.note;
       }
     });
 
@@ -82,7 +84,7 @@ export class KanbanComponent implements OnInit {
   getId() {
     let c = 1;
     this.lanes.forEach((r) => {
-      r.items.forEach((l) => {
+      r.notes.forEach((l) => {
         c++;
       });
     });
@@ -90,10 +92,16 @@ export class KanbanComponent implements OnInit {
   }
 
   add() {
+    
     const dialogRef = this.dialog.open(LaneEditComponent, {
-      data: {},
+          data: {kanbanId:this.kanbanId},
     });
 
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.ngOnInit();
+      }
+    });
     return true;
   }
 

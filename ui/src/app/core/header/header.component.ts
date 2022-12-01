@@ -1,6 +1,7 @@
+import { Kanban } from '../../kanbas/model/Kanban';
 
 import { UserJwt } from './../../kanbas/model/UserJwt';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { LoginService } from './../../login/login.service';
 
 import { KanbasService } from './../../kanbas/kanbas.service';
@@ -22,8 +23,9 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.kanbasService.emitKankaSelect.subscribe(x=>{
-      if(x!=null) this.users=x.users
+    this.kanbasService.emitKankaSelect.subscribe(kanban=>{
+      
+      if(kanban!=null) this.users = kanban.userKanbanPermission.map(kan=>kan.users);
        
     })
     this.isLoggedIn = this.loginService.isLoggedIn;

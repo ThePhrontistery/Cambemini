@@ -1,119 +1,57 @@
-import { Kanban } from './Kanbas';
+
+import { Kanban } from './Kanban';
 import { Lane } from "./Lane";
+import { User } from './User';
+
+
 
 export const LANE_DATA_LIST: Lane[] = [
   {
     id: 1,
     title: 'To do',
-    color: '',
-    order: 0,
-    items: [
+    notes: [
       {
         id: 1,
-        title: 'Cloud design',
-        description: 'Design of our cloud-based backend',
-        laneId: 1,
+        content: 'Cloud design',
       },
       {
-        id: 2,
-        title: 'Client tasks usability',
-        description:
+        id: 2,        
+        content:
           'Think and design how clients will interact with notes at the same time',
-        laneId: 1,
-      },
-    ],
-  },
-  {
-    id: 2,
-    title: 'To progress',
-    color: '',
-    order: 0,
-    items: [
-      {
-        id: 3,
-        title: 'UI implementation',
-        description: 'Implementation of our Angular 14 Kanva UI',
-        laneId: 2,
-      },
-    ],
-  },
-  {
-    id: 3,
-    title: 'Done',
-    color: '',
-    order: 0,
-    items: [
-      {
-        id: 4,
-        title: 'UI Design',
-        description: 'Design of our UI to show the partner',
-        laneId: 3,
-      },
-    ],
-  },
-];
-
-export const LANE_DATA_LIST1: Lane[] = [
-  {
-    id: 1,
-    title: 'To do',
-    color: '',
-    order: 0,
-    items: [
-      {
-        id: 1,
-        title: 'Cloud design',
-        description: 'Design of our cloud-based backend',
-        laneId: 1,
-      },
-      {
-        id: 2,
-        title: 'Client tasks usability',
-        description:
-          'Think and design how clients will interact with notes at the same time',
-        laneId: 1,
       },
     ],
   },
   {
     id: 2,
     title: 'To progres',
-    color: '',
-    order: 0,
-    items: [
+  
+
+    notes: [
       {
         id: 3,
-        title: 'UI implementation',
-        description: 'Implementation of our Angular 14 Kanva UI',
-        laneId: 2,
+        content: 'Implementation of our Angular 14 Kanva UI',
       },
     ],
   },
   {
     id: 3,
     title: 'Done',
-    color: '',
-    order: 0,
-    items: [
+    notes: [
       {
         id: 4,
-        title: 'UI Design',
-        description: 'Design of our UI to show the partner',
-        laneId: 3,
+        content: 'UI Design',
+        
       },
     ],
   },
   {
     id: 4,
     title: 'Deploy',
-    color: '',
-    order: 0,
-    items: [
+   
+    notes: [
       {
         id: 5,
-        title: 'UI Design',
-        description: 'Design of our UI to show the partner',
-        laneId: 4,
+        content: 'UI Design',
       },
     ],
   },
@@ -124,27 +62,31 @@ export const KANBAS_DATA_LIST: Kanban[] = [
     id: 1,
     title: 'Escape',
     description: 'Phasellus et lectus nec est vulputate semper in cursus metus. Nam eu odio lacus. Etiam elementum elementum enim a tempus. Quisque id pretium metus. Cras malesuada tellus sed urna placerat commodo.',
-
-    code: 'mural-0001',
     select: true,
-    icon: 'settings_accesibility',
-    users: [
-      { email: 'fredy@test.com', initial: 'FHO', online: true },
-      { initial: 'DAV', email: 'david@test.com', online: false },
+    userKanbanPermission:[
+      {id:1, users:{id:1,email:'mercedes@escape.com', online:false}, permission:{id:1,rol:"Owner"}},
+      {id:2, users:{id:2,email:'raul@escape.com', online:false}, permission:{id:2,rol:"Editor"}}
     ],
+    
     swimlanes:LANE_DATA_LIST
   },
   {
     id: 2,
     title: 'Site',
     description: 'Phasellus et lectus nec est vulputate semper in cursus metus. Nam eu odio lacus. Etiam elementum elementum enim a tempus. Quisque id pretium metus. Cras malesuada tellus sed urna placerat commodo.',
-    code: 'mural-0002',
+    
     select: false,
-    icon: 'settings_accesibility',
-    users: [
-      { email: 'mercedes@test.com', initial: 'FHO', online: false },
-      { email: 'raul@test.com', initial: 'RAU', online: true },
+    userKanbanPermission:[
+      {id:3, users:{id:3,email:'cesar@escape.com', online:false}, permission:{id:1,rol:"Owner"}},
+      {id:4, users:{id:4,email:'jax@escape.com', online:false}, permission:{id:2,rol:"Editor"}},
+      {id:5, users:{id:5,email:'fredy@escape.com', online:false}, permission:{id:3,rol:"Collaborator"}}
     ],
-    swimlanes:LANE_DATA_LIST1
+    swimlanes:LANE_DATA_LIST
   },
 ];
+
+export  const USER:User ={
+  id:1,
+  email:'mercedes@escape.com',
+  online:false
+}

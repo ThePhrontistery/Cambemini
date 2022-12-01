@@ -1,5 +1,5 @@
 import { Lane } from '../model/Lane';
-import { Task } from '../model/Task';
+import { Task } from '../model/Notes';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 import { KanbasService } from '../kanbas.service';

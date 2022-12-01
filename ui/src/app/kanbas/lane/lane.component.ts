@@ -1,7 +1,7 @@
 import { KanbasService } from './../kanbas.service';
 import { Lane } from './../model/Lane';
 import { LaneEditComponent } from '../lane-edit/lane-edit.component';
-import { TaskEditComponent } from '../task-edit/task-edit.component';
+import { NoteEditComponent } from '../note-edit/note-edit.component';
 import { MatDialog } from '@angular/material/dialog';
 import {
   CdkDragDrop,
@@ -21,6 +21,7 @@ export class LaneComponent implements OnInit {
   @Input() lane: Lane;
   @Input() index: number;
   @Input() listId: string[];
+  @Input() kanbanId: number;
   constructor(
     public kanbasService: KanbasService,
     public matDialog: MatDialog
@@ -54,16 +55,26 @@ export class LaneComponent implements OnInit {
   }
 
   add() {
-    const dialogRef = this.matDialog.open(TaskEditComponent, {
+    const dialogRef = this.matDialog.open(NoteEditComponent, {
       data: { lane: this.lane },
     });
     return true;
   }
 
   edit() {
+    
     const dialogRef = this.matDialog.open(LaneEditComponent, {
-      data: { entitie: this.lane },
+      data: { 
+        entitie: this.lane ,
+        kanbanId:this.kanbanId
+      },
     });
+
+    dialogRef.afterClosed().subscribe(res=>{
+      this.kanbasService.emitAddKanba.emit(res);
+
+    })
+
     return true;
   }
 
