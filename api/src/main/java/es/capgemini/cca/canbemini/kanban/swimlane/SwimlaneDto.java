@@ -2,12 +2,15 @@ package es.capgemini.cca.canbemini.kanban.swimlane;
 
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import es.capgemini.cca.canbemini.kanban.Kanban;
 import es.capgemini.cca.canbemini.kanban.swimlane.note.Note;
 
 public class SwimlaneDto {
     private Long id;
 
+    @JsonIgnore
     private Kanban kanban;
 
     private Set<Note> notes;

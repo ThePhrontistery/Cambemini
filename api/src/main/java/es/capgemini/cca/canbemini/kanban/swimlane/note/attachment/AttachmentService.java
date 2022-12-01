@@ -4,9 +4,11 @@ import java.util.List;
 
 public interface AttachmentService {
 
-    List<Attachment> findAll();
+    List<Attachment> findAttachmentNotes(Long noteId);
 
     Attachment findAttachment(Long id);
 
     void deleteAttachment(Long id);
+
+    void saveAttachment(Long id, AttachmentDto attachmentDto);
 }

@@ -9,19 +9,18 @@ import org.springframework.context.annotation.Bean;
 
 import es.capgemini.cca.canbemini.kanban.Kanban;
 import es.capgemini.cca.canbemini.kanban.KanbanRepository;
-<<<<<<< HEAD
-=======
 import es.capgemini.cca.canbemini.kanban.swimlane.Swimlane;
 import es.capgemini.cca.canbemini.kanban.swimlane.SwimlaneRepository;
 import es.capgemini.cca.canbemini.kanban.swimlane.note.Note;
 import es.capgemini.cca.canbemini.kanban.swimlane.note.NoteRepository;
+import es.capgemini.cca.canbemini.kanban.swimlane.note.attachment.Attachment;
+import es.capgemini.cca.canbemini.kanban.swimlane.note.attachment.AttachmentRepository;
 import es.capgemini.cca.canbemini.permission.Permission;
 import es.capgemini.cca.canbemini.permission.PermissionRepository;
 import es.capgemini.cca.canbemini.userKanbanPermission.UserKanbanPermission;
 import es.capgemini.cca.canbemini.userKanbanPermission.UserKanbanPermissionRepository;
 import es.capgemini.cca.canbemini.users.Users;
 import es.capgemini.cca.canbemini.users.UsersRepository;
->>>>>>> 4fd6d58e4a13c1e722203266e81c67684af98c1a
 
 @SpringBootApplication
 public class CanbeminiApplication {
@@ -33,16 +32,9 @@ public class CanbeminiApplication {
     }
 
     @Bean
-<<<<<<< HEAD
-    public CommandLineRunner demo(KanbanRepository repository) {
-        return (args) -> {
-            // save a few customers
-            repository.save(new Kanban("My first Kanban"));
-            repository.save(new Kanban("A second Kanban"));
-=======
     public CommandLineRunner demo(KanbanRepository kanbanRepository, SwimlaneRepository swimlaneRepository,
             NoteRepository noteRepository, UsersRepository usersRepository, PermissionRepository permissionRepository,
-            UserKanbanPermissionRepository ukpRepository) {
+            AttachmentRepository attachmentRepository, UserKanbanPermissionRepository ukpRepository) {
         return (args) -> {
             // save a few customers
             Users user1 = new Users("cesar@email.com");
@@ -99,6 +91,16 @@ public class CanbeminiApplication {
             noteRepository.save(note9);
             noteRepository.save(note10);
 
+            // save a few attachments
+            Attachment attach1 = new Attachment(note1, "url1");
+            Attachment attach2 = new Attachment(note2, "url2");
+            Attachment attach3 = new Attachment(note3, "url3");
+            Attachment attach4 = new Attachment(note4, "url4");
+            attachmentRepository.save(attach1);
+            attachmentRepository.save(attach2);
+            attachmentRepository.save(attach3);
+            attachmentRepository.save(attach4);
+
             // save a few permissions
             Permission permission1 = new Permission("Owner");
             Permission permission2 = new Permission("Editor");
@@ -120,34 +122,23 @@ public class CanbeminiApplication {
             ukpRepository.save(ukp4);
             ukpRepository.save(ukp5);
             ukpRepository.save(ukp6);
->>>>>>> 4fd6d58e4a13c1e722203266e81c67684af98c1a
 
             // fetch all Kanbans
             log.info("Kanbans found with findAll():");
             log.info("-------------------------------");
-<<<<<<< HEAD
-            for (Kanban kanban : repository.findAll()) {
-=======
             for (Kanban kanban : kanbanRepository.findAll()) {
->>>>>>> 4fd6d58e4a13c1e722203266e81c67684af98c1a
                 log.info(kanban.toString());
             }
             log.info("");
 
             // fetch an individual Kanban by ID
-<<<<<<< HEAD
-            Kanban kanban = repository.findById(1L).orElse(null);
-            log.info("Kanban found with findById(1L):");
-            log.info("--------------------------------");
-            log.info(kanban.toString());
-=======
             Kanban kanban = kanbanRepository.findById(1L).orElse(null);
             log.info("Kanban found with findById(1L):");
             log.info("--------------------------------");
             // log.info(kanban.toString());
->>>>>>> 4fd6d58e4a13c1e722203266e81c67684af98c1a
             log.info("");
 
         };
     }
+
 }

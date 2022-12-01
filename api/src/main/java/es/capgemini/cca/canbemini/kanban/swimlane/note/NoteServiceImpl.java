@@ -12,8 +12,8 @@ public class NoteServiceImpl implements NoteService {
     NoteRepository noteRepository;
 
     @Override
-    public List<Note> findAll() {
-        return (List<Note>) this.noteRepository.findAll();
+    public List<Note> findAllSwimlaneNotes(Long swimlaneId) {
+        return (List<Note>) this.noteRepository.findAllSwimlaneNotes(swimlaneId);
     }
 
     @Override

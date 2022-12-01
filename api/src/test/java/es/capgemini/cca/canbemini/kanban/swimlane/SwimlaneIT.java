@@ -53,7 +53,7 @@ public class SwimlaneIT {
                 .exchange(LOCALHOST + port + SERVICE_PATH + EXIST_KANBAN_ID, HttpMethod.GET, null, responseType);
 
         assertNotNull(response);
-        assertEquals(6, response.getBody().size());
+        assertEquals(3, response.getBody().size());
     }
 
     @Test
@@ -68,7 +68,7 @@ public class SwimlaneIT {
                 .exchange(LOCALHOST + port + SERVICE_PATH + EXISTS_SWIMLANE_ID, HttpMethod.GET, null, responseType);
 
         assertNotNull(response);
-        assertEquals(7, response.getBody().size());
+        assertEquals(3, response.getBody().size());
 
         SwimlaneDto swimlaneSearch = response.getBody().stream().filter(item -> item.getId().equals(NEW_SWIMLANE_ID))
                 .findFirst().orElse(null);
@@ -88,7 +88,7 @@ public class SwimlaneIT {
         ResponseEntity<List<SwimlaneDto>> response = restTemplate
                 .exchange(LOCALHOST + port + SERVICE_PATH + EXISTS_SWIMLANE_ID, HttpMethod.GET, null, responseType);
         assertNotNull(response);
-        assertEquals(2, response.getBody().size());
+        assertEquals(3, response.getBody().size());
 
         SwimlaneDto swimlaneSearch = response.getBody().stream().filter(item -> item.getId().equals(MODIFY_SWIMLANE_ID))
                 .findFirst().orElse(null);
@@ -105,7 +105,7 @@ public class SwimlaneIT {
         ResponseEntity<List<SwimlaneDto>> response = restTemplate
                 .exchange(LOCALHOST + port + SERVICE_PATH + EXISTS_SWIMLANE_ID, HttpMethod.GET, null, responseType);
         assertNotNull(response);
-        assertEquals(1, response.getBody().size());
+        assertEquals(3, response.getBody().size());
     }
 
 }

@@ -31,9 +31,9 @@ public class NoteController {
         return noteMapper.NoteToNoteDto(noteService.getNote(id));
     }
 
-    @RequestMapping(path = "", method = RequestMethod.GET)
-    public List<NoteDto> getAllNotes() {
-        return noteMapper.map(noteService.findAll());
+    @RequestMapping(path = "/{swimlaneId}", method = RequestMethod.GET)
+    public List<NoteDto> getAllNotes(@PathVariable("swimlaneId") Long swimlaneId) {
+        return noteMapper.map(noteService.findAllSwimlaneNotes(swimlaneId));
     }
 
     @RequestMapping(path = { "", "/{id}" }, method = RequestMethod.PUT)

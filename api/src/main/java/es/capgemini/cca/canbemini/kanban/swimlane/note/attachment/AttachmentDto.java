@@ -1,37 +1,24 @@
 package es.capgemini.cca.canbemini.kanban.swimlane.note.attachment;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import es.capgemini.cca.canbemini.kanban.swimlane.note.Note;
 
-@Entity
-@Table(name = "Attachment")
-public class Attachment {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+public class AttachmentDto {
+
     private Long id;
 
-    @Column(name = "document_path")
     private String document_path;
 
-    @ManyToOne
-    @JoinColumn(name = "note_id")
+    @JsonIgnore
     private Note note;
 
-    public Attachment(Note note, String document_path) {
+    public AttachmentDto(Note note, String document_path) {
         this.note = note;
         this.document_path = document_path;
     }
 
-    protected Attachment() {
+    protected AttachmentDto() {
 
     }
 

@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface NoteService {
 
-    List<Note> findAll();
+    List<Note> findAllSwimlaneNotes(Long swimlaneId);
 
     Note getNote(Long id);
 

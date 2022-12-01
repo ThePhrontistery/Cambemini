@@ -10,6 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import es.capgemini.cca.canbemini.userKanbanPermission.UserKanbanPermission;
 
 @Entity
@@ -23,6 +26,7 @@ public class Users {
     private String email;
 
     @OneToMany(mappedBy = "users")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<UserKanbanPermission> user_kanban_permission;
 
     public Users(String email) {

@@ -33,9 +33,9 @@ public class NoteTest {
         List<Note> list = new ArrayList<>();
         list.add(mock(Note.class));
 
-        when(noteRepository.findAll()).thenReturn(list);
+        when(noteRepository.findAllSwimlaneNotes(1L)).thenReturn(list);
 
-        List<Note> notes = noteService.findAll();
+        List<Note> notes = noteService.findAllSwimlaneNotes(2L);
 
         assertNotNull(notes);
         assertEquals(1, notes.size());
