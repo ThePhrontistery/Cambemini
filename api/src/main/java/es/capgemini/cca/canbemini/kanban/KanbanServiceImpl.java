@@ -5,11 +5,16 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import es.capgemini.cca.canbemini.userKanbanPermission.UserKanbanPermissionService;
+
 @Service
 public class KanbanServiceImpl implements KanbanService {
 
     @Autowired
     KanbanRepository kanbanRepository;
+
+    @Autowired
+    UserKanbanPermissionService ukpService;
 
     @Override
     public List<Kanban> findUserKanbans(Long userId) {
@@ -27,7 +32,7 @@ public class KanbanServiceImpl implements KanbanService {
     }
 
     @Override
-    public void saveKanban(Long id, KanbanDto kanbanDto) {
+    public void saveKanban(Long id, KanbanDto kanbanDto, Long userId) {
         Kanban kanban = null;
         if (id == null)
             kanban = new Kanban();
@@ -35,8 +40,12 @@ public class KanbanServiceImpl implements KanbanService {
             kanban = this.getKanban(id);
 
         kanban.setTitle(kanbanDto.getTitle());
+        kanban.setDescription(kanbanDto.getDescription());
+
+        this.ukpService.saveUkp(null, userId, kanbanDto, 1L);
 
         this.kanbanRepository.save(kanban);
+
     }
 
 }

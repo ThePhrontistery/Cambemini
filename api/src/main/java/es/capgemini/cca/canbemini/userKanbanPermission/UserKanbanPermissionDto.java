@@ -1,17 +1,17 @@
 package es.capgemini.cca.canbemini.userKanbanPermission;
 
-import es.capgemini.cca.canbemini.kanban.Kanban;
-import es.capgemini.cca.canbemini.permission.Permission;
-import es.capgemini.cca.canbemini.users.Users;
+import es.capgemini.cca.canbemini.kanban.KanbanDto;
+import es.capgemini.cca.canbemini.permission.PermissionDto;
+import es.capgemini.cca.canbemini.users.UsersDto;
 
 public class UserKanbanPermissionDto {
     private Long id;
 
-    private Users users;
+    private UsersDto usersDto;
 
-    private Kanban kanban;
+    private KanbanDto kanbanDto;
 
-    private Permission permission;
+    private PermissionDto permissionDto;
 
     public Long getId() {
         return id;
@@ -21,27 +21,27 @@ public class UserKanbanPermissionDto {
         this.id = id;
     }
 
-    public Users getUsers() {
-        return users;
+    public UsersDto getUsersDto() {
+        return usersDto;
     }
 
-    public void setUsers(Users users) {
-        this.users = users;
+    public void setUsersDto(UsersDto usersDto) {
+        this.usersDto = usersDto;
     }
 
-    public Kanban getKanban() {
-        return kanban;
+    public KanbanDto getKanbanDto() {
+        return kanbanDto;
     }
 
-    public void setKanban(Kanban kanban) {
-        this.kanban = kanban;
+    public void setKanbanDto(KanbanDto kanbanDto) {
+        this.kanbanDto = kanbanDto;
     }
 
-    public Permission getPermission() {
-        return permission;
+    public PermissionDto getPermissionDto() {
+        return permissionDto;
     }
 
-    public void setPermission(Permission permission) {
-        this.permission = permission;
+    public void setPermissionDto(PermissionDto permissionDto) {
+        this.permissionDto = permissionDto;
     }
 }

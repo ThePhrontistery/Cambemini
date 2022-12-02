@@ -82,7 +82,7 @@ public class KanbanTest {
 
         ArgumentCaptor<Kanban> kanban = ArgumentCaptor.forClass(Kanban.class);
 
-        kanbanService.saveKanban(null, kanbanDto);
+        kanbanService.saveKanban(null, kanbanDto, EXISTS_USER_ID);
 
         verify(kanbanRepository).save(kanban.capture());
 
@@ -99,7 +99,7 @@ public class KanbanTest {
 
         when(kanbanRepository.findById(EXISTS_KANBAN_ID)).thenReturn(Optional.of(kanban));
 
-        kanbanService.saveKanban(EXISTS_KANBAN_ID, kanbanDto);
+        kanbanService.saveKanban(EXISTS_KANBAN_ID, kanbanDto, EXISTS_USER_ID);
 
         verify(kanbanRepository).save(kanban);
     }

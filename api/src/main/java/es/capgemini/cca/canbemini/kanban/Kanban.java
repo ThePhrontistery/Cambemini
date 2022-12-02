@@ -27,10 +27,10 @@ public class Kanban {
     @Column(name = "description", nullable = false)
     private String description;
 
-    @OneToMany(mappedBy = "kanban")
+    @OneToMany(mappedBy = "kanban", orphanRemoval = true)
     private Set<UserKanbanPermission> userKanbanPermission;
 
-    @OneToMany(mappedBy = "kanban")
+    @OneToMany(mappedBy = "kanban", orphanRemoval = true)
     private Set<Swimlane> swimlanes;
 
     public Kanban(String title, String description) {

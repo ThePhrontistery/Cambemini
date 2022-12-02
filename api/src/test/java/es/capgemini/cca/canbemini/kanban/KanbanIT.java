@@ -17,6 +17,9 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.annotation.DirtiesContext;
 
+import es.capgemini.cca.canbemini.userKanbanPermission.UserKanbanPermissionServiceImpl;
+import es.capgemini.cca.canbemini.users.UsersServiceImpl;
+
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 
@@ -24,9 +27,17 @@ public class KanbanIT {
 
     public static final String LOCALHOST = "http://localhost:";
     public static final String SERVICE_PATH = "/api/kanban/";
+    public static final String SERVICE_PATH_USER = "/api/users/";
+    public static final String SERVICE_PATH_UKP = "/api/ukp/";
 
     @InjectMocks
     KanbanServiceImpl kanbanService;
+
+    @InjectMocks
+    UsersServiceImpl userService;
+
+    @InjectMocks
+    UserKanbanPermissionServiceImpl ukpService;
 
     @LocalServerPort
     private int port;
@@ -58,11 +69,14 @@ public class KanbanIT {
 
     @Test
     public void saveWithoutIdShouldCreateNewKanban() {
-        KanbanDto dto = new KanbanDto();
+        KanbanDto kanbanDto = new KanbanDto();
+        kanbanDto.setTitle(NEW_KANBAN_TITLE);
 
-        dto.setTitle(NEW_KANBAN_TITLE);
+        restTemplate.exchange(LOCALHOST + port + SERVICE_PATH, HttpMethod.PUT, new HttpEntity<>(kanbanDto), Void.class);
 
-        restTemplate.exchange(LOCALHOST + port + SERVICE_PATH, HttpMethod.PUT, new HttpEntity<>(dto), Void.class);
+        // restTemplate.exchange(LOCALHOST + port + SERVICE_PATH_UKP, HttpMethod.PUT,
+        // new HttpEntity<>(kanbanDto),Void.class);
+        ukpService.saveUkp(null, EXIST_USER_ID, kanbanDto, 1L);
 
         ResponseEntity<List<KanbanDto>> response = restTemplate
                 .exchange(LOCALHOST + port + SERVICE_PATH + EXIST_USER_ID, HttpMethod.GET, null, responseType);

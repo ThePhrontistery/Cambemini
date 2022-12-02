@@ -50,9 +50,10 @@ public class KanbanController {
         return kanbanMapper.map(kanbanService.findUserKanbans(userId));
     }
 
-    @RequestMapping(path = { "", "/{id}" }, method = RequestMethod.PUT)
-    public void save(@PathVariable(name = "id", required = false) Long id, @RequestBody KanbanDto kanban) {
-        kanbanService.saveKanban(id, kanban);
+    @RequestMapping(path = { "/save/{userId}", "/save/{id}/{userId}" }, method = RequestMethod.PUT)
+    public void save(@PathVariable(name = "id", required = false) Long id, @RequestBody KanbanDto kanban,
+            @PathVariable(name = "userId") Long userId) {
+        kanbanService.saveKanban(id, kanban, userId);
     }
 
     @RequestMapping(path = "{id}", method = RequestMethod.DELETE)

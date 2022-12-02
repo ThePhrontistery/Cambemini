@@ -2,8 +2,8 @@ package es.capgemini.cca.canbemini.kanban;
 
 import java.util.Set;
 
-import es.capgemini.cca.canbemini.kanban.swimlane.Swimlane;
-import es.capgemini.cca.canbemini.userKanbanPermission.UserKanbanPermission;
+import es.capgemini.cca.canbemini.kanban.swimlane.SwimlaneDto;
+import es.capgemini.cca.canbemini.userKanbanPermission.UserKanbanPermissionDto;
 
 public class KanbanDto {
 
@@ -13,9 +13,9 @@ public class KanbanDto {
 
     private String description;
 
-    private Set<UserKanbanPermission> userKanbanPermission;
+    private Set<UserKanbanPermissionDto> userKanbanPermission;
 
-    private Set<Swimlane> swimlanes;
+    private Set<SwimlaneDto> swimlanes;
 
     public KanbanDto(String title) {
         this.title = title;
@@ -49,19 +49,19 @@ public class KanbanDto {
         this.description = description;
     }
 
-    public Set<UserKanbanPermission> getUserKanbanPermission() {
+    public Set<UserKanbanPermissionDto> getUserKanbanPermission() {
         return userKanbanPermission;
     }
 
-    public void setUserKanbanPermission(Set<UserKanbanPermission> userKanbanPermission) {
+    public void setUserKanbanPermission(Set<UserKanbanPermissionDto> userKanbanPermission) {
         this.userKanbanPermission = userKanbanPermission;
     }
 
-    public Set<Swimlane> getSwimlanes() {
+    public Set<SwimlaneDto> getSwimlanes() {
         return swimlanes;
     }
 
-    public void setSwimlanes(Set<Swimlane> swimlanes) {
+    public void setSwimlanes(Set<SwimlaneDto> swimlanes) {
         this.swimlanes = swimlanes;
     }
 

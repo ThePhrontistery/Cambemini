@@ -12,9 +12,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import es.capgemini.cca.canbemini.kanban.swimlane.Swimlane;
@@ -34,12 +31,11 @@ public class Note {
     private String content;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "note")
+    @OneToMany(mappedBy = "note", orphanRemoval = true)
     private Set<Attachment> attachment;
 
     @JsonIgnore
     @ManyToOne
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "swimlane_id")
     private Swimlane swimlane;
 
