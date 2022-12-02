@@ -12,6 +12,7 @@ import {
 import { LaneEditComponent } from '../lane-edit/lane-edit.component';
 import { ActivatedRoute } from '@angular/router';
 import { Notes } from '../model/Notes';
+import { ThisReceiver } from '@angular/compiler';
 @Component({
   selector: 'app-kanba-list',
   templateUrl: './kanban.component.html',
@@ -29,7 +30,8 @@ export class KanbanComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    
+    this.lanes = [];
+    this.kanbasListId =[];
     this.kanbanId = Number(this.activatedRoute.snapshot.params.id);
     
     this.KanbasService.getKanban(this.userId,this.kanbanId).subscribe((kanban) => {
@@ -39,37 +41,6 @@ export class KanbanComponent implements OnInit {
       });
     });
     
-
-    this.KanbasService.emitDeleteCard.subscribe((y) => {
-      this.lanes[y.KanbaIndex].notes.splice(y.Itemindex, 1);
-    });
-
-    this.KanbasService.emitAddCard.subscribe((noteDrop: any) => {
-      
-      let kanba = this.lanes.find((x) => x.id == noteDrop.laneId);
-
-      if (noteDrop.note.id == null) {
-        noteDrop.note.id = this.getId();
-        kanba.notes.push(noteDrop.note);
-      } else {
-        let index = kanba.notes.findIndex((item) => item.id == noteDrop.note.id);
-        kanba.notes[index] = noteDrop.note;
-      }
-    });
-
-    this.KanbasService.emitAddKanba.subscribe((entitie: Lane) => {
-      if (entitie.id == null) {
-        entitie.id = this.lanes.length + 1;
-        this.lanes.push(entitie);
-      } else {
-        let index = this.lanes.findIndex((item) => item.id == entitie.id);
-        this.lanes[index].title = entitie.title;
-      }
-      this.lanes.forEach((e, i) => {
-        this.kanbasListId.push('list' + i);
-      });
-    });
-
     this.KanbasService.emitKankaSelect.subscribe((x) => {
       this.lanes = [];
       this.lanes.push(...x.swimlanes);
@@ -108,5 +79,20 @@ export class KanbanComponent implements OnInit {
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.lanes, event.previousIndex, event.currentIndex);
   }
+  
+  saveNote(note:Notes){
+    this.ngOnInit();
+  }
+  
+  saveLane(lane:Lane){
+    this.ngOnInit();
+  }
+
+  removeNote(note:Notes){
+    debugger
+    this.ngOnInit();
+  }
+
+ 
     
 }

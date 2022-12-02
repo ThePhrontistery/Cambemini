@@ -1,3 +1,5 @@
+import { Notes } from './../model/Notes';
+import { DialogConfirmationComponent } from './../../core/dialog-confirmation/dialog-confirmation.component';
 import { KanbasService } from './../kanbas.service';
 import { Lane } from './../model/Lane';
 import { LaneEditComponent } from '../lane-edit/lane-edit.component';
@@ -9,7 +11,8 @@ import {
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
 
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { outputAst } from '@angular/compiler';
 
 // const eventData=[object Object]
 @Component({
@@ -22,6 +25,12 @@ export class LaneComponent implements OnInit {
   @Input() index: number;
   @Input() listId: string[];
   @Input() kanbanId: number;
+  @Output()saveNote: EventEmitter<Notes>= new EventEmitter();
+  @Output()saveLane:EventEmitter<Lane>= new EventEmitter();
+  @Output()removeNote:EventEmitter<Notes>= new EventEmitter();
+
+
+  
   constructor(
     public kanbasService: KanbasService,
     public matDialog: MatDialog
@@ -29,6 +38,7 @@ export class LaneComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.lane)
+
   }
 
   drop(event: any, laneId: number) {
@@ -58,6 +68,12 @@ export class LaneComponent implements OnInit {
     const dialogRef = this.matDialog.open(NoteEditComponent, {
       data: { lane: this.lane },
     });
+    
+    dialogRef.afterClosed().subscribe((result) => {
+      //  this.kanbasService.emitAddCard.emit(result);
+      this.saveNote.emit(result);
+    });
+    
     return true;
   }
 
@@ -70,15 +86,42 @@ export class LaneComponent implements OnInit {
       },
     });
 
-    dialogRef.afterClosed().subscribe(res=>{
-      this.kanbasService.emitAddKanba.emit(res);
+     dialogRef.afterClosed().subscribe(res=>{
+   
+        this.saveLane.emit(res);
 
-    })
+     })
 
     return true;
   }
 
   delete() {
-    return this.kanbasService.removeLane(this.lane);
+    const dialogRef = this.matDialog.open(DialogConfirmationComponent, {
+      data: {
+        title: 'Eliminar un carril',
+        description:
+          'Atención si borra el carril:' +
+          this.lane.title +
+          ' se perderán sus datos.<br> ¿Desea eliminar el carril?',
+      },
+    });
+    
+    dialogRef.afterClosed().subscribe((result) => {
+       if (result) {
+          return this.kanbasService.removeLane(this.lane).subscribe((result) => {
+            this.kanbasService.emitRemoveLane.emit(this.lane);
+          });
+       }
+     });
+    
+  }
+
+  editNote(note:Notes){
+    
+     this.saveNote.emit(note);
+  }
+  
+  deleteNote(note:Notes){
+    this.removeNote.emit(note);
   }
 }

@@ -17,7 +17,8 @@ export class NoteComponent implements OnInit {
   @Input()index: number;
   @Input()indexY: number;
   @Input()taskLane: Lane;
-
+  @Output()editNote:EventEmitter<Notes> = new EventEmitter(); 
+  @Output()removeNote:EventEmitter<Notes> = new EventEmitter(); 
  
   constructor(private kanbasService:KanbasService,   public dialog: MatDialog,  ) { }
 
@@ -25,8 +26,10 @@ export class NoteComponent implements OnInit {
   }
 
   remove(){
-    this.kanbasService.emitDeleteCard.emit({KanbaIndex:this.indexY,Itemindex:this.index});
-
+   
+    this.kanbasService.removeNote(this.item).subscribe(result=>{
+        this.removeNote.emit(this.item);
+    })
     return true;
   }
 
@@ -38,7 +41,7 @@ export class NoteComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-        this.ngOnInit();
+        this.editNote.emit(this.item);
     }); 
     
     return true;
