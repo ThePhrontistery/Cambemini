@@ -38,6 +38,7 @@ public class SwimlaneServiceImpl implements SwimlaneService {
 
         swimlane.setTitle(swimlaneDto.getTitle());
         swimlane.setKanban(swimlaneDto.getKanban());
+
         this.swimlaneRepository.save(swimlane);
     }
 

@@ -13,13 +13,11 @@ public class PermissionServiceImpl implements PermissionService {
 
     @Override
     public List<Permission> findAll() {
-        // TODO Auto-generated method stub
-        return (List<Permission>) this.permissionRepository.findAll();
+        return (List<Permission>) this.permissionRepository.findAllByOrderByIdAsc();
     }
 
     @Override
     public Permission findPermission(Long id) {
-        // TODO Auto-generated method stub
         return this.permissionRepository.findById(id).orElse(null);
     }
 
