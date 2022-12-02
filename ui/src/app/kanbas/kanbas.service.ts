@@ -13,9 +13,9 @@ import { UserKanbanPermission } from './model/User-Kanban-Permission';
   providedIn: 'root'
 })
 export class KanbasService {
-  emitDeleteCard: EventEmitter<any> = new EventEmitter();
-  emitAddCard: EventEmitter<Notes> = new EventEmitter();
-  emitAddKanba: EventEmitter<Lane> = new EventEmitter();
+  // emitDeleteCard: EventEmitter<any> = new EventEmitter();
+  // emitAddCard: EventEmitter<Notes> = new EventEmitter();
+  // emitAddKanba: EventEmitter<Lane> = new EventEmitter();
   emitKankaSelect: EventEmitter<Kanban> = new EventEmitter();
   emitSaveKanba: EventEmitter<Kanban> = new EventEmitter();
   emitRemoveLane: EventEmitter<Lane> = new EventEmitter();
@@ -54,9 +54,7 @@ export class KanbasService {
  
   }
 
-  saveItem(entitie:Notes){
-    this.emitAddCard.emit(entitie);
-  }
+ 
   
   saveSwimlane(lane:any){
     let url = this.url+"/swimlane";
@@ -65,8 +63,22 @@ export class KanbasService {
   }
 
   removeLane(lane:Lane){
-    this.emitRemoveLane.emit(lane);
-    return true;
+    let url = this.url;
+    if (lane.id != null) url += '/swimlane/'+lane.id;
+    return this.httpClient.delete(url);
+  }
+
+  saveNote(note:Notes){
+    
+    let url = this.url+"/swimlane/note";
+    if (note.id != null) url += '/'+note.id;
+      return this.httpClient.put(url, note);
+  }
+
+  removeNote(note:Notes){
+    let url = this.url+"/swimlane/note";
+    if (note.id != null) url += '/'+note.id;
+    return this.httpClient.delete(url);
   }
 
 }

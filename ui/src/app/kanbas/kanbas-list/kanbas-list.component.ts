@@ -45,10 +45,8 @@ export class KanbasListComponent implements OnInit {
           ' se perderán sus datos.<br> ¿Desea eliminar el kanban?',
       },
     });
-    this.kanbaService.removeKanban(kanban).subscribe((result) => {
-      this.ngOnInit();
-    });
-     dialogRef.afterClosed().subscribe((result) => {
+     
+    dialogRef.afterClosed().subscribe((result) => {
        if (result) {
          this.kanbaService.removeKanban(kanban).subscribe((result) => {
            this.ngOnInit();

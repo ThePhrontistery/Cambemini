@@ -17,7 +17,7 @@
                             id="xlist{{i}}" [cdkDropListConnectedTo]="['xlist1','xlist0']"     
                             [cdkDropListData]="kanbas"
                             (cdkDropListDropped)="drop($event)"> -->
-                    <app-lane [lane]="item" [index]="i" [kanbanId]="kanbanId" [listId]="kanbasListId"></app-lane>
+                    <app-lane [lane]="item" [index]="i" (removeNote)="removeNote($event)" (saveLane)="saveLane($event)" (saveNote)="saveNote($event)" [kanbanId]="kanbanId" [listId]="kanbasListId"></app-lane>
                 <!-- </div> -->
             </div>
             </div>

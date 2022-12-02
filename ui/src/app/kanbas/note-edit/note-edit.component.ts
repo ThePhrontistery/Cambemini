@@ -1,8 +1,10 @@
+import { Lane } from './../model/Lane';
 
 import { KanbasService } from '../kanbas.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Component, Inject, OnInit } from '@angular/core';
 import { Notes } from '../model/Notes';
+
 
 @Component({
   selector: 'app-note-edit',
@@ -19,17 +21,22 @@ export class NoteEditComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    
     if (this.data.task != null) {
       this.note = Object.assign({}, this.data.task);
     } else {
-      this.note = new Notes();
-     // this.note.laneId = this.data.lane.id;
+      this.note = new Notes();      
     }
+    this.note.swimlane= new Lane();
+    this.note.swimlane.id= this.data.lane.id;
+   
   }
 
-  onSave() {
-    this.KanbasService.saveItem(this.note);
-    this.dialogRef.close();
+  async onSave() {
+    this.KanbasService.saveNote(this.note).subscribe(result=>{      
+      this.dialogRef.close(this.note);
+    })
+    
   }
 
   onClose() {
