@@ -54,6 +54,8 @@ public class CanbeminiApplication {
             Kanban kanban2 = new Kanban("A second Kanban", "Second Kanban Description");
             kanbanRepository.save(kanban1);
             kanbanRepository.save(kanban2);
+            log.info(kanban1.toString());
+            log.info(kanban2.toString());
 
             // save a few Swimlanes
             Swimlane swimlane1 = new Swimlane("TO DO", kanban1);

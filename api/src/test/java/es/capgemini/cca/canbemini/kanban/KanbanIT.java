@@ -76,7 +76,7 @@ public class KanbanIT {
 
         // restTemplate.exchange(LOCALHOST + port + SERVICE_PATH_UKP, HttpMethod.PUT,
         // new HttpEntity<>(kanbanDto),Void.class);
-        ukpService.saveUkp(null, EXIST_USER_ID, kanbanDto, 1L);
+        // ukpService.saveUkp(null, EXIST_USER_ID, kanbanDto, 1L);
 
         ResponseEntity<List<KanbanDto>> response = restTemplate
                 .exchange(LOCALHOST + port + SERVICE_PATH + EXIST_USER_ID, HttpMethod.GET, null, responseType);

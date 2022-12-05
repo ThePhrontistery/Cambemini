@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import es.capgemini.cca.canbemini.kanban.Kanban;
-import es.capgemini.cca.canbemini.kanban.KanbanDto;
 import es.capgemini.cca.canbemini.permission.Permission;
 import es.capgemini.cca.canbemini.permission.PermissionService;
 import es.capgemini.cca.canbemini.users.Users;
@@ -30,7 +29,7 @@ public class UserKanbanPermissionServiceImpl implements UserKanbanPermissionServ
     }
 
     @Override
-    public void saveUkp(Long id, Long userId, KanbanDto kanbanDto, Long permissionId) {
+    public void saveUkp(Long id, Long userId, Long kanbanId, Long permissionId) {
 
         UserKanbanPermission ukp = null;
 
@@ -42,10 +41,12 @@ public class UserKanbanPermissionServiceImpl implements UserKanbanPermissionServ
 
         Users user = userService.findUsers(userId);
         Permission permission = permissionService.findPermission(permissionId);
-        Kanban kanban = new Kanban(kanbanDto.getTitle(), kanbanDto.getDescription());
-        ukp.setKanban(kanban);
+
+        Kanban kanban = new Kanban("", "");
+        kanban.setId(kanbanId);
         ukp.setPermission(permission);
         ukp.setUsers(user);
+        ukp.setKanban(kanban);
 
         this.userKanbanPermissionRepository.save(ukp);
     }
@@ -57,7 +58,7 @@ public class UserKanbanPermissionServiceImpl implements UserKanbanPermissionServ
     }
 
     @Override
-    public UserKanbanPermission getUkp(Long id) {
-        return userKanbanPermissionRepository.findById(id).orElse(null);
+    public UserKanbanPermission getLastUkp() {
+        return userKanbanPermissionRepository.findTopByOrderByIdDesc();
     }
 }

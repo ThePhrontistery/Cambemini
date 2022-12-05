@@ -1,17 +1,11 @@
 package es.capgemini.cca.canbemini.kanban;
 
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import es.capgemini.cca.canbemini.kanban.swimlane.Swimlane;
-import es.capgemini.cca.canbemini.userKanbanPermission.UserKanbanPermission;
 
 @Entity
 @Table(name = "Kanban")
@@ -27,11 +21,12 @@ public class Kanban {
     @Column(name = "description", nullable = false)
     private String description;
 
-    @OneToMany(mappedBy = "kanban", orphanRemoval = true)
-    private Set<UserKanbanPermission> userKanbanPermission;
+    // @OneToMany(mappedBy = "kanban", cascade = { CascadeType.ALL }, orphanRemoval
+    // = true)
+    // private List<UserKanbanPermission> userKanbanPermission;
 
-    @OneToMany(mappedBy = "kanban", orphanRemoval = true)
-    private Set<Swimlane> swimlanes;
+    // @OneToMany(mappedBy = "kanban", orphanRemoval = true)
+    // private List<Swimlane> swimlanes;
 
     public Kanban(String title, String description) {
         this.title = title;
@@ -40,14 +35,6 @@ public class Kanban {
 
     protected Kanban() {
 
-    }
-
-    public Set<UserKanbanPermission> getUserKanbanPermission() {
-        return userKanbanPermission;
-    }
-
-    public void setUserKanbanPermission(Set<UserKanbanPermission> userKanbanPermission) {
-        this.userKanbanPermission = userKanbanPermission;
     }
 
     public Long getId() {
@@ -77,14 +64,6 @@ public class Kanban {
     @Override
     public String toString() {
         return String.format("Kanban[id=%d, title='%s', description='%s']", id, title, description);
-    }
-
-    public Set<Swimlane> getSwimlanes() {
-        return swimlanes;
-    }
-
-    public void setSwimlanes(Set<Swimlane> swimlanes) {
-        this.swimlanes = swimlanes;
     }
 
 }
