@@ -1,10 +1,8 @@
 package es.capgemini.cca.canbemini.kanban.swimlane.note;
 
-import java.util.Set;
+import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import es.capgemini.cca.canbemini.kanban.swimlane.Swimlane;
+import es.capgemini.cca.canbemini.kanban.swimlane.SwimlaneDto;
 import es.capgemini.cca.canbemini.kanban.swimlane.note.attachment.Attachment;
 
 public class NoteDto {
@@ -13,14 +11,13 @@ public class NoteDto {
 
     private String content;
 
-    private Set<Attachment> attachment;
+    private List<Attachment> attachment;
 
-    @JsonIgnore
-    private Swimlane swimlane;
+    private SwimlaneDto swimlaneDto;
 
-    public NoteDto(String content, Swimlane swimlane) {
+    public NoteDto(String content, SwimlaneDto swimlaneDto) {
         this.content = content;
-        this.swimlane = swimlane;
+        this.swimlaneDto = swimlaneDto;
     }
 
     protected NoteDto() {
@@ -43,20 +40,20 @@ public class NoteDto {
         this.content = content;
     }
 
-    public Set<Attachment> getAttachment() {
+    public List<Attachment> getAttachment() {
         return attachment;
     }
 
-    public void setAttachment(Set<Attachment> attachment) {
+    public void setAttachment(List<Attachment> attachment) {
         this.attachment = attachment;
     }
 
-    public Swimlane getSwimlane() {
-        return swimlane;
+    public SwimlaneDto getSwimlaneDto() {
+        return swimlaneDto;
     }
 
-    public void setSwimlane(Swimlane swimlane) {
-        this.swimlane = swimlane;
+    public void setSwimlaneDto(SwimlaneDto swimlaneDto) {
+        this.swimlaneDto = swimlaneDto;
     }
 
 }

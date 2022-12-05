@@ -1,6 +1,6 @@
 package es.capgemini.cca.canbemini.kanban.swimlane.note;
 
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,7 +32,7 @@ public class Note {
 
     @JsonIgnore
     @OneToMany(mappedBy = "note", orphanRemoval = true)
-    private Set<Attachment> attachment;
+    private List<Attachment> attachment;
 
     @JsonIgnore
     @ManyToOne
@@ -64,6 +64,14 @@ public class Note {
         this.content = content;
     }
 
+    public List<Attachment> getAttachment() {
+        return attachment;
+    }
+
+    public void setAttachment(List<Attachment> attachment) {
+        this.attachment = attachment;
+    }
+
     public Swimlane getSwimlane() {
         return swimlane;
     }
@@ -71,4 +79,5 @@ public class Note {
     public void setSwimlane(Swimlane swimlane) {
         this.swimlane = swimlane;
     }
+
 }
