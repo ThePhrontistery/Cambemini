@@ -15,7 +15,7 @@ public class NoteDto {
 
     private Set<Attachment> attachment;
 
-    @JsonIgnore
+
     private Swimlane swimlane;
 
     public NoteDto(String content, Swimlane swimlane) {

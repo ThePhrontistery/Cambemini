@@ -30,7 +30,7 @@ public class UserKanbanPermissionServiceImpl implements UserKanbanPermissionServ
     }
 
     @Override
-    public void saveUkp(Long id, Long userId, KanbanDto kanbanDto, Long permissionId) {
+    public void saveUkp(Long id, Long userId, Long kanbanId, Long permissionId) {
 
         UserKanbanPermission ukp = null;
 
@@ -42,10 +42,12 @@ public class UserKanbanPermissionServiceImpl implements UserKanbanPermissionServ
 
         Users user = userService.findUsers(userId);
         Permission permission = permissionService.findPermission(permissionId);
-        Kanban kanban = new Kanban(kanbanDto.getTitle(), kanbanDto.getDescription());
-        ukp.setKanban(kanban);
+
+        Kanban kanban = new Kanban("", "");
+        kanban.setId(kanbanId);
         ukp.setPermission(permission);
         ukp.setUsers(user);
+        ukp.setKanban(kanban);
 
         this.userKanbanPermissionRepository.save(ukp);
     }

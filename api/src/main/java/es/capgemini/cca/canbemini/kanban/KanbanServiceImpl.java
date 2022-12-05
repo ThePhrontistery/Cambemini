@@ -2,6 +2,13 @@ package es.capgemini.cca.canbemini.kanban;
 
 import java.util.List;
 
+import es.capgemini.cca.canbemini.permission.Permission;
+import es.capgemini.cca.canbemini.permission.PermissionDto;
+import es.capgemini.cca.canbemini.permission.PermissionService;
+import es.capgemini.cca.canbemini.userKanbanPermission.UserKanbanPermissionDto;
+import es.capgemini.cca.canbemini.users.Users;
+import es.capgemini.cca.canbemini.users.UsersDto;
+import es.capgemini.cca.canbemini.users.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +22,11 @@ public class KanbanServiceImpl implements KanbanService {
 
     @Autowired
     UserKanbanPermissionService ukpService;
+    @Autowired
+    UsersService userService;
 
+    @Autowired
+    PermissionService permissionService;
     @Override
     public List<Kanban> findUserKanbans(Long userId) {
         return (List<Kanban>) this.kanbanRepository.findUserKanbans(userId);
@@ -31,7 +42,7 @@ public class KanbanServiceImpl implements KanbanService {
         this.kanbanRepository.deleteById(id);
     }
 
-    @Override
+   /* @Override
     public void saveKanban(Long id, KanbanDto kanbanDto, Long userId) {
         Kanban kanban = null;
         if (id == null)
@@ -45,6 +56,40 @@ public class KanbanServiceImpl implements KanbanService {
         this.ukpService.saveUkp(null, userId, kanbanDto, 1L);
 
         this.kanbanRepository.save(kanban);
+
+    }*/
+
+    @Override
+    public void saveKanban(Long id, KanbanDto kanbanDto, Long userId) {
+        Kanban kanban = null;
+
+        UserKanbanPermissionDto ukpDto = new UserKanbanPermissionDto();
+        UsersDto userDto = new UsersDto();
+        PermissionDto permissionDto = new PermissionDto();
+
+        Users user = userService.findUsers(userId);
+        Permission permission = permissionService.findPermission(1L);
+
+        userDto.setId(userId);
+        userDto.setEmail(user.getEmail());
+        permissionDto.setId(1L);
+        permissionDto.setRol(permission.getRol());
+
+        if (id == null)
+            kanban = new Kanban();
+        else
+            kanban = this.getKanban(id);
+
+        kanban.setTitle(kanbanDto.getTitle());
+        kanban.setDescription(kanbanDto.getDescription());
+
+        kanbanDto.setId(kanban.getId());
+
+        this.kanbanRepository.save(kanban);
+
+        Long kanbanId = kanban.getId();
+
+        this.ukpService.saveUkp(null, userId, kanbanId, 1L);
 
     }
 

@@ -7,11 +7,11 @@ import es.capgemini.cca.canbemini.users.UsersDto;
 public class UserKanbanPermissionDto {
     private Long id;
 
-    private UsersDto usersDto;
+    private UsersDto users;
 
-    private KanbanDto kanbanDto;
+    private KanbanDto kanban;
 
-    private PermissionDto permissionDto;
+    private PermissionDto permission;
 
     public Long getId() {
         return id;
@@ -21,27 +21,27 @@ public class UserKanbanPermissionDto {
         this.id = id;
     }
 
-    public UsersDto getUsersDto() {
-        return usersDto;
+    public UsersDto getUsers() {
+        return users;
     }
 
-    public void setUsersDto(UsersDto usersDto) {
-        this.usersDto = usersDto;
+    public void setUsers(UsersDto users) {
+        this.users = users;
     }
 
-    public KanbanDto getKanbanDto() {
-        return kanbanDto;
+    public KanbanDto getKanban() {
+        return kanban;
     }
 
-    public void setKanbanDto(KanbanDto kanbanDto) {
-        this.kanbanDto = kanbanDto;
+    public void setKanban(KanbanDto kanban) {
+        this.kanban = kanban;
     }
 
-    public PermissionDto getPermissionDto() {
-        return permissionDto;
+    public PermissionDto getPermission() {
+        return permission;
     }
 
-    public void setPermissionDto(PermissionDto permissionDto) {
-        this.permissionDto = permissionDto;
+    public void setPermission(PermissionDto permission) {
+        this.permission = permission;
     }
 }

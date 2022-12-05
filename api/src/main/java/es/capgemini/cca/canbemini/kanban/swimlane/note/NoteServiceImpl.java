@@ -36,7 +36,7 @@ public class NoteServiceImpl implements NoteService {
             note = this.getNote(id);
 
         note.setContent(noteDto.getContent());
-
+        note.setSwimlane(noteDto.getSwimlane());
         this.noteRepository.save(note);
     }
 

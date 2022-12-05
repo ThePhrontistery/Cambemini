@@ -46,8 +46,9 @@ public class KanbanController {
 
     // @GetMapping("/api/kanban")
     @RequestMapping(path = "/{userId}", method = RequestMethod.GET)
-    public List<KanbanDto> getAllUserKanbans(@PathVariable("userId") Long userId) {
-        return kanbanMapper.map(kanbanService.findUserKanbans(userId));
+    public List<Kanban> getAllUserKanbans(@PathVariable("userId") Long userId) {
+        return kanbanService.findUserKanbans(userId);
+        //return kanbanMapper.map(kanbanService.findUserKanbans(userId));
     }
 
     @RequestMapping(path = { "/save/{userId}", "/save/{id}/{userId}" }, method = RequestMethod.PUT)
