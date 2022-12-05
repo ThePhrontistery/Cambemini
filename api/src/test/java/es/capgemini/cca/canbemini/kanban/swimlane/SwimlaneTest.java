@@ -79,7 +79,7 @@ public class SwimlaneTest {
 
         ArgumentCaptor<Swimlane> swimlane = ArgumentCaptor.forClass(Swimlane.class);
 
-        swimlaneService.saveSwimlane(null, swimlaneDto);
+        swimlaneService.saveSwimlane(null, EXISTS_KANBAN_ID, swimlaneDto);
 
         verify(swimlaneRepository).save(swimlane.capture());
 
@@ -96,7 +96,7 @@ public class SwimlaneTest {
 
         when(swimlaneRepository.findById(EXISTS_SWIMLANE_ID)).thenReturn(Optional.of(swimlane));
 
-        swimlaneService.saveSwimlane(EXISTS_SWIMLANE_ID, swimlaneDto);
+        swimlaneService.saveSwimlane(EXISTS_SWIMLANE_ID, EXISTS_KANBAN_ID, swimlaneDto);
 
         verify(swimlaneRepository).save(swimlane);
     }
