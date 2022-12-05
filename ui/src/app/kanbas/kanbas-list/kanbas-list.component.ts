@@ -5,6 +5,8 @@ import { KanbasService } from '../kanbas.service';
 import { Router } from '@angular/router';
 import { Kanban } from '../model/Kanban';
 import { Component, OnInit } from '@angular/core';
+import { UserKanbanPermission } from '../model/User-Kanban-Permission';
+import { User } from '../model/User';
 
 @Component({
   selector: 'app-kanbas',
@@ -13,6 +15,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class KanbasListComponent implements OnInit {
   listKanbas: Kanban[] = [];
+  usersKanban: User[][] = [];
+
+  userId = 1;
 
   constructor(
     private router: Router,
@@ -23,15 +28,21 @@ export class KanbasListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.kanbaService.getKanbans(1).subscribe((kanba) => {
+    this.kanbaService.getKanbansFromUser(1).subscribe((kanba) => {
       this.listKanbas = kanba;
     });
+
+    for(let i = 0; i < this.listKanbas.length; i++){
+      this.kanbaService.getUsersFromKanban(this.listKanbas[i].id).subscribe(result => {
+        this.usersKanban[i] = result;
+      });
+    }
    
   }
  
   go(item: Kanban) {
     this.kanbaService.kanba = item;
-    this.router.navigate(['kanbas', item.id]);
+    this.router.navigate(['kanbas', item.id, 1]);
     return true;
   }
 
@@ -57,7 +68,10 @@ export class KanbasListComponent implements OnInit {
 
   newKanba() {
     const dialogRef = this.matDialog.open(KanbanEditComponent, {
-      data: null,
+      data: {
+        userId: this.userId,
+        kanban: null
+      }
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -69,7 +83,10 @@ export class KanbasListComponent implements OnInit {
 
   edit(kanba: Kanban) {
     const dialogRef = this.matDialog.open(KanbanEditComponent, {
-      data: kanba,
+      data: {
+        userId: this.userId,
+        kanban: kanba
+      }
     });
 
     dialogRef.afterClosed().subscribe((result) => {

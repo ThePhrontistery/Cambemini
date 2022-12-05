@@ -12,8 +12,6 @@ import javax.persistence.Table;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import es.capgemini.cca.canbemini.kanban.Kanban;
 
 @Entity
@@ -28,7 +26,6 @@ public class Swimlane {
     @Column(name = "title", nullable = false)
     private String title;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "kanban_id")
     @OnDelete(action = OnDeleteAction.CASCADE)

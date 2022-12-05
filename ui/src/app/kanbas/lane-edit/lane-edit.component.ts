@@ -12,6 +12,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 })
 export class LaneEditComponent implements OnInit {
   entitie: Lane;
+  kanbanId: number;
 
   constructor(
     public dialogRef: MatDialogRef<LaneEditComponent>,
@@ -24,17 +25,16 @@ export class LaneEditComponent implements OnInit {
     if (this.data.entitie != null) {
       this.entitie = Object.assign({}, this.data.entitie);
     } else {
-      this.entitie = new Lane();     
-      this.entitie.notes = [];
+      this.entitie = new Lane();
     }
 
     this.entitie.kanban = new Kanban()
-    this.entitie.kanban.id = this.data.kanbanId;
+    this.kanbanId = this.data.kanbanId;
   }
 
   onSave() {
     
-    this.KanbasService.saveSwimlane(this.entitie).subscribe(result=>{      
+    this.KanbasService.saveSwimlane(this.kanbanId,this.entitie).subscribe(result=>{      
       this.dialogRef.close(this.entitie);
     });
     

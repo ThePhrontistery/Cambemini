@@ -8,6 +8,7 @@ import { Lane } from './model/Lane';
 import { Notes } from './model/Notes';
 import { HttpClient } from '@angular/common/http';
 import { UserKanbanPermission } from './model/User-Kanban-Permission';
+import { User } from './model/User';
 
 @Injectable({
   providedIn: 'root'
@@ -28,21 +29,43 @@ export class KanbasService {
   ) { }
 
   
-  getKanbans(userId:number):Observable<Kanban[]> {
-    let url = this.url+"/"+userId  ;
+  getKanbansFromUser(userId:number):Observable<Kanban[]> {
+    let url = this.url+"/"+userId;
     return  this.httpClient.get<Kanban[]>(url);
   }
 
-  getKanban(userId:number, kanbanId:number):Observable<Kanban[]> {
+  getKanban(userId:number, kanbanId:number):Observable<Kanban> {
     //Adicionar al url el kanbanId a la peticion 
-    let url = this.url+"/"+userId ;
-    return  this.httpClient.get<Kanban[]>(url);
+    let url = this.url + "/" + userId + "/" + kanbanId;
+    return  this.httpClient.get<Kanban>(url);
   }
 
-  saveKanban(kanban:Kanban):Observable<Kanban> {
+  getUserPermissionFromKanban(){
     
-    let url = this.url;
-    if (kanban.id != null) url += '/'+kanban.id;
+  }
+
+  getSwimlanesFromKanban(kanbanId: number): Observable<Lane[]>{
+    let url = this.url + "/swimlane/" + kanbanId;
+    return  this.httpClient.get<Lane[]>(url);
+  }
+
+  getNotesFromSwimlane(swimlaneId: number): Observable<Notes[]>{
+    let url = this.url + "/swimlane/note/" + swimlaneId;
+    return  this.httpClient.get<Notes[]>(url);
+  }
+
+  getUsersFromKanban(kanbanId: number):Observable<User[]>{
+    let url = this.url + "/getUsersFrom/" + kanbanId;
+    
+    return this.httpClient.get<User[]>(url);
+  }
+
+  saveKanban(kanban:Kanban, userId: number):Observable<Kanban> {
+    
+    let url = this.url + '/save/';
+    if (kanban.id != null) url += kanban.id + '/';
+
+    url += userId;
      return this.httpClient.put<Kanban>(url, kanban);
   }
  
@@ -53,12 +76,9 @@ export class KanbasService {
     return this.httpClient.delete(url);
  
   }
-
- 
-  
-  saveSwimlane(lane:any){
+  saveSwimlane(kanbanId: number, lane:any){
     let url = this.url+"/swimlane";
-    if (lane.id != null) url += '/'+lane.id;
+    if (lane.id != null) url += '/'+lane.id + "/" + kanbanId;
     return this.httpClient.put(url, lane);
   }
 

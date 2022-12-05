@@ -29,6 +29,7 @@ export class LaneComponent implements OnInit {
   @Output()saveLane:EventEmitter<Lane>= new EventEmitter();
   @Output()removeNote:EventEmitter<Notes>= new EventEmitter();
 
+  notes: Notes[];
 
   
   constructor(
@@ -38,6 +39,10 @@ export class LaneComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.lane)
+
+    this.kanbasService.getNotesFromSwimlane(this.lane.id).subscribe(result =>{
+      this.notes = result;
+    })
 
   }
 

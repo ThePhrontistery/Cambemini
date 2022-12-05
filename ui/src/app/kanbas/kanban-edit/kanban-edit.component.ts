@@ -12,20 +12,21 @@ import { Kanban } from '../model/Kanban';
 export class KanbanEditComponent implements OnInit {
 
   kanba:Kanban;
+  userId: number;
   busy:boolean = false;  
   constructor(private kanbasService:KanbasService,
               public dialogRef:MatDialogRef<KanbanEditComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit(): void {
-    if(this.data == null){
+    if(this.data.kanban == null){
       this.kanba = new Kanban();
-
-      this.kanba.swimlanes=[];
     }      
     else{
       this.kanba = Object.assign({}, this.data);        
     }
+
+    this.userId = this.data.userId;
   }
 
   onCancel(){
@@ -39,7 +40,7 @@ export class KanbanEditComponent implements OnInit {
     this.busy = true;
     
     
-    this.kanbasService.saveKanban(this.kanba).subscribe(result =>  {
+    this.kanbasService.saveKanban(this.kanba, this.userId).subscribe(result =>  {
       this.dialogRef.close();
     }); 
          

@@ -20,7 +20,7 @@ export class KanbaSelectComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.KanbasService.getKanbans(1).subscribe(x=>{
+    this.KanbasService.getKanbansFromUser(1).subscribe(x=>{
       this.listKanbas=x;
     })
     this.select = this.listKanbas.find(x=>x.select==true);

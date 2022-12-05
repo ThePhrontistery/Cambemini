@@ -1,9 +1,13 @@
 package es.capgemini.cca.canbemini.kanban.swimlane;
 
+import es.capgemini.cca.canbemini.kanban.KanbanDto;
+
 public class SwimlaneDto {
     private Long id;
 
     private String title;
+
+    private KanbanDto kanban;
 
     public SwimlaneDto(String title) {
         this.title = title;
@@ -27,6 +31,14 @@ public class SwimlaneDto {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public KanbanDto getKanban() {
+        return kanban;
+    }
+
+    public void setKanban(KanbanDto kanban) {
+        this.kanban = kanban;
     }
 
 }

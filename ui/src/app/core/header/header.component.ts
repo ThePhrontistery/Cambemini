@@ -25,7 +25,11 @@ export class HeaderComponent implements OnInit {
 
     this.kanbasService.emitKankaSelect.subscribe(kanban=>{
       
-      if(kanban!=null) this.users = kanban.userKanbanPermission.map(kan=>kan.users);
+      if(kanban!=null){
+        this.kanbasService.getUsersFromKanban(kanban.id).subscribe(result => {
+          this.users = result;
+        });
+      }
        
     })
     this.isLoggedIn = this.loginService.isLoggedIn;

@@ -4,10 +4,6 @@ export class Kanban{
     id:number;
     title:string;
     description:string;
-    
     select:boolean;
-    userKanbanPermission:UserKanbanPermission[];
-   
-    swimlanes:Lane[];
 };
 

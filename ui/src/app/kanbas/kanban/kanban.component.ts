@@ -22,7 +22,8 @@ export class KanbanComponent implements OnInit {
   lanes: Lane[] = [];
   kanbasListId: string[] = [];
   kanbanId:number;
-  userId:number = 1;
+  userId:number;
+
   constructor(
     private KanbasService: KanbasService,
     private dialog: MatDialog,
@@ -30,36 +31,12 @@ export class KanbanComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.lanes = [];
-    this.kanbasListId =[];
-    this.kanbanId = Number(this.activatedRoute.snapshot.params.id);
+    this.kanbanId = Number(this.activatedRoute.snapshot.params.kanbanId);
+    this.userId = Number(this.activatedRoute.snapshot.params.userId);
     
-    this.KanbasService.getKanban(this.userId,this.kanbanId).subscribe((kanban) => {
-      this.lanes.push(...kanban[0].swimlanes);
-      this.lanes.forEach((e, i) => {
-        this.kanbasListId.push('list' + i);
-      });
+    this.KanbasService.getSwimlanesFromKanban(this.kanbanId).subscribe(result => {
+      this.lanes = result;
     });
-    
-    this.KanbasService.emitKankaSelect.subscribe((x) => {
-      this.lanes = [];
-      this.lanes.push(...x.swimlanes);
-    });
-
-    this.KanbasService.emitRemoveLane.subscribe((lane) => {
-      let index = this.lanes.findIndex((xLane) => lane.id == xLane.id);
-      if (index != -1) this.lanes.splice(index, 1);
-    });
-  }
-
-  getId() {
-    let c = 1;
-    this.lanes.forEach((r) => {
-      r.notes.forEach((l) => {
-        c++;
-      });
-    });
-    return c++;
   }
 
   add() {
