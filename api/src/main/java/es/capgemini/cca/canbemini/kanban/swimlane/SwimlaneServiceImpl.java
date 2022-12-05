@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import es.capgemini.cca.canbemini.kanban.KanbanService;
-import es.capgemini.cca.canbemini.kanban.swimlane.note.NoteService;
 
 @Service
 public class SwimlaneServiceImpl implements SwimlaneService {
@@ -17,9 +16,6 @@ public class SwimlaneServiceImpl implements SwimlaneService {
 
     @Autowired
     KanbanService kanbanService;
-
-    @Autowired
-    NoteService noteService;
 
     @Override
     public List<Swimlane> findAll(Long kanbanId) {
