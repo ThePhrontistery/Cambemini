@@ -26,12 +26,17 @@ export class LoginComponent implements OnInit {
       email: ['', Validators.required],
       password: ['', Validators.required]
     });
+
+    this.googleInit();
   }
  
   ngAfterViewInit(): void {
     
-    if(google == undefined)
-      return;
+    this.googleInit();
+
+  }
+  
+  googleInit(){
     google.accounts.id.initialize({
       client_id: environment.google,
       callback: this.handleCredentialResponse
@@ -41,9 +46,8 @@ export class LoginComponent implements OnInit {
       { theme: "outline", size: "large" }  // customization attributes
     );
     google.accounts.id.prompt(); // also display the One Tap dialog
-
   }
-  
+
   handleCredentialResponse(response:any,){
     
      if(response.credential){

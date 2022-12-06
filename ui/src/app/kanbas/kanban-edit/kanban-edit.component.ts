@@ -13,6 +13,7 @@ export class KanbanEditComponent implements OnInit {
 
   kanba:Kanban;
   busy:boolean = false;  
+  userId:number = 1;
   constructor(private kanbasService:KanbasService,
               public dialogRef:MatDialogRef<KanbanEditComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any) { }
@@ -39,7 +40,7 @@ export class KanbanEditComponent implements OnInit {
     this.busy = true;
     
     
-    this.kanbasService.saveKanban(this.kanba).subscribe(result =>  {
+    this.kanbasService.saveKanban(this.kanba,this.userId).subscribe(result =>  {
       this.dialogRef.close();
     }); 
          

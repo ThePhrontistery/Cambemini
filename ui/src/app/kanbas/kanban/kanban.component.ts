@@ -30,6 +30,7 @@ export class KanbanComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    
     this.lanes = [];
     this.kanbasListId =[];
     this.kanbanId = Number(this.activatedRoute.snapshot.params.id);
@@ -89,7 +90,7 @@ export class KanbanComponent implements OnInit {
   }
 
   removeNote(note:Notes){
-    debugger
+    
     this.ngOnInit();
   }
 

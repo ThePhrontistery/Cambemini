@@ -31,6 +31,12 @@ public class KanbanServiceImpl implements KanbanService {
     public List<Kanban> findUserKanbans(Long userId) {
         return (List<Kanban>) this.kanbanRepository.findUserKanbans(userId);
     }
+    @Override
+    public List<Kanban> findUserKanbanId(Long userId, Long kanbanId) {
+        return (List<Kanban>) this.kanbanRepository.findUserKanbanId(userId,kanbanId);
+    }
+
+
 
     @Override
     public Kanban getKanban(Long id) {
@@ -87,9 +93,10 @@ public class KanbanServiceImpl implements KanbanService {
 
         this.kanbanRepository.save(kanban);
 
-        Long kanbanId = kanban.getId();
-
-        this.ukpService.saveUkp(null, userId, kanbanId, 1L);
+        if(id==null){
+            Long kanbanId = kanban.getId();
+            this.ukpService.saveUkp(null, userId, kanbanId, 1L);
+        }
 
     }
 

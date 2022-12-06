@@ -13,9 +13,7 @@ import { UserKanbanPermission } from './model/User-Kanban-Permission';
   providedIn: 'root'
 })
 export class KanbasService {
-  // emitDeleteCard: EventEmitter<any> = new EventEmitter();
-  // emitAddCard: EventEmitter<Notes> = new EventEmitter();
-  // emitAddKanba: EventEmitter<Lane> = new EventEmitter();
+  
   emitKankaSelect: EventEmitter<Kanban> = new EventEmitter();
   emitSaveKanba: EventEmitter<Kanban> = new EventEmitter();
   emitRemoveLane: EventEmitter<Lane> = new EventEmitter();
@@ -35,15 +33,17 @@ export class KanbasService {
 
   getKanban(userId:number, kanbanId:number):Observable<Kanban[]> {
     //Adicionar al url el kanbanId a la peticion 
-    let url = this.url+"/"+userId ;
+    let url = this.url+"/"+userId+"/"+kanbanId ;
     return  this.httpClient.get<Kanban[]>(url);
   }
 
-  saveKanban(kanban:Kanban):Observable<Kanban> {
+
+  saveKanban(kanban:Kanban,userId:number):Observable<Kanban> {
     
-    let url = this.url;
+    let url = this.url+'/save';
     if (kanban.id != null) url += '/'+kanban.id;
-     return this.httpClient.put<Kanban>(url, kanban);
+    url+='/'+userId;
+    return this.httpClient.put<Kanban>(url, kanban);
   }
  
   removeKanban(kanban:Kanban):Observable<any> {
