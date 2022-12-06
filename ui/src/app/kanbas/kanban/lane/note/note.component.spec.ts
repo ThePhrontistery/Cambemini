@@ -1,14 +1,14 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialog } from '@angular/material/dialog';
-import { KanbasService } from '../kanbas.service';
+import { KanbasService } from '../../../kanbas.service';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, Component } from '@angular/core';
 
 import { NoteComponent } from './note.component';
 import { of } from 'rxjs';
-import { KANBAS_DATA_LIST } from '../model/mock-kanbas-list';
-import { LaneComponent } from '../lane/lane.component';
-import { Notes } from '../model/Notes';
-import { Lane } from '../model/Lane';
+import { KANBAS_DATA_LIST } from '../../../model/mock-kanbas-list';
+import { LaneComponent } from '../lane.component';
+import { Notes } from '../../../model/Notes';
+import { Lane } from '../../../model/Lane';
 import { isNgTemplate } from '@angular/compiler';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
@@ -50,31 +50,23 @@ describe('None', () => {
 
     component.item = {
       id: 1,
-      title: 'Cloud design',
-      description: 'Design of our cloud-based backend',
-      laneId: 1,
-    }
+      content: 'Cloud design',
+    },
     component.taskLane = {
       id: 1,
       title: 'To do',
-      color: '',
-      order: 0,
-      items: [
+      notes: [
         {
           id: 1,
-          title: 'Cloud design',
-          description: 'Design of our cloud-based backend',
-          laneId: 1,
+          content: 'Cloud design',
         },
         {
-          id: 2,
-          title: 'Client tasks usability',
-          description:
+          id: 2,        
+          content:
             'Think and design how clients will interact with notes at the same time',
-          laneId: 1,
         },
       ],
-    }
+    },
     component.index = 0;
     component.indexY = 0;
 

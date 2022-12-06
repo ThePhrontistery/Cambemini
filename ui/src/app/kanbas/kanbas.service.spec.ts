@@ -10,9 +10,11 @@ import { KANBAS_DATA_LIST, LANE_DATA_LIST } from './model/mock-kanbas-list';
 
 
 
-describe('KanbasService', () => {
+fdescribe('KanbasService', () => {
 	let service: KanbasService;
-  let httpController: HttpTestingController;
+    let httpController: HttpTestingController;
+	let userId = 1;
+	let kanbanId = 1;
 
 	let url = 'http://localhost:8080/api';
 	
@@ -28,15 +30,15 @@ describe('KanbasService', () => {
 	it('getKanbas return a list of kanbas and does a get method', () => {
 			
 			// 1
-		  service.getKanban().subscribe((res) => {
+		  service.getKanbans(userId).subscribe((res) => {
 				//2
 	      expect(res).toEqual(KANBAS_DATA_LIST);
 	    });
 	
-			//3
+			//3/api/kanban/1
 	    const req = httpController.expectOne({
 	      method: 'GET',
-	      url: `${url}/kanban`,
+	      url: `${url}/kanban/${userId}`,
 	    });
 
 			//4
@@ -49,16 +51,14 @@ describe('KanbasService', () => {
 			id: 1,
 			title: 'Escape',
 			description: 'Phasellus et lectus nec est vulputate semper in cursus metus. Nam eu odio lacus. Etiam elementum elementum enim a tempus. Quisque id pretium metus. Cras malesuada tellus sed urna placerat commodo.',
-		
-			code: 'mural-0001',
 			select: true,
-			icon: 'settings_accesibility',
-			users: [
-			  { email: 'fredy@test.com', initial: 'FHO', online: true },
-			  { initial: 'DAV', email: 'david@test.com', online: false },
+			userKanbanPermission:[
+			  {id:1, users:{id:1,email:'mercedes@escape.com', online:false}, permission:{id:1,rol:"Owner"}},
+			  {id:2, users:{id:2,email:'raul@escape.com', online:false}, permission:{id:2,rol:"Editor"}}
 			],
+			
 			swimlanes:LANE_DATA_LIST
-		  }
+		  };
 			// 1
 		  service.removeKanban(kanban).subscribe((res) => {
 				//2

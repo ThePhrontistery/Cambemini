@@ -13,25 +13,25 @@ const routes: Routes = [
 ];*/
 
 const routes: Routes = [
-  { path: '', redirectTo: '/kanbas', pathMatch: 'full' },
+  { path: '', redirectTo: '/kanbans', pathMatch: 'full' },
   {
-    path: 'kanbas/:id',
+    path: 'kanbans/:id',
     component: KanbanComponent,
     canActivate: [LoginGuard],
     children: [
       {
-        path: 'kanbas/:id',
+        path: 'kanbans/:id',
         component: KanbanComponent,
       },
     ],
   },
   {
-    path: 'kanbas',
+    path: 'kanbans',
     component: KanbasListComponent,
     canActivate: [LoginGuard],
     children: [
       {
-        path: 'kanbas',
+        path: 'kanbans',
         component: KanbanComponent,
       },
     ],

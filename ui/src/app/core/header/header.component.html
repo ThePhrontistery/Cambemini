@@ -10,17 +10,13 @@
 
 
             <div class="header_menu">
-                <app-kanba-select ></app-kanba-select>
+                <!-- <app-kanba-select ></app-kanba-select> -->
             </div>
 
             
             <div class="header_login">
                <div class="space-between">  
-                    <!-- <app-user-select [users]="users"></app-user-select> -->
-                    
-                    <!-- <button mat-icon-button color="accent"><mat-icon>share</mat-icon></button>                         -->
-
-                    <!-- <div class="header_separator"> | </div> -->
+             
                     <div class="image-cropper" *ngIf="user!=null">
                         <img [src]="user.picture" class="rounded" />
                     </div>

@@ -1,9 +1,9 @@
-import { Notes } from './../model/Notes';
-import { DialogConfirmationComponent } from './../../core/dialog-confirmation/dialog-confirmation.component';
-import { KanbasService } from './../kanbas.service';
-import { Lane } from './../model/Lane';
+import { Notes } from '../../model/Notes';
+import { DialogConfirmationComponent } from '../../../core/dialog-confirmation/dialog-confirmation.component';
+import { KanbasService } from '../../kanbas.service';
+import { Lane } from '../../model/Lane';
 import { LaneEditComponent } from '../lane-edit/lane-edit.component';
-import { NoteEditComponent } from '../note-edit/note-edit.component';
+import { NoteEditComponent } from './note-edit/note-edit.component';
 import { MatDialog } from '@angular/material/dialog';
 import {
   CdkDragDrop,

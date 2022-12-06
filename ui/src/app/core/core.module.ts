@@ -1,5 +1,4 @@
-import { UserSelectComponent } from './user-select/user-select.component';
-import { KanbaSelectComponent } from './kanba-select/kanba-select.component';
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
@@ -11,7 +10,7 @@ import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 @NgModule({
-  declarations: [HeaderComponent, DialogConfirmationComponent,KanbaSelectComponent, UserSelectComponent],
+  declarations: [HeaderComponent, DialogConfirmationComponent],
   imports: [
     CommonModule,
     RouterModule,

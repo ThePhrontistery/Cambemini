@@ -1,10 +1,10 @@
 import { NoteEditComponent } from '../note-edit/note-edit.component';
-import { KanbasService } from '../kanbas.service';
+import { KanbasService } from '../../../kanbas.service';
 
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Lane } from '../model/Lane';
-import { Notes } from '../model/Notes';
+import { Lane } from '../../../model/Lane';
+import { Notes } from '../../../model/Notes';
 
 @Component({
   selector: 'app-note',

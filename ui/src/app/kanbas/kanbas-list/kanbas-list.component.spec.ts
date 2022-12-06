@@ -30,17 +30,14 @@ const RouterMock = {
 const kanba: Kanban = {
   id: 1,
   title: 'Escape',
-  description:
-    'Phasellus et lectus nec est vulputate semper in cursus metus. Nam eu odio lacus. Etiam elementum elementum enim a tempus. Quisque id pretium metus. Cras malesuada tellus sed urna placerat commodo.',
-
-  code: 'mural-0001',
+  description: 'Phasellus et lectus nec est vulputate semper in cursus metus. Nam eu odio lacus. Etiam elementum elementum enim a tempus. Quisque id pretium metus. Cras malesuada tellus sed urna placerat commodo.',
   select: true,
-  icon: 'settings_accesibility',
-  users: [
-    { email: 'fredy@test.com', initial: 'FHO', online: true },
-    { initial: 'DAV', email: 'david@test.com', online: false },
+  userKanbanPermission:[
+    {id:1, users:{id:1,email:'mercedes@escape.com', online:false}, permission:{id:1,rol:"Owner"}},
+    {id:2, users:{id:2,email:'raul@escape.com', online:false}, permission:{id:2,rol:"Editor"}}
   ],
-  swimlanes: LANE_DATA_LIST,
+  
+  swimlanes:LANE_DATA_LIST
 };
 
 describe('KanbasComponent', () => {
@@ -86,19 +83,16 @@ describe('KanbasComponent', () => {
    
     component.listKanbas = [
       {
-        id: 20,
+        id: 1,
         title: 'Escape',
-        description:
-          'Phasellus et lectus nec est vulputate semper in cursus metus. Nam eu odio lacus. Etiam elementum elementum enim a tempus. Quisque id pretium metus. Cras malesuada tellus sed urna placerat commodo.',
-
-        code: 'mural-0000020',
+        description: 'Phasellus et lectus nec est vulputate semper in cursus metus. Nam eu odio lacus. Etiam elementum elementum enim a tempus. Quisque id pretium metus. Cras malesuada tellus sed urna placerat commodo.',
         select: true,
-        icon: 'settings_accesibility',
-        users: [
-          { email: 'fredy@test.com', initial: 'FHO', online: true },
-          { initial: 'DAV', email: 'david@test.com', online: false },
+        userKanbanPermission:[
+          {id:1, users:{id:1,email:'mercedes@escape.com', online:false}, permission:{id:1,rol:"Owner"}},
+          {id:2, users:{id:2,email:'raul@escape.com', online:false}, permission:{id:2,rol:"Editor"}}
         ],
-        swimlanes: LANE_DATA_LIST,
+        
+        swimlanes:LANE_DATA_LIST
       },
     ];
     // expect(component.listKanbas.length).toEqual(1);

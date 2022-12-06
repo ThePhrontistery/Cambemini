@@ -9,7 +9,7 @@ import {
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
-import { LaneEditComponent } from '../lane-edit/lane-edit.component';
+import { LaneEditComponent } from './lane-edit/lane-edit.component';
 import { ActivatedRoute } from '@angular/router';
 import { Notes } from '../model/Notes';
 import { ThisReceiver } from '@angular/compiler';
@@ -35,32 +35,21 @@ export class KanbanComponent implements OnInit {
     this.kanbasListId =[];
     this.kanbanId = Number(this.activatedRoute.snapshot.params.id);
     
-    this.KanbasService.getKanban(this.userId,this.kanbanId).subscribe((kanban) => {
-      this.lanes.push(...kanban[0].swimlanes);
-      this.lanes.forEach((e, i) => {
-        this.kanbasListId.push('list' + i);
-      });
-    });
+    this.getkanban();
     
-    this.KanbasService.emitKankaSelect.subscribe((x) => {
-      this.lanes = [];
-      this.lanes.push(...x.swimlanes);
-    });
-
     this.KanbasService.emitRemoveLane.subscribe((lane) => {
       let index = this.lanes.findIndex((xLane) => lane.id == xLane.id);
       if (index != -1) this.lanes.splice(index, 1);
     });
   }
 
-  getId() {
-    let c = 1;
-    this.lanes.forEach((r) => {
-      r.notes.forEach((l) => {
-        c++;
+  getkanban(){
+    this.KanbasService.getKanban(this.userId,this.kanbanId).subscribe((kanban) => {
+      this.lanes.push(...kanban[0].swimlanes);
+      this.lanes.forEach((e, i) => {
+        this.kanbasListId.push('list' + i);
       });
     });
-    return c++;
   }
 
   add() {

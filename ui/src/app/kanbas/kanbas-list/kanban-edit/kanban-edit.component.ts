@@ -1,8 +1,8 @@
 import { Component, OnInit, Inject} from '@angular/core';
-import { KanbasService } from '../kanbas.service';
+import { KanbasService } from '../../kanbas.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Kanban } from '../model/Kanban';
+import { Kanban } from '../../model/Kanban';
 
 @Component({
   selector: 'app-kanbas-edit',

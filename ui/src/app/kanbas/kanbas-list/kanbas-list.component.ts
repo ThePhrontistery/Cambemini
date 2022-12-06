@@ -1,5 +1,5 @@
 import { DialogConfirmationComponent } from '../../core/dialog-confirmation/dialog-confirmation.component';
-import { KanbanEditComponent } from '../kanban-edit/kanban-edit.component';
+import { KanbanEditComponent } from './kanban-edit/kanban-edit.component';
 import { MatDialog } from '@angular/material/dialog';
 import { KanbasService } from '../kanbas.service';
 import { Router } from '@angular/router';
@@ -31,7 +31,7 @@ export class KanbasListComponent implements OnInit {
  
   go(item: Kanban) {
     this.kanbaService.kanba = item;
-    this.router.navigate(['kanbas', item.id]);
+    this.router.navigate(['kanbans', item.id]);
     return true;
   }
 

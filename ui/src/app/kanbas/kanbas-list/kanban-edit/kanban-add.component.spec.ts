@@ -1,6 +1,6 @@
 import { of } from 'rxjs';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { KanbasService } from '../kanbas.service';
+import { KanbasService } from '../../kanbas.service';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { KanbanEditComponent } from './kanban-edit.component';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/compiler';

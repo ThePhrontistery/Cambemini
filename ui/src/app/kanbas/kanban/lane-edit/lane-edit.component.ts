@@ -1,7 +1,7 @@
-import { Kanban } from './../model/Kanban';
-import { Lane } from './../model/Lane';
+import { Kanban } from '../../model/Kanban';
+import { Lane } from '../../model/Lane';
 
-import { KanbasService } from '../kanbas.service';
+import { KanbasService } from '../../kanbas.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Component, Inject, OnInit } from '@angular/core';
 

@@ -2,38 +2,32 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { of } from 'rxjs';
-import { KanbasService } from '../kanbas.service';
-import { Lane } from '../model/Lane';
-import { Notes } from '../model/Notes';
+import { KanbasService } from '../../../kanbas.service';
+import { Lane } from '../../../model/Lane';
+import { Notes } from '../../../model/Notes';
 import { NoteEditComponent } from './note-edit.component';
 
-const mockTask: Task = {
+const mockTask: Notes =  {
   id: 1,
-  title: 'Cloud design',
-  description: 'Design of our cloud-based backend',
-  laneId: 1,
-}
+  content: 'Cloud design',
+};
+
 const mockLane: Lane = {
   id: 1,
   title: 'To do',
-  color: '',
-  order: 0,
-  items: [
+  notes: [
     {
       id: 1,
-      title: 'Cloud design',
-      description: 'Design of our cloud-based backend',
-      laneId: 1,
+      content: 'Cloud design',
     },
     {
-      id: 2,
-      title: 'Client tasks usability',
-      description:
+      id: 2,        
+      content:
         'Think and design how clients will interact with notes at the same time',
-      laneId: 1,
     },
   ],
 }
+
 const data = {
   lane: mockLane,
   task: null
