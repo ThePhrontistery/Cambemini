@@ -23,8 +23,8 @@ public class NoteIT {
 
     public static final String LOCALHOST = "http://localhost:";
     public static final String SERVICE_PATH = "/api/kanban/swimlane/note/";
-    public static final Long NEW_NOTE_ID = 4L;
-    public static final Long EXIST_NOTE_ID = 2L;
+    public static final Long NEW_NOTE_ID = 2L;
+    public static final Long EXIST_NOTE_ID = 4L;
     public static final String NEW_NOTE_CONTENT = "NOTE";
     public static final Long MODIFY_NOTE_ID = 3L;
     public static final Long DELETE_NOTE_ID = 2L;
@@ -80,7 +80,7 @@ public class NoteIT {
         ResponseEntity<List<NoteDto>> response = restTemplate.exchange(LOCALHOST + port + SERVICE_PATH + EXIST_NOTE_ID,
                 HttpMethod.GET, null, responseType);
         assertNotNull(response);
-        assertEquals(1, response.getBody().size());
+        assertEquals(3, response.getBody().size());
 
         NoteDto noteSearch = response.getBody().stream().filter(item -> item.getId().equals(MODIFY_NOTE_ID)).findFirst()
                 .orElse(null);
@@ -108,7 +108,7 @@ public class NoteIT {
         ResponseEntity<List<NoteDto>> response = restTemplate
                 .exchange(LOCALHOST + port + SERVICE_PATH + EXIST_SWIMLANE_ID, HttpMethod.GET, null, responseType);
         assertNotNull(response);
-        assertEquals(0, response.getBody().size());
+        assertEquals(1, response.getBody().size());
     }
 
     @Test

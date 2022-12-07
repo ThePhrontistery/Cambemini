@@ -25,7 +25,7 @@ public class NoteTest {
     @InjectMocks
     NoteServiceImpl noteService;
 
-    private static final Long EXISTS_NOTE_ID = 1L;
+    private static final Long EXISTS_NOTE_ID = 2L;
     private static final String NOTE_CONTENT = "New Content";
 
     @Test
@@ -33,7 +33,7 @@ public class NoteTest {
         List<Note> list = new ArrayList<>();
         list.add(mock(Note.class));
 
-        when(noteRepository.findAllSwimlaneNotes(1L)).thenReturn(list);
+        when(noteRepository.findAllSwimlaneNotes(EXISTS_NOTE_ID)).thenReturn(list);
 
         List<Note> notes = noteService.findAllSwimlaneNotes(2L);
 
