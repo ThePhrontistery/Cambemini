@@ -4,14 +4,19 @@ import java.util.List;
 
 import org.mapstruct.Mapper;
 
+import es.capgemini.cca.canbemini.kanban.swimlane.Swimlane;
+import es.capgemini.cca.canbemini.kanban.swimlane.SwimlaneDto;
 import es.capgemini.cca.canbemini.kanban.swimlane.note.Note;
 import es.capgemini.cca.canbemini.kanban.swimlane.note.NoteDto;
 
 @Mapper(componentModel = "spring")
 public interface NoteMapper {
-    Note NoteDtoToNote(NoteDto dto);
+    Note noteDtoToNote(NoteDto dto);
 
-    NoteDto NoteToNoteDto(Note note);
+    NoteDto noteToNoteDto(Note note);
+
+    SwimlaneDto swimlaneToSwimlaneDto(Swimlane swimlane);
 
     List<NoteDto> map(List<Note> noteList);
+
 }

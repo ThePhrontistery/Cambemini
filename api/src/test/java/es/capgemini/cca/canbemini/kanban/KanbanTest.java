@@ -30,7 +30,7 @@ public class KanbanTest {
     public static final Long EXISTS_KANBAN_ID = 1L;
     public static final Long NOT_EXISTS_KANBAN_ID = 9L;
     public static final String KANBAN_NAME = "KANBAN1";
-    private static final Long EXISTS_USER_ID = 1L;
+    public static final Long EXISTS_USER_ID = 1L;
 
     @Test
     public void findAllShouldReturnAllUserKanbans() {

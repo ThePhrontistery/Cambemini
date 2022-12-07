@@ -39,7 +39,7 @@ public class AttachmentIT {
     public static final Long EXISTS_ATTACHMENT_ID = 1L;
     public static final Long NOT_EXISTS_ATTACHMENT_ID = 9L;
     public static final String NEW_ATTACHMENT_PATH = "DOC1";
-    public static final Long NEW_ATTACHMENT_ID = 3L;
+    public static final Long NEW_ATTACHMENT_ID = 1L;
     private static final Long DELETE_ATTACHMENT_ID = 1L;
     // private static final Long MODIFY_ATTACHMENT_ID = 1L;
 //    private static final String MODIFY_ATTACHMENT_TITLE = "KANBAN_NUEVO";
@@ -52,7 +52,7 @@ public class AttachmentIT {
                 .exchange(LOCALHOST + port + SERVICE_PATH + EXIST_NOTE_ID, HttpMethod.GET, null, responseType);
 
         assertNotNull(response);
-        assertEquals(2, response.getBody().size());
+        assertEquals(1, response.getBody().size());
     }
 
     @Test
@@ -67,7 +67,7 @@ public class AttachmentIT {
                 .exchange(LOCALHOST + port + SERVICE_PATH + EXIST_NOTE_ID, HttpMethod.GET, null, responseType);
 
         assertNotNull(response);
-        assertEquals(3, response.getBody().size());
+        assertEquals(1, response.getBody().size());
 
         AttachmentDto attachmentSearch = response.getBody().stream()
                 .filter(item -> item.getId().equals(NEW_ATTACHMENT_ID)).findFirst().orElse(null);
