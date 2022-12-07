@@ -108,7 +108,7 @@ public class NoteIT {
         ResponseEntity<List<NoteDto>> response = restTemplate
                 .exchange(LOCALHOST + port + SERVICE_PATH + EXIST_SWIMLANE_ID, HttpMethod.GET, null, responseType);
         assertNotNull(response);
-        assertEquals(1, response.getBody().size());
+        assertEquals(2, response.getBody().size());
     }
 
     @Test

@@ -118,6 +118,6 @@ public class KanbanIT {
         ResponseEntity<List<KanbanDto>> response = restTemplate
                 .exchange(LOCALHOST + port + SERVICE_PATH + EXIST_USER_ID, HttpMethod.GET, null, responseType);
         assertNotNull(response);
-        assertEquals(1, response.getBody().size());
+        assertEquals(2, response.getBody().size());
     }
 }

@@ -1,7 +1,6 @@
 package es.capgemini.cca.canbemini.kanban;
 
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,7 +28,7 @@ public class Kanban {
     private String description;
 
     @OneToMany(mappedBy = "kanban", orphanRemoval = true)
-    private Set<UserKanbanPermission> userKanbanPermission;
+    private List<UserKanbanPermission> userKanbanPermission;
 
     @OneToMany(mappedBy = "kanban", orphanRemoval = true)
     private List<Swimlane> swimlanes;
@@ -43,11 +42,11 @@ public class Kanban {
 
     }
 
-    public Set<UserKanbanPermission> getUserKanbanPermission() {
+    public List<UserKanbanPermission> getUserKanbanPermission() {
         return userKanbanPermission;
     }
 
-    public void setUserKanbanPermission(Set<UserKanbanPermission> userKanbanPermission) {
+    public void setUserKanbanPermission(List<UserKanbanPermission> userKanbanPermission) {
         this.userKanbanPermission = userKanbanPermission;
     }
 

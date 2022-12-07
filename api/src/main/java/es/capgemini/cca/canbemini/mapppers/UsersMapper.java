@@ -3,6 +3,7 @@ package es.capgemini.cca.canbemini.mapppers;
 import java.util.List;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 import es.capgemini.cca.canbemini.users.Users;
 import es.capgemini.cca.canbemini.users.UsersDto;
@@ -13,6 +14,7 @@ public interface UsersMapper {
 
     UsersDto UsersToUsersDto(Users users);
 
-    List<UsersDto> map(List<Users> usersList);
+    @Mapping(source = "user_kanban_permission", target = "user_kanban_permission", ignore = true)
+    List<UsersDto> usersListToUsersListDto(List<Users> usersList);
 
 }

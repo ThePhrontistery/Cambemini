@@ -13,5 +13,7 @@ public interface SwimlaneMapper {
 
     SwimlaneDto SwimlaneToSwimlaneDto(Swimlane swimlane);
 
-    List<SwimlaneDto> map(List<Swimlane> swimlaneList);
+    List<Swimlane> swimlaneListDtoToSwimlaneList(List<SwimlaneDto> swimlaneListDto);
+
+    List<SwimlaneDto> swimlaneListToSwimlaneListDto(List<Swimlane> swimlaneList);
 }

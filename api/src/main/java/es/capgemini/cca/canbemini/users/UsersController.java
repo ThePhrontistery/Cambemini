@@ -34,7 +34,7 @@ public class UsersController {
 
     @RequestMapping(path = "", method = RequestMethod.GET)
     public List<UsersDto> getAllUsers() {
-        return usersMapper.map(usersService.findAll());
+        return usersMapper.usersListToUsersListDto(usersService.findAll());
     }
 
     @RequestMapping(path = { "", "/{id}" }, method = RequestMethod.PUT)

@@ -47,14 +47,16 @@ public class KanbanController {
     @RequestMapping(path = "/{userId}", method = RequestMethod.GET)
     public List<Kanban> getAllUserKanbans(@PathVariable("userId") Long userId) {
         return kanbanService.findUserKanbans(userId);
-        //return kanbanMapper.map(kanbanService.findUserKanbans(userId));
+        // return
+        // kanbanMapper.KanbanListToKanbaListDto(kanbanService.findUserKanbans(userId));
     }
 
     // @GetMapping("/api/kanban")
     @RequestMapping(path = "/{userId}/{kanbanId}", method = RequestMethod.GET)
-    public List<Kanban> getAllUserKanbans(@PathVariable("userId") Long userId, @PathVariable("kanbanId") Long kanbanId) {
-        return kanbanService.findUserKanbanId(userId,kanbanId);
-        //return kanbanMapper.map(kanbanService.findUserKanbans(userId));
+    public List<Kanban> getAllUserKanbans(@PathVariable("userId") Long userId,
+            @PathVariable("kanbanId") Long kanbanId) {
+        return kanbanService.findUserKanbanId(userId, kanbanId);
+        // return kanbanMapper.map(kanbanService.findUserKanbans(userId));
     }
 
     @RequestMapping(path = { "/save/{userId}", "/save/{id}/{userId}" }, method = RequestMethod.PUT)
@@ -70,6 +72,7 @@ public class KanbanController {
 
     @RequestMapping(path = "", method = RequestMethod.GET)
     public List<UserKanbanPermissionDto> getAllUserKanbanPermission() {
-        return userKanbanPermissionMapper.map(this.userKanbanPermisssionService.get());
+        return userKanbanPermissionMapper
+                .userKanbanPermissionListToUserKanbanPermissionListDto(this.userKanbanPermisssionService.get());
     }
 }

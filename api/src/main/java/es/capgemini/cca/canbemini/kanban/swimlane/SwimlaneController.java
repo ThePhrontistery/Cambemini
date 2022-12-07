@@ -33,7 +33,7 @@ public class SwimlaneController {
 
     @RequestMapping(path = "/{kanbanId}", method = RequestMethod.GET)
     public List<SwimlaneDto> getAllKanbanSwimlanes(@PathVariable("kanbanId") Long kanbanId) {
-        return swimlaneMapper.map(swimlaneService.findAll(kanbanId));
+        return swimlaneMapper.swimlaneListToSwimlaneListDto(swimlaneService.findAll(kanbanId));
     }
 
     @RequestMapping(path = { "", "/{id}" }, method = RequestMethod.PUT)

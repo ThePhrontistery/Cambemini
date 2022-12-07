@@ -27,6 +27,7 @@ public class NoteTest {
 
     private static final Long EXISTS_NOTE_ID = 2L;
     private static final String NOTE_CONTENT = "New Content";
+    private static final Long EXISTS_SWIMLANE_ID = 1L;
 
     @Test
     public void findAllShouldReturnAllNotes() {

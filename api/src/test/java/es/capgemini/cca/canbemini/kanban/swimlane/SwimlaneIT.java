@@ -105,7 +105,7 @@ public class SwimlaneIT {
         ResponseEntity<List<SwimlaneDto>> response = restTemplate
                 .exchange(LOCALHOST + port + SERVICE_PATH + EXISTS_SWIMLANE_ID, HttpMethod.GET, null, responseType);
         assertNotNull(response);
-        assertEquals(2, response.getBody().size());
+        assertEquals(3, response.getBody().size());
     }
 
 }

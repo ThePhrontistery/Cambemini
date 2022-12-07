@@ -36,7 +36,7 @@ public class NoteController {
         return noteMapper.map(noteService.findAllSwimlaneNotes(swimlaneId));
     }
 
-    @RequestMapping(path = { "", "/{id}" }, method = RequestMethod.PUT)
+    @RequestMapping(path = { "/save/{id}", "/save/{id}/{swimlaneId}" }, method = RequestMethod.PUT)
     public void save(@PathVariable(name = "id", required = false) Long id, @RequestBody NoteDto note) {
         noteService.saveNote(id, note);
     }

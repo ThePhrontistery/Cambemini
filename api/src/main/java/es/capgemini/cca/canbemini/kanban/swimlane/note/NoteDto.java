@@ -1,6 +1,11 @@
 package es.capgemini.cca.canbemini.kanban.swimlane.note;
 
-import es.capgemini.cca.canbemini.kanban.swimlane.SwimlaneDto;
+import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import es.capgemini.cca.canbemini.kanban.swimlane.Swimlane;
+import es.capgemini.cca.canbemini.kanban.swimlane.note.attachment.Attachment;
 
 public class NoteDto {
 
@@ -8,13 +13,14 @@ public class NoteDto {
 
     private String content;
 
-    // private List<Attachment> attachment;
+    private Set<Attachment> attachment;
 
-    private SwimlaneDto swimlaneDto;
+    @JsonIgnore
+    private Swimlane swimlane;
 
-    public NoteDto(String content) {
+    public NoteDto(String content, Swimlane swimlane) {
         this.content = content;
-
+        this.swimlane = swimlane;
     }
 
     protected NoteDto() {
@@ -37,12 +43,20 @@ public class NoteDto {
         this.content = content;
     }
 
-    public SwimlaneDto getSwimlaneDto() {
-        return swimlaneDto;
+    public Set<Attachment> getAttachment() {
+        return attachment;
     }
 
-    public void setSwimlaneDto(SwimlaneDto swimlaneDto) {
-        this.swimlaneDto = swimlaneDto;
+    public void setAttachment(Set<Attachment> attachment) {
+        this.attachment = attachment;
+    }
+
+    public Swimlane getSwimlane() {
+        return swimlane;
+    }
+
+    public void setSwimlane(Swimlane swimlane) {
+        this.swimlane = swimlane;
     }
 
 }
