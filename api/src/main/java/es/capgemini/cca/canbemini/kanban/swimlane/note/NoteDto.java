@@ -1,9 +1,6 @@
 package es.capgemini.cca.canbemini.kanban.swimlane.note;
 
-import java.util.List;
-
 import es.capgemini.cca.canbemini.kanban.swimlane.SwimlaneDto;
-import es.capgemini.cca.canbemini.kanban.swimlane.note.attachment.Attachment;
 
 public class NoteDto {
 
@@ -11,13 +8,13 @@ public class NoteDto {
 
     private String content;
 
-    private List<Attachment> attachment;
+    // private List<Attachment> attachment;
 
     private SwimlaneDto swimlaneDto;
 
-    public NoteDto(String content, SwimlaneDto swimlaneDto) {
+    public NoteDto(String content) {
         this.content = content;
-        this.swimlaneDto = swimlaneDto;
+
     }
 
     protected NoteDto() {
@@ -38,14 +35,6 @@ public class NoteDto {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public List<Attachment> getAttachment() {
-        return attachment;
-    }
-
-    public void setAttachment(List<Attachment> attachment) {
-        this.attachment = attachment;
     }
 
     public SwimlaneDto getSwimlaneDto() {

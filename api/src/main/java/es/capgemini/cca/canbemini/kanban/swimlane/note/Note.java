@@ -1,7 +1,5 @@
 package es.capgemini.cca.canbemini.kanban.swimlane.note;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,13 +7,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import es.capgemini.cca.canbemini.kanban.swimlane.Swimlane;
-import es.capgemini.cca.canbemini.kanban.swimlane.note.attachment.Attachment;
 
 @Entity
 
@@ -30,9 +26,12 @@ public class Note {
     @Column(name = "content", nullable = false)
     private String content;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "note", orphanRemoval = true)
-    private List<Attachment> attachment;
+    /*
+     * @JsonIgnore
+     * 
+     * @OneToMany(mappedBy = "note", orphanRemoval = true) private List<Attachment>
+     * attachment;
+     */
 
     @JsonIgnore
     @ManyToOne
@@ -62,14 +61,6 @@ public class Note {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public List<Attachment> getAttachment() {
-        return attachment;
-    }
-
-    public void setAttachment(List<Attachment> attachment) {
-        this.attachment = attachment;
     }
 
     public Swimlane getSwimlane() {

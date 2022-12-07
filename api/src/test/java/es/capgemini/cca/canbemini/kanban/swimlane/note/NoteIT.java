@@ -25,7 +25,7 @@ public class NoteIT {
     public static final String SERVICE_PATH = "/api/kanban/swimlane/note/";
     public static final Long NEW_NOTE_ID = 4L;
     public static final Long EXIST_NOTE_ID = 2L;
-    public static final String NEW_NOTE_CONTENT = "NOTE";
+    public static final String NEW_NOTE_CONTENT = "CONTENT3";
     public static final Long MODIFY_NOTE_ID = 3L;
     public static final Long DELETE_NOTE_ID = 2L;
     public static final Long EXIST_SWIMLANE_ID = 1L;

@@ -42,7 +42,7 @@ public class UsersTest {
         List<Users> users = usersService.findAll();
 
         assertNotNull(users);
-        assertEquals(5, users.size());
+        assertEquals(1, users.size());
     }
 
     @Test
