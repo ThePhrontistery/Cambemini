@@ -10,7 +10,7 @@ import { KANBAS_DATA_LIST, LANE_DATA_LIST } from './model/mock-kanbas-list';
 
 
 
-fdescribe('KanbasService', () => {
+describe('KanbasService', () => {
 	let service: KanbasService;
     let httpController: HttpTestingController;
 	let userId = 1;
