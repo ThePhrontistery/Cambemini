@@ -1,28 +1,75 @@
 package es.capgemini.cca.canbemini.kanban;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import es.capgemini.cca.canbemini.mapppers.KanbanMapper;
+import es.capgemini.cca.canbemini.mapppers.UserKanbanPermissionMapper;
+import es.capgemini.cca.canbemini.userKanbanPermission.UserKanbanPermissionDto;
+import es.capgemini.cca.canbemini.userKanbanPermission.UserKanbanPermissionService;
+
+//import com.devonfw.module.beanmapping.common.api.BeanMapper;
+
+@RequestMapping(value = "/api/kanban")
 @RestController
+@CrossOrigin(origins = "*")
 public class KanbanController {
 
     @Autowired
-    KanbanRepository repository;
+    KanbanService kanbanService;
 
-    @GetMapping("/api/kanban/{id}")
-    public Kanban getKanban(@PathVariable long id){
+    @Autowired
+    KanbanMapper kanbanMapper;
 
-        return repository.findById(id);
+    @Autowired
+    UserKanbanPermissionMapper userKanbanPermissionMapper;
+
+    @Autowired
+    UserKanbanPermissionService userKanbanPermisssionService;
+
+    public KanbanController() {
+
     }
 
-    @GetMapping("/api/kanban")
-    public Iterable<Kanban> getAllKanbans() {
+    // @GetMapping("/api/kanban/{id}")
+    @RequestMapping(path = "/get/{id}", method = RequestMethod.GET)
+    public KanbanDto getKanban(@PathVariable("id") Long id) {
+        return kanbanMapper.KanbanToKanbanDto(kanbanService.getKanban(id));
+    }
 
+    @RequestMapping(path = "/{userId}", method = RequestMethod.GET)
+    public List<Kanban> getAllUserKanbans(@PathVariable("userId") Long userId) {
+        return kanbanService.findUserKanbans(userId);
+        //return kanbanMapper.map(kanbanService.findUserKanbans(userId));
+    }
 
-        return repository.findAll();
+    // @GetMapping("/api/kanban")
+    @RequestMapping(path = "/{userId}/{kanbanId}", method = RequestMethod.GET)
+    public List<Kanban> getAllUserKanbans(@PathVariable("userId") Long userId, @PathVariable("kanbanId") Long kanbanId) {
+        return kanbanService.findUserKanbanId(userId,kanbanId);
+        //return kanbanMapper.map(kanbanService.findUserKanbans(userId));
+    }
+
+    @RequestMapping(path = { "/save/{userId}", "/save/{id}/{userId}" }, method = RequestMethod.PUT)
+    public void save(@PathVariable(name = "id", required = false) Long id, @RequestBody KanbanDto kanban,
+            @PathVariable(name = "userId") Long userId) {
+        kanbanService.saveKanban(id, kanban, userId);
+    }
+
+    @RequestMapping(path = "{id}", method = RequestMethod.DELETE)
+    public void delete(@PathVariable("id") Long id) {
+        kanbanService.deleteKanban(id);
+    }
+
+    @RequestMapping(path = "", method = RequestMethod.GET)
+    public List<UserKanbanPermissionDto> getAllUserKanbanPermission() {
+        return userKanbanPermissionMapper.map(this.userKanbanPermisssionService.get());
     }
 }

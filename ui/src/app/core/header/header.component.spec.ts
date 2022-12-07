@@ -1,3 +1,4 @@
+import { Kanban } from '../../kanbas/model/Kanban';
 import { LANE_DATA_LIST } from './../../kanbas/model/mock-kanbas-list';
 
 import { take, map } from 'rxjs/operators';
@@ -8,6 +9,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HeaderComponent } from './header.component';
 import { of, Observable } from 'rxjs';
 import { User } from 'src/app/login/login/model/User';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 const loginMock = {
   logout() {
@@ -16,7 +18,7 @@ const loginMock = {
     };
   },
 };
-fdescribe('HeaderComponent', () => {
+describe('HeaderComponent', () => {
   let component: HeaderComponent;
   let fixture: ComponentFixture<HeaderComponent>;
   let kanbasService: KanbasService;
@@ -25,7 +27,7 @@ fdescribe('HeaderComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        // HttpClientTestingModule,
+        HttpClientTestingModule,
       ],
       declarations: [HeaderComponent],
 
@@ -59,23 +61,19 @@ fdescribe('HeaderComponent', () => {
       { email: 'raul@test.com', initial: 'RAU', online: true },
     ];
 
-    let kanba = {
+    let kanba:Kanban = {
       id: 1,
       title: 'Escape',
-      description:
-        'Phasellus et lectus nec est vulputate semper in cursus metus. Nam eu odio lacus. Etiam elementum elementum enim a tempus. Quisque id pretium metus. Cras malesuada tellus sed urna placerat commodo.',
-
-      code: 'mural-0001',
+      description: 'Phasellus et lectus nec est vulputate semper in cursus metus. Nam eu odio lacus. Etiam elementum elementum enim a tempus. Quisque id pretium metus. Cras malesuada tellus sed urna placerat commodo.',
       select: true,
-      icon: 'settings_accesibility',
-      users: [
-        { email: 'fredy@test.com', initial: 'FHO', online: true },
-        { initial: 'DAV', email: 'david@test.com', online: false },
+      userKanbanPermission:[
+        {id:1, users:{id:1,email:'mercedes@escape.com', online:false}, permission:{id:1,rol:"Owner"}},
+        {id:2, users:{id:2,email:'raul@escape.com', online:false}, permission:{id:2,rol:"Editor"}}
       ],
-      lanes: LANE_DATA_LIST,
+      
+      swimlanes:LANE_DATA_LIST
     };
-
-    kanbasService.emitKankaSelect.emit(kanba);
-    expect(component.users.length).toEqual(kanba.users.length);
+    component.users=kanba.userKanbanPermission.map(x=>x.users);
+    expect(component.users.length).toEqual(2);
   });
 });

@@ -1,3 +1,4 @@
+import { Token } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -12,11 +13,12 @@ export class LoginGuard implements CanActivate {
   constructor(private loginService: LoginService, private router: Router) {}
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+        
     return this.loginService.isLoggedIn.pipe(
       take(1),
       map((isLoggedIn: boolean) => {
         if (!isLoggedIn) {
-          this.router.navigate(['/login']);
+          this.router.navigate(['/check']);
           return false;
         }
         return true;

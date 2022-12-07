@@ -5,7 +5,7 @@ import { LoginService } from '../login.service';
 
 import { LoginComponent } from './login.component';
 
-fdescribe('LoginComponent', () => {
+xdescribe('LoginComponent', () => {
   let component: LoginComponent;
   let service: LoginService;
   let fixture: ComponentFixture<LoginComponent>;

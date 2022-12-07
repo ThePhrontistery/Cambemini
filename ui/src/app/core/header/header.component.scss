@@ -56,3 +56,18 @@
 // .mat-icon-button {
 //   line-height: unset;
 // }
+
+.image-cropper {
+  width: 30px;
+  height: 30px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+img {
+  display: inline;
+  margin: 0 auto;
+  height: 100%;
+  width: auto;
+}

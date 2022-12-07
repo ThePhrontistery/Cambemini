@@ -37,3 +37,4 @@ out/
 .vscode/
 
 .fake
+/.apt_generated_tests/

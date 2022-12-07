@@ -1,9 +1,10 @@
-import { Task } from "./Task";
+import { Kanban } from './Kanban';
+import { Notes } from './Notes';
 
 export class Lane {
     id:number;
-    title: string;
-    order:number;
-    items:Task[];
-    color:string;    
+    title: string;   
+    notes:Notes[];
+    kanban ?:Kanban;
+       
 }

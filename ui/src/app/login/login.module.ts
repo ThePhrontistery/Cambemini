@@ -8,10 +8,12 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { CheckComponent } from './check/check.component';
 
 @NgModule({
   declarations: [
-    LoginComponent
+    LoginComponent,
+    CheckComponent
   ],
   imports: [
     CommonModule,

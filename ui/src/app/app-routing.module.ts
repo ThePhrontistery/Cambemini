@@ -1,7 +1,8 @@
-import { KanbasComponent } from './kanbas/kanbas/kanbas.component';
+import { CheckComponent } from './login/check/check.component';
+import { KanbasListComponent } from './kanbas/kanbas-list/kanbas-list.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { KanbaListComponent } from './kanbas/kanba-list/kanba-list.component';
+import { KanbanComponent } from './kanbas/kanban/kanban.component';
 import { LoginComponent } from './login/login/login.component';
 import { LoginGuard } from './login/login.guard';
 /*
@@ -12,26 +13,26 @@ const routes: Routes = [
 ];*/
 
 const routes: Routes = [
-  { path: '', redirectTo: '/kanbas', pathMatch: 'full' },
+  { path: '', redirectTo: '/kanbans', pathMatch: 'full' },
   {
-    path: 'kanbas/:code',
-    component: KanbaListComponent,
+    path: 'kanbans/:id',
+    component: KanbanComponent,
     canActivate: [LoginGuard],
     children: [
       {
-        path: 'kanbas/:code',
-        component: KanbaListComponent,
+        path: 'kanbans/:id',
+        component: KanbanComponent,
       },
     ],
   },
   {
-    path: 'kanbas',
-    component: KanbasComponent,
+    path: 'kanbans',
+    component: KanbasListComponent,
     canActivate: [LoginGuard],
     children: [
       {
-        path: 'kanbas',
-        component: KanbaListComponent,
+        path: 'kanbans',
+        component: KanbanComponent,
       },
     ],
   },
@@ -42,6 +43,16 @@ const routes: Routes = [
       {
         path: 'login',
         component: LoginComponent,
+      },
+    ],
+  },
+  {
+    path: 'check',
+    component: CheckComponent,
+    children: [
+      {
+        path: 'check',
+        component: CheckComponent,
       },
     ],
   },

@@ -1,4 +1,7 @@
-import { Observable } from 'rxjs';
+import { Kanban } from '../../kanbas/model/Kanban';
+
+import { UserJwt } from './../../kanbas/model/UserJwt';
+import { Observable, map } from 'rxjs';
 import { LoginService } from './../../login/login.service';
 
 import { KanbasService } from './../../kanbas/kanbas.service';
@@ -13,15 +16,23 @@ import { User } from 'src/app/kanbas/model/User';
 export class HeaderComponent implements OnInit {
   isLoggedIn: Observable<boolean>;
   users:User[]=[];
-  constructor(public kanbasService:KanbasService, public loginService:LoginService) { }
+  user:UserJwt;
+  constructor(public kanbasService:KanbasService, public loginService:LoginService) {
+    this.user= new UserJwt();
+   }
 
   ngOnInit(): void {
 
-    this.kanbasService.emitKankaSelect.subscribe(x=>{
-      this.users=x.users
+    this.kanbasService.emitKankaSelect.subscribe(kanban=>{
+      
+      if(kanban!=null) this.users = kanban.userKanbanPermission.map(kan=>kan.users);
        
     })
     this.isLoggedIn = this.loginService.isLoggedIn;
+
+     this.loginService.user.subscribe(user=>{
+      this.user =user;
+    })
   }
 
   onLogout() {

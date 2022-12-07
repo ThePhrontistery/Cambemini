@@ -1,5 +1,5 @@
 export class User{
-    email:string;
-    online:boolean;
-    initial:string
+    id:number;
+    email:string;    
+    online:boolean;    
 }

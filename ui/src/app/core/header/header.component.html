@@ -6,23 +6,24 @@
                 <mat-icon>home</mat-icon>
             </div>
 
-            <div class="header_separator"> | </div>
+            <!-- <div class="header_separator"> | </div> -->
 
 
             <div class="header_menu">
-                <app-kanba-select ></app-kanba-select>
+                <!-- <app-kanba-select ></app-kanba-select> -->
             </div>
 
             
             <div class="header_login">
                <div class="space-between">  
-                    <button mat-icon-button><mat-icon (click)="onLogout()">exit_to_app</mat-icon></button>                   
-                    
-                    <app-user-select [users]="users"></app-user-select>
-                    
-                    <button mat-icon-button color="accent"><mat-icon>share</mat-icon></button>                        
-                    <div class="header_separator"> | </div>
-                    <div style="margin-left:0.5rem;">ejemplo@email.com</div>
+             
+                    <div class="image-cropper" *ngIf="user!=null">
+                        <img [src]="user.picture" class="rounded" />
+                    </div>
+                    <div style="margin-left:0.5rem;" *ngIf="user!=null">{{user.name }}</div>
+                    <div style="margin-left:0.5rem;" *ngIf="user==null">Nombre completo</div>
+
+                    <button mat-icon-button><mat-icon (click)="onLogout()">exit_to_app</mat-icon></button>     
                 </div>
             </div>
         </div>
