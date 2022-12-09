@@ -14,4 +14,6 @@ public interface AttachmentMapper {
     AttachmentDto AttachmentToAttachmentDto(Attachment kanban);
 
     List<AttachmentDto> map(List<Attachment> attachmentList);
+
+    List<Attachment> AttachmentDtoListToAttachmentList(List<AttachmentDto> attachmentList);
 }

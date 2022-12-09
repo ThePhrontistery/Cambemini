@@ -13,6 +13,7 @@ import es.capgemini.cca.canbemini.userKanbanPermission.UserKanbanPermissionDto;
 
 public interface UserKanbanPermissionMapper {
 
+    @Mapping(target = "kanban", ignore = true)
     UserKanbanPermission userKanbanPermissionDtoToUserKanbanPermission(UserKanbanPermissionDto userKanbanPermissionDto);
 
     @Mapping(target = "kanban", ignore = true)
