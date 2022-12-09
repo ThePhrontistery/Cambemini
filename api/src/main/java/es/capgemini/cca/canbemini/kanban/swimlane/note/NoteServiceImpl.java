@@ -46,8 +46,11 @@ public class NoteServiceImpl implements NoteService {
 
         BeanUtils.copyProperties(noteDto, note, "id", "swimlane");
 
-        note.setContent(noteDto.getContent());
-        note.setSwimlane(swimlaneService.findSwimlane(noteDto.getSwimlane().getId()));
+        /*
+         * note.setContent(noteDto.getContent());
+         * note.setSwimlane(swimlaneService.findSwimlane(noteDto.getSwimlane().getId()))
+         * ;
+         */
 
         this.noteRepository.save(note);
     }
