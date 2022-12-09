@@ -12,14 +12,15 @@ import es.capgemini.cca.canbemini.userKanbanPermission.UserKanbanPermissionDto;
         UsersMapper.class, AttachmentMapper.class })
 
 public interface UserKanbanPermissionMapper {
+
+    UserKanbanPermission userKanbanPermissionDtoToUserKanbanPermission(UserKanbanPermissionDto userKanbanPermissionDto);
+
+    @Mapping(target = "kanban", ignore = true)
+    UserKanbanPermissionDto userKanbanPermissionToUserKanbanPermissionDto(UserKanbanPermission userKanbanPermission);
+
     List<UserKanbanPermission> userKanbanPermissionListDtoToUserKanbanPermissionList(
             List<UserKanbanPermissionDto> kanbanListDto);
 
     List<UserKanbanPermissionDto> userKanbanPermissionListToUserKanbanPermissionListDto(
             List<UserKanbanPermission> kanbanList);
-
-    @Mapping(target = "kanban", ignore = true)
-    UserKanbanPermission userKanbanPermissionToUserKanbanPermissionDto(UserKanbanPermissionDto userKanbanPermissionDto);
-
-    UserKanbanPermissionDto userKanbanPermissionDtoToUserKanbanPermission(UserKanbanPermission userKanbanPermission);
 }

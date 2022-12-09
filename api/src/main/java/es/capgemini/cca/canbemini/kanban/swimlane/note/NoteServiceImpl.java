@@ -2,14 +2,20 @@ package es.capgemini.cca.canbemini.kanban.swimlane.note;
 
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import es.capgemini.cca.canbemini.kanban.swimlane.SwimlaneService;
 
 @Service
 public class NoteServiceImpl implements NoteService {
 
     @Autowired
     NoteRepository noteRepository;
+
+    @Autowired
+    SwimlaneService swimlaneService;
 
     @Override
     public List<Note> findAllSwimlaneNotes(Long swimlaneId) {
@@ -35,16 +41,14 @@ public class NoteServiceImpl implements NoteService {
         else
             note = this.getNote(id);
 
-<<<<<<< HEAD
         note.setContent(noteDto.getContent());
         note.setSwimlane(noteDto.getSwimlane());
-=======
+
         BeanUtils.copyProperties(noteDto, note, "id", "swimlane");
 
         note.setContent(noteDto.getContent());
         note.setSwimlane(swimlaneService.findSwimlane(noteDto.getSwimlane().getId()));
 
->>>>>>> b5077b06807a277894ef06259901b75b5ad2b72c
         this.noteRepository.save(note);
     }
 

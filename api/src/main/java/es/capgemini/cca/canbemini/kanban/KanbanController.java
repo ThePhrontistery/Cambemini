@@ -45,10 +45,9 @@ public class KanbanController {
     }
 
     @RequestMapping(path = "/{userId}", method = RequestMethod.GET)
-    public List<Kanban> getAllUserKanbans(@PathVariable("userId") Long userId) {
-        return kanbanService.findUserKanbans(userId);
-        // return
-        // kanbanMapper.KanbanListToKanbaListDto(kanbanService.findUserKanbans(userId));
+    public List<KanbanDto> getAllUserKanbans(@PathVariable("userId") Long userId) {
+        // return kanbanService.findUserKanbans(userId);
+        return kanbanMapper.KanbanListToKanbaListDto(kanbanService.findUserKanbans(userId));
     }
 
     // @GetMapping("/api/kanban")
