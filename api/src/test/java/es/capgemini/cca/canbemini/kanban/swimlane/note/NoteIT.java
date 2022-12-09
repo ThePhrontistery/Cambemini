@@ -55,7 +55,7 @@ public class NoteIT {
         NoteDto dto = new NoteDto();
         dto.setContent(NEW_NOTE_CONTENT);
 
-        restTemplate.exchange(LOCALHOST + port + SERVICE_PATH, HttpMethod.PUT, new HttpEntity<>(dto), Void.class);
+        restTemplate.exchange(LOCALHOST + port + SERVICE_PATH+"save/"+EXIST_SWIMLANE_ID, HttpMethod.PUT, new HttpEntity<>(dto), Void.class);
 
         ResponseEntity<List<NoteDto>> response = restTemplate
                 .exchange(LOCALHOST + port + SERVICE_PATH + EXIST_SWIMLANE_ID, HttpMethod.GET, null, responseType);

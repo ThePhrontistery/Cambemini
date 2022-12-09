@@ -70,17 +70,36 @@ export class KanbanComponent implements OnInit {
     moveItemInArray(this.lanes, event.previousIndex, event.currentIndex);
   }
   
-  saveNote(note:Notes){
-    this.ngOnInit();
+  addNote(note:Notes){
+    let indexLane =this.lanes.findIndex(lane => lane.id== note.swimlane.id);   
+    this.lanes[indexLane].notes.push(note);
+  }
+  
+  editNote(note:Notes){
+    
+    let indexLane =this.lanes.findIndex(lane => lane.id== note.swimlane.id);
+    
+    let indexNote =this.lanes[indexLane].notes.findIndex(note => note.id== note.id);
+    this.lanes[indexLane].notes[indexNote] = note;    
+    
   }
   
   saveLane(lane:Lane){
-    this.ngOnInit();
+   
+    if(lane.id==null){
+      this.lanes.push(lane);
+    }else{
+      let index = this.lanes.findIndex(xLane=>xLane.id==lane.id);
+      if(index >=0 )this.lanes[index]=lane;
+    }
+
   }
 
-  removeNote(note:Notes){
+  removeNote(noteObj:any){
     
-    this.ngOnInit();
+    this.lanes[noteObj.indexLanba].notes.splice(noteObj.indexNote,1)
+       
+    //this.ngOnInit();
   }
 
  

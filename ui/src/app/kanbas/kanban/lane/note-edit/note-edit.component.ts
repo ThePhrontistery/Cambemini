@@ -33,8 +33,9 @@ export class NoteEditComponent implements OnInit {
   }
 
   async onSave() {
-    this.KanbasService.saveNote(this.note).subscribe(result=>{      
-      this.dialogRef.close(this.note);
+    this.KanbasService.saveNote(this.note).subscribe(note=>{   
+        this.note.id = note.id
+        this.dialogRef.close(this.note);
     })
     
   }

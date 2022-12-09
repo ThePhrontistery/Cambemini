@@ -69,7 +69,7 @@ public class NoteTest {
 
         ArgumentCaptor<Note> note = ArgumentCaptor.forClass(Note.class);
 
-        noteService.saveNote(null, noteDto);
+        noteService.saveNote(null, noteDto,EXISTS_SWIMLANE_ID);
 
         verify(noteRepository).save(note.capture());
 
@@ -86,7 +86,7 @@ public class NoteTest {
 
         when(noteRepository.findById(EXISTS_NOTE_ID)).thenReturn(Optional.of(note));
 
-        noteService.saveNote(EXISTS_NOTE_ID, noteDto);
+        noteService.saveNote(EXISTS_NOTE_ID, noteDto,EXISTS_SWIMLANE_ID);
 
         verify(noteRepository).save(note);
     }

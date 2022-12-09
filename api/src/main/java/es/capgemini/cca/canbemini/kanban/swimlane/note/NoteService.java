@@ -10,5 +10,5 @@ public interface NoteService {
 
     void deleteNote(Long id);
 
-    void saveNote(Long id, NoteDto noteDto);
+    Note saveNote(Long id, NoteDto noteDto, Long swimlaneId);
 }

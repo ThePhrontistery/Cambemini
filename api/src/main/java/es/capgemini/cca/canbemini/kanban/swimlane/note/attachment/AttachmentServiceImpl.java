@@ -2,14 +2,20 @@ package es.capgemini.cca.canbemini.kanban.swimlane.note.attachment;
 
 import java.util.List;
 
+import es.capgemini.cca.canbemini.kanban.swimlane.note.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class AttachmentServiceImpl implements AttachmentService {
 
     @Autowired
     AttachmentRepository attachmentRepository;
+
+    @Autowired
+    NoteService noteService;
 
     @Override
     public List<Attachment> findAttachmentNotes(Long noteId) {
@@ -27,7 +33,7 @@ public class AttachmentServiceImpl implements AttachmentService {
     }
 
     @Override
-    public void saveAttachment(Long id, AttachmentDto attachmentDto) {
+    public void saveAttachment(Long noteId,Long id, MultipartFile multipartFile) {
         Attachment attachment = null;
 
         if (id == null)
@@ -35,9 +41,19 @@ public class AttachmentServiceImpl implements AttachmentService {
         else
             attachment = this.findAttachment(id);
 
-        attachment.setDocument_path(attachmentDto.getDocument_path());
+        attachment.setDocument_path(multipartFile.getOriginalFilename());
+        attachment.setNote(noteService.getNote(noteId));
 
-        this.attachmentRepository.save(attachment);
+        try{
+
+            byte file[] =  multipartFile.getBytes();
+            if(file.length>0)attachment.setFile(file);
+            this.attachmentRepository.save(attachment);
+
+        }catch (Exception e){
+
+        }
+
     }
 
 }

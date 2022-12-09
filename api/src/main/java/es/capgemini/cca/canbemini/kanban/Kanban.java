@@ -2,13 +2,7 @@ package es.capgemini.cca.canbemini.kanban;
 
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import es.capgemini.cca.canbemini.kanban.swimlane.Swimlane;
 import es.capgemini.cca.canbemini.userKanbanPermission.UserKanbanPermission;
@@ -30,7 +24,7 @@ public class Kanban {
     @OneToMany(mappedBy = "kanban", orphanRemoval = true)
     private List<UserKanbanPermission> userKanbanPermission;
 
-    @OneToMany(mappedBy = "kanban", orphanRemoval = true)
+    @OneToMany(mappedBy = "kanban", orphanRemoval = true, cascade = CascadeType.PERSIST)
     private List<Swimlane> swimlanes;
 
     public Kanban(String title, String description) {

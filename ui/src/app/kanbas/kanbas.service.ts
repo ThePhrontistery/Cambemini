@@ -68,14 +68,16 @@ export class KanbasService {
     return this.httpClient.delete(url);
   }
 
-  saveNote(note:Notes){
+  saveNote(note:Notes):Observable<Notes>{
     
-    let url = this.url+"/swimlane/note";
+    let url = this.url+"/swimlane/note/save";
     if (note.id != null) url += '/'+note.id;
-      return this.httpClient.put(url, note);
+    url+='/'+note.swimlane.id;
+    return this.httpClient.put<Notes>(url, note);
   }
 
   removeNote(note:Notes){
+    
     let url = this.url+"/swimlane/note";
     if (note.id != null) url += '/'+note.id;
     return this.httpClient.delete(url);

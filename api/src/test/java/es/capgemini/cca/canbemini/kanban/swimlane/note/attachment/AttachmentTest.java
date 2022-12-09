@@ -17,6 +17,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.web.multipart.MultipartFile;
 
 @ExtendWith(MockitoExtension.class)
 public class AttachmentTest {
@@ -81,8 +82,9 @@ public class AttachmentTest {
         attachmentDto.setDocument_path(DOCUMENT_NAME);
 
         ArgumentCaptor<Attachment> attachment = ArgumentCaptor.forClass(Attachment.class);
+        MultipartFile p= null;
 
-        attachmentService.saveAttachment(null, attachmentDto);
+        attachmentService.saveAttachment(EXISTS_NOTE_ID,null, p);
 
         verify(attachmentRepository).save(attachment.capture());
 
@@ -96,10 +98,10 @@ public class AttachmentTest {
         attachmentDto.setDocument_path(DOCUMENT_NAME);
 
         Attachment attachment = mock(Attachment.class);
-
+        MultipartFile p= null;
         when(attachmentRepository.findById(EXISTS_ATTACHMENT_ID)).thenReturn(Optional.of(attachment));
 
-        attachmentService.saveAttachment(EXISTS_ATTACHMENT_ID, attachmentDto);
+        attachmentService.saveAttachment(EXISTS_NOTE_ID, EXISTS_ATTACHMENT_ID,p);
 
         verify(attachmentRepository).save(attachment);
     }
