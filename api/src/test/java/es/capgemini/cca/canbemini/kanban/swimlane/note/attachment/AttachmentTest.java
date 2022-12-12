@@ -13,11 +13,9 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.web.multipart.MultipartFile;
 
 @ExtendWith(MockitoExtension.class)
 public class AttachmentTest {
@@ -74,36 +72,4 @@ public class AttachmentTest {
 
         verify(attachmentRepository).deleteById(EXISTS_ATTACHMENT_ID);
     }
-
-    @Test
-    public void saveNotExistsAttachmentIdShouldInsert() {
-
-        AttachmentDto attachmentDto = new AttachmentDto();
-        attachmentDto.setDocument_path(DOCUMENT_NAME);
-
-        ArgumentCaptor<Attachment> attachment = ArgumentCaptor.forClass(Attachment.class);
-        MultipartFile p= null;
-
-        attachmentService.saveAttachment(EXISTS_NOTE_ID,null, p);
-
-        verify(attachmentRepository).save(attachment.capture());
-
-        assertEquals(DOCUMENT_NAME, attachment.getValue().getDocument_path());
-    }
-
-    @Test
-    public void saveExistsKanbanIdShouldUpdate() {
-
-        AttachmentDto attachmentDto = new AttachmentDto();
-        attachmentDto.setDocument_path(DOCUMENT_NAME);
-
-        Attachment attachment = mock(Attachment.class);
-        MultipartFile p= null;
-        when(attachmentRepository.findById(EXISTS_ATTACHMENT_ID)).thenReturn(Optional.of(attachment));
-
-        attachmentService.saveAttachment(EXISTS_NOTE_ID, EXISTS_ATTACHMENT_ID,p);
-
-        verify(attachmentRepository).save(attachment);
-    }
-
 }

@@ -2,19 +2,22 @@ package es.capgemini.cca.canbemini.kanban.swimlane.note.attachment;
 
 import java.util.List;
 
-import es.capgemini.cca.canbemini.kanban.swimlane.note.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
-
-import es.capgemini.cca.canbemini.mapppers.AttachmentMapper;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
-import javax.annotation.Resource;
-
+import es.capgemini.cca.canbemini.kanban.swimlane.note.NoteService;
+import es.capgemini.cca.canbemini.mapppers.AttachmentMapper;
 
 @RequestMapping(value = "/api/kanban/swimlane/note/attachment")
 @RestController
@@ -51,8 +54,9 @@ public class AttachmentController {
     }
 
     @RequestMapping(path = { "/{noteId}", "/{id}/{noteId}" }, method = RequestMethod.PUT)
-    public void save(@PathVariable(name = "id", required = false) Long id, @PathVariable(name = "noteId", required = true) Long noteId,@RequestParam MultipartFile multipartFile) {
-        attachmentService.saveAttachment(noteId,id,multipartFile);
+    public void save(@PathVariable(name = "id", required = false) Long id,
+            @PathVariable(name = "noteId", required = true) Long noteId, @RequestParam MultipartFile multipartFile) {
+        attachmentService.saveAttachment(noteId, id, multipartFile);
     }
 
     @RequestMapping(path = "{id}", method = RequestMethod.DELETE)
@@ -60,13 +64,12 @@ public class AttachmentController {
         attachmentService.deleteAttachment(id);
     }
 
-    @GetMapping(value = "/file/{fileId}", produces =  MediaType.ALL_VALUE)
+    @GetMapping(value = "/file/{fileId}", produces = MediaType.ALL_VALUE)
     ByteArrayResource downloadImage(@PathVariable Long fileId) {
         byte[] file = AttachmentRepository.findById(fileId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND))
-                .getFile();
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)).getFile();
 
-        return  new ByteArrayResource(file);
+        return new ByteArrayResource(file);
     }
 
 }

@@ -27,8 +27,7 @@ public class KanbanIT {
 
     public static final String LOCALHOST = "http://localhost:";
     public static final String SERVICE_PATH = "/api/kanban/";
-    public static final String SERVICE_PATH_USER = "/api/users/";
-    public static final String SERVICE_PATH_UKP = "/api/ukp/";
+    public static final String SERVICE_PATH_SAVE = "/api/kanban/save/";
 
     @InjectMocks
     KanbanServiceImpl kanbanService;
@@ -54,8 +53,9 @@ public class KanbanIT {
     public static final Long NEW_KANBAN_ID = 3L;
     private static final Long DELETE_KANBAN_ID = 1L;
     private static final Long MODIFY_KANBAN_ID = 2L;
-    private static final String MODIFY_KANBAN_TITLE = "A second Kanban";
+    private static final String MODIFY_KANBAN_TITLE = "A second Kanban EDIT";
     private static final Long EXIST_USER_ID = 2L;
+    public static final String NEW_KANBAN_DESCRIPTION = "New Kanban Description";
 
     @Test
     public void findAllShouldReturnAllUserKanbans() {
@@ -71,8 +71,10 @@ public class KanbanIT {
     public void saveWithoutIdShouldCreateNewKanban() {
         KanbanDto kanbanDto = new KanbanDto();
         kanbanDto.setTitle(NEW_KANBAN_TITLE);
+        kanbanDto.setDescription(NEW_KANBAN_DESCRIPTION);
 
-        restTemplate.exchange(LOCALHOST + port + SERVICE_PATH, HttpMethod.PUT, new HttpEntity<>(kanbanDto), Void.class);
+        restTemplate.exchange(LOCALHOST + port + SERVICE_PATH_SAVE + EXIST_USER_ID, HttpMethod.PUT,
+                new HttpEntity<>(kanbanDto), Void.class);
 
         // restTemplate.exchange(LOCALHOST + port + SERVICE_PATH_UKP, HttpMethod.PUT,
         // new HttpEntity<>(kanbanDto),Void.class);
@@ -95,9 +97,10 @@ public class KanbanIT {
 
         KanbanDto dto = new KanbanDto();
         dto.setTitle(MODIFY_KANBAN_TITLE);
+        dto.setDescription(NEW_KANBAN_DESCRIPTION);
 
-        restTemplate.exchange(LOCALHOST + port + SERVICE_PATH + MODIFY_KANBAN_ID, HttpMethod.PUT, new HttpEntity<>(dto),
-                Void.class);
+        restTemplate.exchange(LOCALHOST + port + SERVICE_PATH_SAVE + MODIFY_KANBAN_ID + "/" + EXIST_USER_ID,
+                HttpMethod.PUT, new HttpEntity<>(dto), Void.class);
 
         ResponseEntity<List<KanbanDto>> response = restTemplate
                 .exchange(LOCALHOST + port + SERVICE_PATH + EXIST_USER_ID, HttpMethod.GET, null, responseType);
@@ -118,6 +121,6 @@ public class KanbanIT {
         ResponseEntity<List<KanbanDto>> response = restTemplate
                 .exchange(LOCALHOST + port + SERVICE_PATH + EXIST_USER_ID, HttpMethod.GET, null, responseType);
         assertNotNull(response);
-        assertEquals(2, response.getBody().size());
+        assertEquals(1, response.getBody().size());
     }
 }
