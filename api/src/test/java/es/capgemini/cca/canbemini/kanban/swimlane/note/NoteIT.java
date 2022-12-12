@@ -23,10 +23,11 @@ public class NoteIT {
 
     public static final String LOCALHOST = "http://localhost:";
     public static final String SERVICE_PATH = "/api/kanban/swimlane/note/";
-    public static final Long NEW_NOTE_ID = 2L;
+    public static final String SERVICE_PATH_SAVE = "/api/kanban/swimlane/note/save/";
+    public static final Long NEW_NOTE_ID = 11L;
     public static final Long EXIST_NOTE_ID = 4L;
     public static final String NEW_NOTE_CONTENT = "NOTE";
-    public static final Long MODIFY_NOTE_ID = 3L;
+    public static final Long MODIFY_NOTE_ID = 2L;
     public static final Long DELETE_NOTE_ID = 2L;
     public static final Long EXIST_SWIMLANE_ID = 1L;
 
@@ -55,12 +56,13 @@ public class NoteIT {
         NoteDto dto = new NoteDto();
         dto.setContent(NEW_NOTE_CONTENT);
 
-        restTemplate.exchange(LOCALHOST + port + SERVICE_PATH+"save/"+EXIST_SWIMLANE_ID, HttpMethod.PUT, new HttpEntity<>(dto), Void.class);
+        restTemplate.exchange(LOCALHOST + port + SERVICE_PATH + "save/" + EXIST_SWIMLANE_ID, HttpMethod.PUT,
+                new HttpEntity<>(dto), Void.class);
 
         ResponseEntity<List<NoteDto>> response = restTemplate
                 .exchange(LOCALHOST + port + SERVICE_PATH + EXIST_SWIMLANE_ID, HttpMethod.GET, null, responseType);
         assertNotNull(response);
-        assertEquals(10, response.getBody().size());
+        assertEquals(3, response.getBody().size());
 
         NoteDto noteSearch = response.getBody().stream().filter(item -> item.getId().equals(NEW_NOTE_ID)).findFirst()
                 .orElse(null);
@@ -74,16 +76,17 @@ public class NoteIT {
         NoteDto dto = new NoteDto();
         dto.setContent(NEW_NOTE_CONTENT);
 
-        restTemplate.exchange(LOCALHOST + port + SERVICE_PATH + MODIFY_NOTE_ID, HttpMethod.PUT, new HttpEntity<>(dto),
-                Void.class);
+        restTemplate.exchange(LOCALHOST + port + SERVICE_PATH_SAVE + MODIFY_NOTE_ID + "/" + EXIST_SWIMLANE_ID,
+                HttpMethod.PUT, new HttpEntity<>(dto), Void.class);
 
-        ResponseEntity<List<NoteDto>> response = restTemplate.exchange(LOCALHOST + port + SERVICE_PATH + EXIST_NOTE_ID,
-                HttpMethod.GET, null, responseType);
+        ResponseEntity<List<NoteDto>> response = restTemplate
+                .exchange(LOCALHOST + port + SERVICE_PATH + EXIST_SWIMLANE_ID, HttpMethod.GET, null, responseType);
         assertNotNull(response);
-        assertEquals(3, response.getBody().size());
+        assertEquals(2, response.getBody().size());
 
         NoteDto noteSearch = response.getBody().stream().filter(item -> item.getId().equals(MODIFY_NOTE_ID)).findFirst()
                 .orElse(null);
+
         assertNotNull(noteSearch);
         assertEquals(NEW_NOTE_CONTENT, noteSearch.getContent());
     }
@@ -94,8 +97,9 @@ public class NoteIT {
         NoteDto dto = new NoteDto();
         dto.setContent(NEW_NOTE_CONTENT);
 
-        ResponseEntity<?> response = restTemplate.exchange(LOCALHOST + port + SERVICE_PATH + NEW_NOTE_ID,
-                HttpMethod.PUT, new HttpEntity<>(dto), Void.class);
+        ResponseEntity<?> response = restTemplate.exchange(
+                LOCALHOST + port + SERVICE_PATH_SAVE + NEW_NOTE_ID + "/" + EXIST_SWIMLANE_ID, HttpMethod.PUT,
+                new HttpEntity<>(dto), Void.class);
 
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
@@ -108,14 +112,14 @@ public class NoteIT {
         ResponseEntity<List<NoteDto>> response = restTemplate
                 .exchange(LOCALHOST + port + SERVICE_PATH + EXIST_SWIMLANE_ID, HttpMethod.GET, null, responseType);
         assertNotNull(response);
-        assertEquals(2, response.getBody().size());
+        assertEquals(1, response.getBody().size());
     }
 
     @Test
     public void deleteWithNotExistsIdShouldInternalError() {
 
-        ResponseEntity<?> response = restTemplate.exchange(LOCALHOST + port + SERVICE_PATH + NEW_NOTE_ID,
-                HttpMethod.DELETE, null, Void.class);
+        ResponseEntity<?> response = restTemplate.exchange(
+                LOCALHOST + port + SERVICE_PATH + EXIST_SWIMLANE_ID * NEW_NOTE_ID, HttpMethod.DELETE, null, Void.class);
 
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
