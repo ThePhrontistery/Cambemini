@@ -2,7 +2,7 @@ package es.capgemini.cca.canbemini.kanban.swimlane.note.attachment;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import es.capgemini.cca.canbemini.kanban.swimlane.note.Note;
+import es.capgemini.cca.canbemini.kanban.swimlane.note.NoteDto;
 
 public class AttachmentDto {
 
@@ -11,9 +11,9 @@ public class AttachmentDto {
     private String document_path;
 
     @JsonIgnore
-    private Note note;
+    private NoteDto note;
 
-    public AttachmentDto(Note note, String document_path) {
+    public AttachmentDto(NoteDto note, String document_path) {
         this.note = note;
         this.document_path = document_path;
     }
@@ -38,11 +38,11 @@ public class AttachmentDto {
         this.document_path = document_path;
     }
 
-    public Note getNote() {
+    public NoteDto getNote() {
         return note;
     }
 
-    public void setNote(Note note) {
+    public void setNote(NoteDto note) {
         this.note = note;
     }
 
