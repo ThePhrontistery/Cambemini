@@ -4,8 +4,8 @@ import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import es.capgemini.cca.canbemini.kanban.swimlane.Swimlane;
-import es.capgemini.cca.canbemini.kanban.swimlane.note.attachment.Attachment;
+import es.capgemini.cca.canbemini.kanban.swimlane.SwimlaneDto;
+import es.capgemini.cca.canbemini.kanban.swimlane.note.attachment.AttachmentDto;
 
 public class NoteDto {
 
@@ -13,13 +13,12 @@ public class NoteDto {
 
     private String content;
 
-    private Set<Attachment> attachment;
+    private Set<AttachmentDto> attachment;
 
     @JsonIgnore
+    private SwimlaneDto swimlane;
 
-    private Swimlane swimlane;
-
-    public NoteDto(String content, Swimlane swimlane) {
+    public NoteDto(String content, SwimlaneDto swimlane) {
         this.content = content;
         this.swimlane = swimlane;
     }
@@ -44,19 +43,19 @@ public class NoteDto {
         this.content = content;
     }
 
-    public Set<Attachment> getAttachment() {
+    public Set<AttachmentDto> getAttachment() {
         return attachment;
     }
 
-    public void setAttachment(Set<Attachment> attachment) {
+    public void setAttachment(Set<AttachmentDto> attachment) {
         this.attachment = attachment;
     }
 
-    public Swimlane getSwimlane() {
+    public SwimlaneDto getSwimlane() {
         return swimlane;
     }
 
-    public void setSwimlane(Swimlane swimlane) {
+    public void setSwimlane(SwimlaneDto swimlane) {
         this.swimlane = swimlane;
     }
 

@@ -8,13 +8,17 @@ import org.mapstruct.Mapping;
 import es.capgemini.cca.canbemini.users.Users;
 import es.capgemini.cca.canbemini.users.UsersDto;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = { SwimlaneMapper.class, NoteMapper.class, AttachmentMapper.class,
+        PermissionMapper.class })
 public interface UsersMapper {
+    @Mapping(target = "user_kanban_permission", ignore = true)
     Users UsersDtoToUsers(UsersDto dto);
 
+    @Mapping(target = "user_kanban_permission", ignore = true)
     UsersDto UsersToUsersDto(Users users);
 
-    @Mapping(source = "user_kanban_permission", target = "user_kanban_permission", ignore = true)
     List<UsersDto> usersListToUsersListDto(List<Users> usersList);
+
+    List<Users> usersListDtoToUsersList(List<UsersDto> usersListDto);
 
 }

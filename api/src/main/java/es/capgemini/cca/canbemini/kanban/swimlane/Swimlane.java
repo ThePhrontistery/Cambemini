@@ -2,7 +2,16 @@ package es.capgemini.cca.canbemini.kanban.swimlane;
 
 import java.util.Set;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -21,12 +30,12 @@ public class Swimlane {
     @Column(name = "title", nullable = false)
     private String title;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "kanban_id")
-    @JsonIgnore
     private Kanban kanban;
 
-    @OneToMany(mappedBy = "swimlane", orphanRemoval = true,cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "swimlane", orphanRemoval = true, cascade = CascadeType.PERSIST)
     private Set<Note> notes;
 
     public Swimlane(String title, Kanban kanban) {

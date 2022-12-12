@@ -2,14 +2,20 @@ package es.capgemini.cca.canbemini.kanban.swimlane;
 
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import es.capgemini.cca.canbemini.kanban.KanbanService;
 
 @Service
 public class SwimlaneServiceImpl implements SwimlaneService {
 
     @Autowired
     SwimlaneRepository swimlaneRepository;
+
+    @Autowired
+    KanbanService kanbanService;
 
     @Override
     public List<Swimlane> findAll(Long kanbanId) {
@@ -28,7 +34,7 @@ public class SwimlaneServiceImpl implements SwimlaneService {
     }
 
     @Override
-    public void saveSwimlane(Long id, SwimlaneDto swimlaneDto) {
+    public Swimlane saveSwimlane(Long id, SwimlaneDto swimlaneDto, Long kanbanId) {
         Swimlane swimlane = null;
 
         if (id == null)
@@ -37,8 +43,14 @@ public class SwimlaneServiceImpl implements SwimlaneService {
             swimlane = this.findSwimlane(id);
 
         swimlane.setTitle(swimlaneDto.getTitle());
-        swimlane.setKanban(swimlaneDto.getKanban());
+        swimlane.setKanban(kanbanService.getKanban(kanbanId));
+
+        BeanUtils.copyProperties(swimlaneDto, swimlane, "id", "kanban");
+
+        // swimlane.setKanban(swimlaneDto.getKanban());
         this.swimlaneRepository.save(swimlane);
+
+        return swimlane;
     }
 
 }

@@ -24,6 +24,7 @@ public class SwimlaneIT {
 
     public static final String LOCALHOST = "http://localhost:";
     public static final String SERVICE_PATH = "/api/kanban/swimlane/";
+    public static final String SERVICE_PATH_SAVE = "/api/kanban/swimlane/save/";
 
     @InjectMocks
     SwimlaneServiceImpl swimlaneService;
@@ -37,10 +38,11 @@ public class SwimlaneIT {
     ParameterizedTypeReference<List<SwimlaneDto>> responseType = new ParameterizedTypeReference<List<SwimlaneDto>>() {
     };
 
-    public static final Long EXISTS_SWIMLANE_ID = 1L;
+    public static final Long EXIST_SWIMLANE_ID = 1L;
     public static final Long NOT_EXISTS_SWIMLANE_ID = 9L;
     public static final String NEW_SWIMLANE_TITLE = "SWIMLANE1";
-    public static final Long NEW_SWIMLANE_ID = 3L;
+    public static final Long NEW_SWIMLANE_ID = 7L;
+    public static final Long MODIFY_KANBAN_ID = 1L;
     private static final Long MODIFY_SWIMLANE_ID = 1L;
     private static final String MODIFY_SWIMLANE_TITLE = "KANBAN_NUEVO";
     private static final Long DELETE_SWIMLANE_ID = 1L;
@@ -58,17 +60,18 @@ public class SwimlaneIT {
 
     @Test
     public void saveWithoutIdShouldCreateNewSwimlane() {
-        SwimlaneDto dto = new SwimlaneDto();
+        SwimlaneDto swimlaneDto = new SwimlaneDto();
 
-        dto.setTitle(NEW_SWIMLANE_TITLE);
+        swimlaneDto.setTitle(NEW_SWIMLANE_TITLE);
 
-        restTemplate.exchange(LOCALHOST + port + SERVICE_PATH, HttpMethod.PUT, new HttpEntity<>(dto), Void.class);
+        restTemplate.exchange(LOCALHOST + port + SERVICE_PATH + "/save/" + EXIST_KANBAN_ID, HttpMethod.PUT,
+                new HttpEntity<>(swimlaneDto), Void.class);
 
         ResponseEntity<List<SwimlaneDto>> response = restTemplate
-                .exchange(LOCALHOST + port + SERVICE_PATH + EXISTS_SWIMLANE_ID, HttpMethod.GET, null, responseType);
+                .exchange(LOCALHOST + port + SERVICE_PATH + EXIST_KANBAN_ID, HttpMethod.GET, null, responseType);
 
         assertNotNull(response);
-        assertEquals(3, response.getBody().size());
+        assertEquals(4, response.getBody().size());
 
         SwimlaneDto swimlaneSearch = response.getBody().stream().filter(item -> item.getId().equals(NEW_SWIMLANE_ID))
                 .findFirst().orElse(null);
@@ -79,21 +82,21 @@ public class SwimlaneIT {
     @Test
     public void modifyWithExistIdShouldModifySwimlane() {
 
-        SwimlaneDto dto = new SwimlaneDto();
-        dto.setTitle(MODIFY_SWIMLANE_TITLE);
+        SwimlaneDto swimlaneDto = new SwimlaneDto();
+        swimlaneDto.setTitle(NEW_SWIMLANE_TITLE);
 
-        restTemplate.exchange(LOCALHOST + port + SERVICE_PATH + MODIFY_SWIMLANE_ID, HttpMethod.PUT,
-                new HttpEntity<>(dto), Void.class);
+        restTemplate.exchange(LOCALHOST + port + SERVICE_PATH_SAVE + MODIFY_KANBAN_ID + "/" + MODIFY_SWIMLANE_ID,
+                HttpMethod.PUT, new HttpEntity<>(swimlaneDto), Void.class);
 
         ResponseEntity<List<SwimlaneDto>> response = restTemplate
-                .exchange(LOCALHOST + port + SERVICE_PATH + EXISTS_SWIMLANE_ID, HttpMethod.GET, null, responseType);
+                .exchange(LOCALHOST + port + SERVICE_PATH + MODIFY_KANBAN_ID, HttpMethod.GET, null, responseType);
         assertNotNull(response);
-        assertEquals(2, response.getBody().size());
+        assertEquals(3, response.getBody().size());
 
         SwimlaneDto swimlaneSearch = response.getBody().stream().filter(item -> item.getId().equals(MODIFY_SWIMLANE_ID))
                 .findFirst().orElse(null);
         assertNotNull(swimlaneSearch);
-        assertEquals(MODIFY_SWIMLANE_TITLE, swimlaneSearch.getTitle());
+        assertEquals(NEW_SWIMLANE_TITLE, swimlaneSearch.getTitle());
     }
 
     @Test
@@ -103,9 +106,9 @@ public class SwimlaneIT {
                 Void.class);
 
         ResponseEntity<List<SwimlaneDto>> response = restTemplate
-                .exchange(LOCALHOST + port + SERVICE_PATH + EXISTS_SWIMLANE_ID, HttpMethod.GET, null, responseType);
+                .exchange(LOCALHOST + port + SERVICE_PATH + EXIST_SWIMLANE_ID, HttpMethod.GET, null, responseType);
         assertNotNull(response);
-        assertEquals(3, response.getBody().size());
+        assertEquals(2, response.getBody().size());
     }
 
 }

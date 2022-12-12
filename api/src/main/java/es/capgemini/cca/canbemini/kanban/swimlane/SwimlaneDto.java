@@ -2,15 +2,18 @@ package es.capgemini.cca.canbemini.kanban.swimlane;
 
 import java.util.Set;
 
-import es.capgemini.cca.canbemini.kanban.Kanban;
-import es.capgemini.cca.canbemini.kanban.swimlane.note.Note;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import es.capgemini.cca.canbemini.kanban.KanbanDto;
+import es.capgemini.cca.canbemini.kanban.swimlane.note.NoteDto;
 
 public class SwimlaneDto {
     private Long id;
 
-    private Kanban kanban;
+    @JsonIgnore
+    private KanbanDto kanban;
 
-    private Set<Note> notes;
+    private Set<NoteDto> notes;
 
     private String title;
 
@@ -30,19 +33,19 @@ public class SwimlaneDto {
         this.id = id;
     }
 
-    public Kanban getKanban() {
+    public KanbanDto getKanban() {
         return kanban;
     }
 
-    public void setKanban(Kanban kanban) {
+    public void setKanban(KanbanDto kanban) {
         this.kanban = kanban;
     }
 
-    public Set<Note> getNotes() {
+    public Set<NoteDto> getNotes() {
         return notes;
     }
 
-    public void setNotes(Set<Note> notes) {
+    public void setNotes(Set<NoteDto> notes) {
         this.notes = notes;
     }
 
