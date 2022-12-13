@@ -1,5 +1,6 @@
 package es.capgemini.cca.canbemini.kanban.swimlane;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -36,7 +37,7 @@ public class Swimlane {
     private Kanban kanban;
 
     @OneToMany(mappedBy = "swimlane", orphanRemoval = true, cascade = CascadeType.PERSIST)
-    private Set<Note> notes;
+    private List<Note> notes;
 
     public Swimlane(String title, Kanban kanban) {
         this.title = title;
@@ -71,11 +72,11 @@ public class Swimlane {
         this.kanban = kanban;
     }
 
-    public Set<Note> getNotes() {
+    public List<Note> getNotes() {
         return notes;
     }
 
-    public void setNotes(Set<Note> notes) {
+    public void setNotes(List<Note> notes) {
         this.notes = notes;
     }
 

@@ -1,5 +1,6 @@
 package es.capgemini.cca.canbemini.kanban.swimlane;
 
+import java.util.List;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -13,7 +14,7 @@ public class SwimlaneDto {
     @JsonIgnore
     private KanbanDto kanban;
 
-    private Set<NoteDto> notes;
+    private List<NoteDto> notes;
 
     private String title;
 
@@ -41,11 +42,11 @@ public class SwimlaneDto {
         this.kanban = kanban;
     }
 
-    public Set<NoteDto> getNotes() {
+    public List<NoteDto> getNotes() {
         return notes;
     }
 
-    public void setNotes(Set<NoteDto> notes) {
+    public void setNotes(List<NoteDto> notes) {
         this.notes = notes;
     }
 
