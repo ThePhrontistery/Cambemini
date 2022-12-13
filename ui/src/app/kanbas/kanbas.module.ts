@@ -16,6 +16,7 @@ import { MatInputModule } from '@angular/material/input';
 import { LaneEditComponent } from './kanban/lane-edit/lane-edit.component';
 import { KanbasListComponent } from './kanbas-list/kanbas-list.component';
 import { KanbanEditComponent } from './kanbas-list/kanban-edit/kanban-edit.component';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 @NgModule({
   declarations: [
     LaneComponent,
@@ -36,6 +37,7 @@ import { KanbanEditComponent } from './kanbas-list/kanban-edit/kanban-edit.compo
     MatIconModule,     
     MatDialogModule,
     MatFormFieldModule,
+    MatProgressBarModule,
     MatInputModule,
     FormsModule,
     ReactiveFormsModule,

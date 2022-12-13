@@ -18,11 +18,66 @@
         
     </mat-card-header>
     
-    <mat-divider></mat-divider>
+    <!-- <mat-divider></mat-divider> -->
     
     <mat-card-content class="pad">
-        <p>{{item.content}}</p>
-        <button><mat-icon>attach_file</mat-icon></button>
+        <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+        
+       
+            <p *ngIf="item.content != null || item.content !=''" style="text-align: justify;">{{item.content}}</p>
+            <p *ngIf="item.content== null || item.content ==''" style="text-align: justify;">Inserte el contenido de la nota</p>
+     
+
+        <div class ="file upload">
+            <div class="space-between"> 
+                <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.value=''; fileUpload.click()">
+                    <mat-icon>attach_file</mat-icon>
+                </button>
+                <div *ngIf="item.attachment?.length==0 || item.attachment==null"  class="title">Añada sus ficheros adjuntos</div>
+                <div *ngIf="item.attachment?.length>0" class="title">Ficheros ajuntos</div>
+            </div>
+           
+
+            <div class="progress">
+
+                <mat-progress-bar class="progress-bar" mode="determinate" [value]="uploadProgress" *ngIf="uploadProgress">
+              
+                </mat-progress-bar>
+              
+                <mat-icon class="cancel-upload" (click)="cancelUpload()" 
+                          *ngIf="uploadProgress">delete_forever</mat-icon>
+              
+              </div>
+
+
+           
+
+             <div *ngIf="item.attachment!=null">
+                <div *ngFor="let att of item.attachment" class="cont-att" >
+                    
+                    <div class="space-between att"  *ngIf="att.name != null">
+                         <div>{{att.name}}</div>
+                         
+                         <div class="flet-start">
+                            <button mat-icon-button color="warn" (click)="downloadFile(att)">
+                                <mat-icon>delete</mat-icon>            
+                            </button>
+
+                            <button mat-icon-button color="disabled" (click)="downloadFile(att)">
+                                <mat-icon>visibility</mat-icon>            
+                            </button>
+                          
+                           
+
+                            <button mat-icon-button color="disabled" (click)="downloadFile(att)">
+                                <mat-icon>download</mat-icon>            
+                            </button>
+                        </div>                        
+                    </div>
+                </div>
+             </div>
+        </div>
+       
     </mat-card-content>
 
 </mat-card>

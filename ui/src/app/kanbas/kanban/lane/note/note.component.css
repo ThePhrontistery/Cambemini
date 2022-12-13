@@ -1,0 +1,13 @@
+.file-input{
+    display: none;
+}
+
+.att{
+    background: #f5f8f8;padding: 0.5rem; margin-bottom: 0.3rem;
+    border: 1px solid black;
+}
+
+.cont-att{
+    width: 100%;
+    margin-top: 1rem;
+}

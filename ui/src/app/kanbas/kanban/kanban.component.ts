@@ -71,6 +71,7 @@ export class KanbanComponent implements OnInit {
   }
   
   addNote(note:Notes){
+    
     let indexLane =this.lanes.findIndex(lane => lane.id== note.swimlane.id);   
     this.lanes[indexLane].notes.push(note);
   }

@@ -73,6 +73,7 @@ export class LaneComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       //  this.kanbasService.emitAddCard.emit(result);
       
+      
       this.addNote.emit(result);
     });
     
