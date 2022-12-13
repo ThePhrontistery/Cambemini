@@ -1,0 +1,16 @@
+<div class="space-between">
+    <p>{{attachment.name}}</p>
+    <button mat-icon-button (click)="close();"><mat-icon>close</mat-icon></button>
+</div>
+<div class="flex-end">
+    
+</div>
+<div *ngIf="attType == 'application/pdf'">
+    <pdf-viewer [src]="src" [render-text]="true" [original-size]="false"
+        style="width: 800px; height: 600px">
+    </pdf-viewer>
+</div>
+
+<div *ngIf="attType == 'image/png' || attType == 'image/jpeg' || attType == 'image/jpg' || attType == 'image/gif'">
+    <img [src]="src" />
+</div>

@@ -11,6 +11,7 @@ import { FileType } from 'src/app/kanbas/model/file-type';
 import {DomSanitizer} from '@angular/platform-browser';
 import { finalize, Subscription } from 'rxjs';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
+import { AttachmentViewerComponent } from './attachment-viewer/attachment-viewer.component';
 @Component({
   selector: 'app-note',
   templateUrl: './note.component.html',
@@ -159,6 +160,14 @@ export class NoteComponent implements OnInit {
 
   downloadFile(att:Attachment) {
        window.open(att.document_path);
+  }
+
+  viewFile(att:Attachment){
+    const dialogRef = this.dialog.open(AttachmentViewerComponent, {
+      data: { attachment: att },
+    });
+
+    
   }
   
 }
