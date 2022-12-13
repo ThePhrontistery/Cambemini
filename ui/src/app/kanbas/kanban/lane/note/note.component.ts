@@ -1,3 +1,4 @@
+import { DialogConfirmationComponent } from './../../../../core/dialog-confirmation/dialog-confirmation.component';
 import { Attachment } from './../../../model/attachment';
 import { NoteEditComponent } from '../note-edit/note-edit.component';
 import { KanbasService } from '../../../kanbas.service';
@@ -168,6 +169,27 @@ export class NoteComponent implements OnInit {
     });
 
     
+  }
+  
+  attachmentDelete(att:Attachment){
+    const dialogRef = this.dialog.open(DialogConfirmationComponent, {
+      data: {
+        title: 'Eliminar fichero',
+        description:
+          'Atención si borra el fichero:' +
+          att.name +
+          ' se perderán sus datos.<br> ¿Desea eliminar el fichero?',
+      },
+    });
+     
+    dialogRef.afterClosed().subscribe((result) => {
+       if (result) {
+        this.kanbasService.removeAttachment(att.id).subscribe(r=>{
+           let index=this.item.attachment.findIndex(tatt=> tatt.id==att.id);
+           this.item.attachment.splice(index,1);
+        })
+       }
+     });
   }
   
 }

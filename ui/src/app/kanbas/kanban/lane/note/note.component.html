@@ -49,9 +49,6 @@
               
               </div>
 
-
-           
-
              <div *ngIf="item.attachment!=null">
                 <div *ngFor="let att of item.attachment" class="cont-att" >
                     
@@ -59,7 +56,7 @@
                          <div>{{att.name}}</div>
                          
                          <div class="flet-start">
-                            <button mat-icon-button color="warn" (click)="downloadFile(att)">
+                            <button mat-icon-button color="warn" (click)="attachmentDelete(att)">
                                 <mat-icon>delete</mat-icon>            
                             </button>
 

@@ -86,6 +86,11 @@ export class KanbasService {
       observe: 'events',
     });
   }
+
+  removeAttachment(attachmentId:number){
+    let url = this.url + '/swimlane/note/attachment/'+attachmentId;
+    return this.httpClient.delete(url);
+  }
   
   getAttachmentId(attachmentId: number) {
     let url = this.url + '/swimlane/note/attachment/'+ attachmentId;
