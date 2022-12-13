@@ -47,9 +47,10 @@ export class KanbasService {
     return this.httpClient.delete(url);
   }
 
-  saveSwimlane(lane: any) {
-    let url = this.url + '/swimlane';
+  saveSwimlane(lane: any, kanbanId:number) {
+    let url = this.url + '/swimlane/save';
     if (lane.id != null) url += '/' + lane.id;
+    url+='/'+kanbanId;
     return this.httpClient.put(url, lane);
   }
 
