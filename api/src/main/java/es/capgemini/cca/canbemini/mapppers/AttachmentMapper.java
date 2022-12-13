@@ -13,7 +13,7 @@ public interface AttachmentMapper {
     @Mapping(target = "note", ignore = true)
     Attachment AttachmentDtoToAttachment(AttachmentDto dto);
 
-    @Mapping(target = "note", ignore = true)
+//    @Mapping(target = "note", ignore = true)
     AttachmentDto AttachmentToAttachmentDto(Attachment kanban);
 
     List<AttachmentDto> map(List<Attachment> attachmentList);
