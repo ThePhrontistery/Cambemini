@@ -25,8 +25,8 @@
               </div>
             </mat-card-content>
             <mat-card-actions class="example-button-row">
-              <button mat-raised-button color="warn" (click)="remove(item)"><mat-icon>delete</mat-icon></button>
-              <button mat-raised-button color="primary" (click)="edit(item)"><mat-icon>edit</mat-icon></button>
+              <button mat-raised-button *ngIf="isOwner(i)" color="warn" (click)="remove(item)"><mat-icon>delete</mat-icon></button>
+              <button mat-raised-button *ngIf="isOwner(i)" color="primary" (click)="edit(item)"><mat-icon>edit</mat-icon></button>
               <button mat-raised-button color="accent"><mat-icon>share</mat-icon></button>
             </mat-card-actions>
           </mat-card>

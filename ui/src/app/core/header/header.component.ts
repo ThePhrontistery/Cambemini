@@ -30,7 +30,7 @@ export class HeaderComponent implements OnInit {
     })
     this.isLoggedIn = this.loginService.isLoggedIn;
 
-     this.loginService.user.subscribe(user=>{
+     this.loginService.userJwt.subscribe(user=>{
       this.user =user;
     })
   }

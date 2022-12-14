@@ -1,6 +1,7 @@
 package es.capgemini.cca.canbemini.kanban;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -52,10 +53,11 @@ public class KanbanController {
 
     // @GetMapping("/api/kanban")
     @RequestMapping(path = "/{userId}/{kanbanId}", method = RequestMethod.GET)
-    public List<Kanban> getAllUserKanbans(@PathVariable("userId") Long userId,
-            @PathVariable("kanbanId") Long kanbanId) {
-        return kanbanService.findUserKanbanId(userId, kanbanId);
-        // return kanbanMapper.map(kanbanService.findUserKanbans(userId));
+    public Kanban getAllUserKanbans(@PathVariable("userId") Long userId, @PathVariable("kanbanId") Long kanbanId) {
+        Optional<Kanban> opt = kanbanService.findUserKanbanId(userId, kanbanId).stream().findFirst();
+        if (opt.isPresent())
+            return opt.get();
+        return null;
     }
 
     @RequestMapping(path = { "/save/{userId}", "/save/{id}/{userId}" }, method = RequestMethod.PUT)

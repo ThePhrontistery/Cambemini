@@ -25,6 +25,7 @@ export class LaneComponent implements OnInit {
   @Input() index: number;
   @Input() listId: string[];
   @Input() kanbanId: number;
+  @Input() isEditorOwner: boolean;
   @Output()addNote: EventEmitter<Notes>= new EventEmitter();
   @Output()editXNote: EventEmitter<Notes>= new EventEmitter();
   @Output()saveLane:EventEmitter<Lane>= new EventEmitter();

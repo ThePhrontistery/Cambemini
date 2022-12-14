@@ -9,6 +9,7 @@ import { Lane } from './model/Lane';
 import { Notes } from './model/Notes';
 import { HttpClient, HttpEvent } from '@angular/common/http';
 import { UserKanbanPermission } from './model/User-Kanban-Permission';
+import { User } from './model/User';
 
 @Injectable({
   providedIn: 'root',
@@ -28,10 +29,10 @@ export class KanbasService {
     return this.httpClient.get<Kanban[]>(url);
   }
 
-  getKanban(userId: number, kanbanId: number): Observable<Kanban[]> {
+  getKanban(userId: number, kanbanId: number): Observable<Kanban> {
     //Adicionar al url el kanbanId a la peticion
     let url = this.url + '/' + userId + '/' + kanbanId;
-    return this.httpClient.get<Kanban[]>(url);
+    return this.httpClient.get<Kanban>(url);
   }
 
   saveKanban(kanban: Kanban, userId: number): Observable<Kanban> {

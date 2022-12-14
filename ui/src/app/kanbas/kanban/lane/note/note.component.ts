@@ -23,6 +23,7 @@ export class NoteComponent implements OnInit {
   @Input() index: number;
   @Input() indexY: number;
   @Input() taskLane: Lane;
+  @Input() isEditorOwner: boolean;
   @Output() editNote: EventEmitter<Notes> = new EventEmitter();
   @Output() removeNote: EventEmitter<any> = new EventEmitter();
 

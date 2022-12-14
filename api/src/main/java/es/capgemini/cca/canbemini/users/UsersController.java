@@ -42,11 +42,9 @@ public class UsersController {
     }
 
     @RequestMapping(path = "", method = RequestMethod.GET)
-    public UsersDto find(@RequestParam(value = "email", required = false) String email) {
+    public UsersDto findByEmail(@RequestParam(value = "email", required = true) String email) {
 
-        Users user = usersService.findByEmail(email);
-
-        return usersMapper.UsersToUsersDto(user);
+        return usersMapper.UsersToUsersDto(usersService.findByEmail(email));
     }
 
 }

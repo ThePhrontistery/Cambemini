@@ -7,35 +7,34 @@
             </div>
             
             <div>
-                <button mat-icon-button (click)="edit()">
+                <button mat-icon-button *ngIf="isEditorOwner" (click)="edit()">
                     <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="edit"></mat-icon>
                 </button> 
-                <button mat-icon-button (click)="remove()">
+                <button mat-icon-button *ngIf="isEditorOwner" (click)="remove()">
                     <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="close"></mat-icon>
                 </button>
             </div>
         </div>
+        
+    </mat-card-header>
+    
+     
+    
+    <mat-card-content class="pad">
+        <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+
 
         <div class="noteContent">
             <p *ngIf="item.content != null || item.content !=''" style="text-align: justify;">{{item.content}}</p>
             <p *ngIf="item.content== null || item.content ==''" style="text-align: justify;">Inserte el contenido de la nota</p>
         </div>
-        
-    </mat-card-header>
-    
-     <mat-divider></mat-divider>
-    
-    <mat-card-content class="pad">
-        <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
-        
-        
 
         <div class ="file upload">
             <div class="space-between"> 
-                <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.value=''; fileUpload.click()">
+                <button mat-mini-fab color="primary" *ngIf="isEditorOwner" class="upload-btn" (click)="fileUpload.value=''; fileUpload.click()">
                     <mat-icon>attach_file</mat-icon>
                 </button>
-                <div *ngIf="item.attachment?.length==0 || item.attachment==null"  class="title">Añada sus ficheros adjuntos</div>
+                <div *ngIf="(item.attachment?.length==0 || item.attachment==null) && isEditorOwner" class="title">Añada sus ficheros adjuntos</div>
                 <div *ngIf="item.attachment?.length>0" class="title">Ficheros adjuntos</div>
             </div>
            
@@ -58,7 +57,7 @@
                          <div>{{att.name}}</div>
                          
                          <div class="flet-start">
-                            <button mat-icon-button color="warn" (click)="attachmentDelete(att)">
+                            <button mat-icon-button color="warn" *ngIf="isEditorOwner" (click)="attachmentDelete(att)">
                                 <mat-icon>delete</mat-icon>            
                             </button>
 

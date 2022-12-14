@@ -36,7 +36,7 @@ public class KanbanServiceImpl implements KanbanService {
 
     @Override
     public List<Kanban> findUserKanbanId(Long userId, Long kanbanId) {
-        return (List<Kanban>) this.kanbanRepository.findUserKanbanId(userId, kanbanId);
+        return this.kanbanRepository.findUserKanbanId(userId, kanbanId);
     }
 
     @Override
