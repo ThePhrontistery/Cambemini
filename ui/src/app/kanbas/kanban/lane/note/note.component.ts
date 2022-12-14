@@ -42,13 +42,28 @@ export class NoteComponent implements OnInit {
   ngOnInit(): void {}
 
   remove() {
-    this.kanbasService.removeNote(this.item).subscribe((result) => {
-      this.removeNote.emit({
-        note: this.item,
-        indexLanba: this.indexY,
-        indexNote: this.index,
-      });
+    const dialogRef = this.dialog.open(DialogConfirmationComponent, {
+      data: {
+        title: 'Eliminar nota',
+        description:
+          'Atención si borra la nota:' +
+          this.item.content +
+          ' se perderán sus datos.<br> ¿Desea eliminar la nota?',
+      },
     });
+     
+    dialogRef.afterClosed().subscribe((result) => {
+       if (result) {
+        this.kanbasService.removeNote(this.item).subscribe((result) => {
+          this.removeNote.emit({
+            note: this.item,
+            indexLanba: this.indexY,
+            indexNote: this.index,
+          });
+        });
+       }
+     });
+    
     return true;
   }
 
@@ -63,64 +78,6 @@ export class NoteComponent implements OnInit {
 
     return true;
   }
-
-
-
-  // getFileExtension(fileName: string) {
-  //   return fileName
-  //     .slice(fileName.lastIndexOf('.') + 1, fileName.length)
-  //     .toUpperCase();
-  // }
-
-  // base64ToFile(base64Data, fileName: string) {
-  //   const contentType = this.getContentType(fileName);
-  //   const sliceSize = 512;
-
-  //   const byteCharacters = atob(base64Data);
-  //   let byteArrays = [];
-
-  //   for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-  //     let slice = byteCharacters.slice(offset, offset + sliceSize);
-
-  //     let byteNumbers = new Array(slice.length);
-  //     for (let i = 0; i < slice.length; i++) {
-  //       byteNumbers[i] = slice.charCodeAt(i);
-  //     }
-
-  //     const byteArray = new Uint8Array(byteNumbers);
-  //     byteArrays = [...byteArrays, byteArray];
-  //   }
-  //   return new File(byteArrays, fileName, { type: FileType.IMAGE_PNG });
-  // }
-
-  // getFileType(fileName: string) {
-  //   const fileExtension = this.getFileExtension(fileName);
-
-  //   const options = {
-  //     JPEG: 'JPEG',
-  //     JPG: 'JPG',
-  //     PNG: 'PNG',
-  //     PDF: 'PDF',
-  //   };
-
-  //   return options[fileExtension];
-  // }
-
-  // getContentType(fileName: string) {
-  //   switch (this.getFileType(fileName)) {
-  //     case 'JPEG':
-  //     case 'JPG':
-  //       return FileType.IMAGE_JPEG;
-  //     case 'PNG':
-  //       return FileType.IMAGE_PNG;
-  //     default:
-  //       return FileType.APPLICATION_PDF;
-  //   }
-  // }
-
-  // getUrl(att:Attachment){
-  //   return this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(this.base64ToFile(att.file,att.document_path)));
-  // }
 
    onFileSelected(event) {
 
@@ -138,7 +95,10 @@ export class NoteComponent implements OnInit {
       );
 
       this.uploadSub = upload.subscribe(event => {
-        if(event instanceof HttpResponse){          
+        if(event instanceof HttpResponse){  
+          if(this.item.attachment==null){
+            this.item.attachment = [];
+          }        
            this.item.attachment.push(event.body);
         }
          

@@ -21,6 +21,7 @@ import { AttachmentViewerComponent } from './kanban/lane/note/attachment-viewer/
 
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { BrowserModule } from '@angular/platform-browser';
+
 @NgModule({
   declarations: [
     LaneComponent,
@@ -30,7 +31,7 @@ import { BrowserModule } from '@angular/platform-browser';
     NoteEditComponent,
     LaneEditComponent,
     KanbasListComponent,
-    AttachmentViewerComponent, 
+    AttachmentViewerComponent,
   ],
   imports: [
     CommonModule,

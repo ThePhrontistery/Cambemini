@@ -41,7 +41,7 @@ public class CanbeminiApplication {
             Users user2 = new Users("mercedes@email.com");
             Users user3 = new Users("jacques@email.com");
             Users user4 = new Users("raul@email.com");
-            Users user5 = new Users("fredy@email.com");
+            Users user5 = new Users("fredy.hernandez-orozco@capgemini.com");
 
             usersRepository.save(user1);
             usersRepository.save(user2);

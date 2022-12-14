@@ -6,11 +6,10 @@
                 <mat-icon>home</mat-icon>
             </div>
 
-            <!-- <div class="header_separator"> | </div> -->
-
+            <div class="header_separator" *ngIf="kanban!=null"> | </div>
 
             <div class="header_menu">
-                <!-- <app-kanba-select ></app-kanba-select> -->
+                <div *ngIf="kanban!=null"  class="ml">{{kanban.title}}</div>              
             </div>
 
             

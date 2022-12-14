@@ -96,4 +96,8 @@ export class KanbasListComponent implements OnInit {
     else
       return false;
   }
+
+  share(kanban:Kanban){
+      this.router.navigate(['kanbans/share/',kanban.id]);
+  }
 }

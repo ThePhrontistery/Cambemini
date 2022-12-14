@@ -60,8 +60,16 @@ export class LaneComponent implements OnInit {
     }
 
     event.container.data.forEach((element) => {
+      
       element.laneId = laneId;
+      element.swimlane = new Lane();
+      element.swimlane.id = laneId;
+      this.kanbasService.saveNote(element).subscribe(x=>{
+
+      });
     });
+
+    
 
     return event;
   }
