@@ -31,9 +31,12 @@ export class KanbanComponent implements OnInit {
     private dialog: MatDialog,
     private activatedRoute: ActivatedRoute,
     private loginService: LoginService
-  ) {}
+  ) {
+    console.log('entra');
+  }
 
   ngOnInit(): void {
+    
     
     this.loginService.user.subscribe(user => {
       if(user != null) {
@@ -53,8 +56,15 @@ export class KanbanComponent implements OnInit {
     });
   }
 
+  ngOnChanges(){
+    
+    this.KanbasService.emitKankaSelect.emit(null);
+  }
+
   getkanban(){
     this.KanbasService.getKanban(this.userId,this.kanbanId).subscribe((kanban) => {
+      
+      this.KanbasService.emitKankaSelect.emit(kanban);
       this.lanes.push(...kanban.swimlanes);
       this.lanes.forEach((e, i) => {
         this.kanbasListId.push('list' + i);

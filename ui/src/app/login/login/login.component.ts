@@ -1,4 +1,5 @@
-import { Router } from '@angular/router';
+import { Kanban } from './../../kanbas/model/Kanban';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
@@ -15,13 +16,16 @@ export class LoginComponent implements OnInit {
   hide = true;
   form: FormGroup;
   private formSubmitAttempt: boolean;
+  kanbanId:number;
 
   constructor(private fb: FormBuilder,
-    public loginService: LoginService 
+    public loginService: LoginService ,
+    private activatedRoute: ActivatedRoute,
     ) { }
 
   ngOnInit(): void {
-    
+    if(this.activatedRoute.snapshot.params.id!=null)
+    this.kanbanId = Number(this.activatedRoute.snapshot.params.id);
     this.form = this.fb.group({
       email: ['', Validators.required],
       password: ['', Validators.required]
