@@ -1,5 +1,5 @@
 .kanbas {
-  width: 400px;
+  width: 25vw;
   margin: 10px;
   cursor: pointer;
   /* background: #373A3B; */
@@ -18,6 +18,10 @@
   border-radius: 4px;
   overflow: hidden;
   display: block;
+}
+
+.laneTitle {
+  width: 75%;
 }
 
 

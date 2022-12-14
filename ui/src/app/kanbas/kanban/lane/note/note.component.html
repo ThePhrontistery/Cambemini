@@ -1,7 +1,7 @@
 <mat-card class="mt-1" cdkDrag>     
     <mat-card-header style="display: block;" > 
-
-        <div class="space-between" >
+        
+        <div class="space-between">
             <div class="flet-start">  
                 <!-- <div class="title">{{item.content}}</div>  -->
             </div>
@@ -15,18 +15,20 @@
                 </button>
             </div>
         </div>
+
+        <div class="noteContent">
+            <p *ngIf="item.content != null || item.content !=''" style="text-align: justify;">{{item.content}}</p>
+            <p *ngIf="item.content== null || item.content ==''" style="text-align: justify;">Inserte el contenido de la nota</p>
+        </div>
         
     </mat-card-header>
     
-    <!-- <mat-divider></mat-divider> -->
+     <mat-divider></mat-divider>
     
     <mat-card-content class="pad">
         <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
         
-       
-            <p *ngIf="item.content != null || item.content !=''" style="text-align: justify;">{{item.content}}</p>
-            <p *ngIf="item.content== null || item.content ==''" style="text-align: justify;">Inserte el contenido de la nota</p>
-     
+        
 
         <div class ="file upload">
             <div class="space-between"> 
@@ -34,7 +36,7 @@
                     <mat-icon>attach_file</mat-icon>
                 </button>
                 <div *ngIf="item.attachment?.length==0 || item.attachment==null"  class="title">Añada sus ficheros adjuntos</div>
-                <div *ngIf="item.attachment?.length>0" class="title">Ficheros ajuntos</div>
+                <div *ngIf="item.attachment?.length>0" class="title">Ficheros adjuntos</div>
             </div>
            
 
