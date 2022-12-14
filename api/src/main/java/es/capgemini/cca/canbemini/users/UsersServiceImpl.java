@@ -42,4 +42,8 @@ public class UsersServiceImpl implements UsersService {
         this.usersRepository.save(users);
     }
 
+    @Override
+    public Users findByEmail(String email) {
+        return this.usersRepository.findByEmail(email);
+    }
 }

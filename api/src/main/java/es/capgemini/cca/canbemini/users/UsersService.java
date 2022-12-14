@@ -10,4 +10,6 @@ public interface UsersService {
     void deleteUsers(Long id);
 
     void saveUsers(Long id, UsersDto usersDto);
+
+    Users findByEmail(String email);
 }
