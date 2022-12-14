@@ -1,14 +1,8 @@
 package es.capgemini.cca.canbemini.kanban.swimlane.note.attachment;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import es.capgemini.cca.canbemini.kanban.swimlane.note.Note;
 
 @Entity
@@ -22,9 +16,20 @@ public class Attachment {
     @Column(name = "document_path")
     private String document_path;
 
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "type")
+    private String type;
+
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "note_id")
     private Note note;
+
+    @Lob
+    @JsonIgnore
+    private byte[] file;
 
     public Attachment(Note note, String document_path) {
         this.note = note;
@@ -59,4 +64,27 @@ public class Attachment {
         this.note = note;
     }
 
+    public byte[] getFile() {
+        return file;
+    }
+
+    public void setFile(byte[] file) {
+        this.file = file;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 }

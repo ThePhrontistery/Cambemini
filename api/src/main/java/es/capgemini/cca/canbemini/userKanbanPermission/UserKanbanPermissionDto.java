@@ -1,5 +1,7 @@
 package es.capgemini.cca.canbemini.userKanbanPermission;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import es.capgemini.cca.canbemini.kanban.KanbanDto;
 import es.capgemini.cca.canbemini.permission.PermissionDto;
 import es.capgemini.cca.canbemini.users.UsersDto;
@@ -9,6 +11,7 @@ public class UserKanbanPermissionDto {
 
     private UsersDto users;
 
+    @JsonIgnore
     private KanbanDto kanban;
 
     private PermissionDto permission;

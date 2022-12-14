@@ -12,7 +12,6 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -71,33 +70,4 @@ public class SwimlaneTest {
         verify(swimlaneRepository).deleteById(EXISTS_SWIMLANE_ID);
     }
 
-    @Test
-    public void saveNotExistsSwimnlaneIdShouldInsert() {
-
-        SwimlaneDto swimlaneDto = new SwimlaneDto();
-        swimlaneDto.setTitle(SWIMLANE_NAME);
-
-        ArgumentCaptor<Swimlane> swimlane = ArgumentCaptor.forClass(Swimlane.class);
-
-        swimlaneService.saveSwimlane(null, swimlaneDto);
-
-        verify(swimlaneRepository).save(swimlane.capture());
-
-        assertEquals(SWIMLANE_NAME, swimlane.getValue().getTitle());
-    }
-
-    @Test
-    public void saveExistsSwimlaneIdShouldUpdate() {
-
-        SwimlaneDto swimlaneDto = new SwimlaneDto();
-        swimlaneDto.setTitle(SWIMLANE_NAME);
-
-        Swimlane swimlane = mock(Swimlane.class);
-
-        when(swimlaneRepository.findById(EXISTS_SWIMLANE_ID)).thenReturn(Optional.of(swimlane));
-
-        swimlaneService.saveSwimlane(EXISTS_SWIMLANE_ID, swimlaneDto);
-
-        verify(swimlaneRepository).save(swimlane);
-    }
 }

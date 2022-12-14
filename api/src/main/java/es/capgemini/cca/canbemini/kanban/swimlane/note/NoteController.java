@@ -28,7 +28,7 @@ public class NoteController {
 
     @RequestMapping(path = "/get/{id}", method = RequestMethod.GET)
     public NoteDto getNote(@PathVariable("id") Long id) {
-        return noteMapper.NoteToNoteDto(noteService.getNote(id));
+        return noteMapper.noteToNoteDto(noteService.getNote(id));
     }
 
     @RequestMapping(path = "/{swimlaneId}", method = RequestMethod.GET)
@@ -36,9 +36,9 @@ public class NoteController {
         return noteMapper.map(noteService.findAllSwimlaneNotes(swimlaneId));
     }
 
-    @RequestMapping(path = { "", "/{id}" }, method = RequestMethod.PUT)
-    public void save(@PathVariable(name = "id", required = false) Long id, @RequestBody NoteDto note) {
-        noteService.saveNote(id, note);
+    @RequestMapping(path = { "/save/{swimlaneId}", "/save/{id}/{swimlaneId}" }, method = RequestMethod.PUT)
+    public Note save(@PathVariable(name = "id", required = false) Long id,@PathVariable(name = "swimlaneId", required = true) Long swimlaneId, @RequestBody NoteDto note) {
+        return noteService.saveNote(id, note,swimlaneId);
     }
 
     @RequestMapping(path = "{id}", method = RequestMethod.DELETE)

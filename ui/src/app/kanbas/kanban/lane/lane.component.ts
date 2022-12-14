@@ -11,7 +11,7 @@ import {
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
 
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, DebugElement } from '@angular/core';
 import { outputAst } from '@angular/compiler';
 
 // const eventData=[object Object]
@@ -25,7 +25,9 @@ export class LaneComponent implements OnInit {
   @Input() index: number;
   @Input() listId: string[];
   @Input() kanbanId: number;
-  @Output()saveNote: EventEmitter<Notes>= new EventEmitter();
+  @Input() isEditorOwner: boolean;
+  @Output()addNote: EventEmitter<Notes>= new EventEmitter();
+  @Output()editXNote: EventEmitter<Notes>= new EventEmitter();
   @Output()saveLane:EventEmitter<Lane>= new EventEmitter();
   @Output()removeNote:EventEmitter<Notes>= new EventEmitter();
 
@@ -70,8 +72,7 @@ export class LaneComponent implements OnInit {
     });
     
     dialogRef.afterClosed().subscribe((result) => {
-      //  this.kanbasService.emitAddCard.emit(result);
-      this.saveNote.emit(result);
+      this.addNote.emit(result);
     });
     
     return true;
@@ -96,6 +97,7 @@ export class LaneComponent implements OnInit {
   }
 
   delete() {
+    
     const dialogRef = this.matDialog.open(DialogConfirmationComponent, {
       data: {
         title: 'Eliminar un carril',
@@ -118,10 +120,11 @@ export class LaneComponent implements OnInit {
 
   editNote(note:Notes){
     
-     this.saveNote.emit(note);
+     this.editXNote.emit(note);
   }
   
   deleteNote(note:Notes){
+    
     this.removeNote.emit(note);
   }
 }

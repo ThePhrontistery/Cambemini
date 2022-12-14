@@ -64,8 +64,8 @@ export const KANBAS_DATA_LIST: Kanban[] = [
     description: 'Phasellus et lectus nec est vulputate semper in cursus metus. Nam eu odio lacus. Etiam elementum elementum enim a tempus. Quisque id pretium metus. Cras malesuada tellus sed urna placerat commodo.',
     select: true,
     userKanbanPermission:[
-      {id:1, users:{id:1,email:'mercedes@escape.com', online:false}, permission:{id:1,rol:"Owner"}},
-      {id:2, users:{id:2,email:'raul@escape.com', online:false}, permission:{id:2,rol:"Editor"}}
+      {id:1, users:{id:1,email:'mercedes@escape.com',password:"hola", online:false}, permission:{id:1,rol:"Owner"}},
+      {id:2, users:{id:2,email:'raul@escape.com',password:"hola", online:false}, permission:{id:2,rol:"Editor"}}
     ],
     
     swimlanes:LANE_DATA_LIST
@@ -77,9 +77,9 @@ export const KANBAS_DATA_LIST: Kanban[] = [
     
     select: false,
     userKanbanPermission:[
-      {id:3, users:{id:3,email:'cesar@escape.com', online:false}, permission:{id:1,rol:"Owner"}},
-      {id:4, users:{id:4,email:'jax@escape.com', online:false}, permission:{id:2,rol:"Editor"}},
-      {id:5, users:{id:5,email:'fredy@escape.com', online:false}, permission:{id:3,rol:"Collaborator"}}
+      {id:3, users:{id:3,email:'cesar@escape.com',password:"hola", online:false}, permission:{id:1,rol:"Owner"}},
+      {id:4, users:{id:4,email:'jax@escape.com',password:"hola", online:false}, permission:{id:2,rol:"Editor"}},
+      {id:5, users:{id:5,email:'fredy@escape.com',password:"hola", online:false}, permission:{id:3,rol:"Collaborator"}}
     ],
     swimlanes:LANE_DATA_LIST
   },
@@ -88,5 +88,6 @@ export const KANBAS_DATA_LIST: Kanban[] = [
 export  const USER:User ={
   id:1,
   email:'mercedes@escape.com',
+  password:"hola",
   online:false
 }

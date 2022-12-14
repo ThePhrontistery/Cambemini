@@ -13,7 +13,6 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -29,8 +28,7 @@ public class KanbanTest {
 
     public static final Long EXISTS_KANBAN_ID = 1L;
     public static final Long NOT_EXISTS_KANBAN_ID = 9L;
-    public static final String KANBAN_NAME = "KANBAN1";
-    private static final Long EXISTS_USER_ID = 1L;
+    public static final Long EXISTS_USER_ID = 1L;
 
     @Test
     public void findAllShouldReturnAllUserKanbans() {
@@ -73,35 +71,4 @@ public class KanbanTest {
 
         verify(kanbanRepository).deleteById(EXISTS_KANBAN_ID);
     }
-
-    @Test
-    public void saveNotExistsKanbanIdShouldInsert() {
-
-        KanbanDto kanbanDto = new KanbanDto();
-        kanbanDto.setTitle(KANBAN_NAME);
-
-        ArgumentCaptor<Kanban> kanban = ArgumentCaptor.forClass(Kanban.class);
-
-        kanbanService.saveKanban(null, kanbanDto, EXISTS_USER_ID);
-
-        verify(kanbanRepository).save(kanban.capture());
-
-        assertEquals(KANBAN_NAME, kanban.getValue().getTitle());
-    }
-
-    @Test
-    public void saveExistsKanbanIdShouldUpdate() {
-
-        KanbanDto kanbanDto = new KanbanDto();
-        kanbanDto.setTitle(KANBAN_NAME);
-
-        Kanban kanban = mock(Kanban.class);
-
-        when(kanbanRepository.findById(EXISTS_KANBAN_ID)).thenReturn(Optional.of(kanban));
-
-        kanbanService.saveKanban(EXISTS_KANBAN_ID, kanbanDto, EXISTS_USER_ID);
-
-        verify(kanbanRepository).save(kanban);
-    }
-
 }

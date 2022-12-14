@@ -5,6 +5,9 @@ import { KanbasService } from '../kanbas.service';
 import { Router } from '@angular/router';
 import { Kanban } from '../model/Kanban';
 import { Component, OnInit } from '@angular/core';
+import { User } from '../model/User';
+import { LoginService } from 'src/app/login/login.service';
+import { Permission } from '../model/Permission';
 
 @Component({
   selector: 'app-kanbas',
@@ -13,20 +16,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class KanbasListComponent implements OnInit {
   listKanbas: Kanban[] = [];
+  user: User;
 
   constructor(
     private router: Router,
     private kanbaService: KanbasService,
     public matDialog: MatDialog,
-    
+    private loginService: LoginService
 
   ) {}
 
   ngOnInit(): void {
-    this.kanbaService.getKanbans(1).subscribe((kanba) => {
-      this.listKanbas = kanba;
-    });
-   
+    this.loginService.user.subscribe(user => {
+      if(user != null){
+        this.user = user;
+        this.kanbaService.getKanbans(this.user.id).subscribe((kanba) => {
+          this.listKanbas = kanba;
+        });
+      }
+    })
   }
  
   go(item: Kanban) {
@@ -77,5 +85,15 @@ export class KanbasListComponent implements OnInit {
     });
 
     return true;
+  }
+
+  isOwner(indexKanban: number){
+    let permission = this.listKanbas[indexKanban].userKanbanPermission
+                        .find(userKP => userKP.users.id == this.user.id).permission;
+    
+    if(permission.rol == "Owner")
+      return true;
+    else
+      return false;
   }
 }

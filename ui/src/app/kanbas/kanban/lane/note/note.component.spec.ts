@@ -4,7 +4,7 @@ import { KanbasService } from '../../../kanbas.service';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, Component } from '@angular/core';
 
 import { NoteComponent } from './note.component';
-import { of } from 'rxjs';
+import { empty, Observable, of } from 'rxjs';
 import { KANBAS_DATA_LIST } from '../../../model/mock-kanbas-list';
 import { LaneComponent } from '../lane.component';
 import { Notes } from '../../../model/Notes';
@@ -20,11 +20,12 @@ const MatDialogMock = {
   }
 };
 
-describe('None', () => {
+describe('Note', () => {
   let component: NoteComponent;
   let fixture: ComponentFixture<NoteComponent>;
   let kanbasService: KanbasService;
   let httpMock: HttpTestingController;
+  let spy;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -69,11 +70,11 @@ describe('None', () => {
     },
     component.index = 0;
     component.indexY = 0;
-
-    fixture.detectChanges();
-
     kanbasService = TestBed.inject(KanbasService);
     httpMock = TestBed.inject(HttpTestingController);
+
+    spy = spyOn(kanbasService, 'removeNote').and.callFake(() => of(true));
+    fixture.detectChanges();
   });
 
   afterEach(() => {

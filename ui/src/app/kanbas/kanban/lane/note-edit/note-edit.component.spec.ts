@@ -45,10 +45,12 @@ const dialogMock = {
   close: () => { }
 };
 
-describe('TaskEditComponent', () => {
+describe('NoteEditComponent(edit)', () => {
   let component: NoteEditComponent;
   let fixture: ComponentFixture<NoteEditComponent>;
   let httpMock: HttpTestingController;
+  let kanbanService: KanbasService;
+  let spyService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -69,27 +71,48 @@ describe('TaskEditComponent', () => {
     .compileComponents();
   });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(NoteEditComponent);
-    component = fixture.componentInstance;
-    
-    httpMock = TestBed.inject(HttpTestingController);
-    fixture.detectChanges();
-  });
+  describe("edit", () => {
+    beforeEach(() => {
+      fixture = TestBed.createComponent(NoteEditComponent);
+      component = fixture.componentInstance;
+      httpMock = TestBed.inject(HttpTestingController);
+      kanbanService = TestBed.inject(KanbasService);
+      spyService = spyOn(kanbanService, 'saveNote').and.callFake(() => of(true));
+      
+      
+      fixture.detectChanges();
+    });
+  
+    it('should create', () => {
+      expect(component).toBeTruthy();
+    });
+  
+    it('dialog should close after saving', ()=> {
+      let spyClose = spyOn(component.dialogRef, 'close').and.callThrough();
+      component.onSave();
+      expect(spyClose).toHaveBeenCalled();
+    });
+  
+    it('dialog should close after cancel', ()=> {
+      let spyClose = spyOn(component.dialogRef, 'close').and.callThrough();
+      component.onClose();
+      expect(spyClose).toHaveBeenCalled();
+    });
+  })
+  
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-
-  it('dialog should close after saving', ()=> {
-    let spy = spyOn(component.dialogRef, 'close').and.callThrough();
-    component.onSave();
-    expect(spy).toHaveBeenCalled();
-  });
-
-  it('dialog should close after cancel', ()=> {
-    let spy = spyOn(component.dialogRef, 'close').and.callThrough();
-    component.onClose();
-    expect(spy).toHaveBeenCalled();
+  describe("add", () => {
+    beforeEach(() => {
+      fixture = TestBed.createComponent(NoteEditComponent);
+      component = fixture.componentInstance;
+      
+  
+      fixture.detectChanges();
+    });
+  
+    it('should create', () => {
+      expect(component).toBeTruthy();
+    });
   });
 });
+

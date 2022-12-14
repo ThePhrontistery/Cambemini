@@ -33,12 +33,13 @@ public class SwimlaneController {
 
     @RequestMapping(path = "/{kanbanId}", method = RequestMethod.GET)
     public List<SwimlaneDto> getAllKanbanSwimlanes(@PathVariable("kanbanId") Long kanbanId) {
-        return swimlaneMapper.map(swimlaneService.findAll(kanbanId));
+        return swimlaneMapper.swimlaneListToSwimlaneListDto(swimlaneService.findAll(kanbanId));
     }
 
-    @RequestMapping(path = { "", "/{id}" }, method = RequestMethod.PUT)
-    public void save(@PathVariable(name = "id", required = false) Long id, @RequestBody SwimlaneDto swimlane) {
-        swimlaneService.saveSwimlane(id, swimlane);
+    @RequestMapping(path = { "/save/{kanbanId}", "/save/{kanbanId}/{swimlaneId}" }, method = RequestMethod.PUT)
+    public void save(@PathVariable(name = "swimlaneId", required = false) Long swimlaneId,
+            @RequestBody SwimlaneDto swimlane, @PathVariable(name = "kanbanId", required = true) Long kanbanId) {
+        swimlaneService.saveSwimlane(swimlaneId, swimlane, kanbanId);
     }
 
     @RequestMapping(path = "{id}", method = RequestMethod.DELETE)

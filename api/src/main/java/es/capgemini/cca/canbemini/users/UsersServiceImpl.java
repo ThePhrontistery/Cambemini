@@ -19,7 +19,6 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public Users findUsers(Long id) {
-        // TODO Auto-generated method stub
         return this.usersRepository.findById(id).orElse(null);
     }
 
@@ -43,4 +42,8 @@ public class UsersServiceImpl implements UsersService {
         this.usersRepository.save(users);
     }
 
+    @Override
+    public Users findByEmail(String email) {
+        return this.usersRepository.findByEmail(email);
+    }
 }

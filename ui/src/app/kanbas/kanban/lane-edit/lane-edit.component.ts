@@ -34,7 +34,7 @@ export class LaneEditComponent implements OnInit {
 
   onSave() {
     
-    this.KanbasService.saveSwimlane(this.entitie).subscribe(result=>{      
+    this.KanbasService.saveSwimlane(this.entitie, this.entitie.kanban.id).subscribe(result=>{      
       this.dialogRef.close(this.entitie);
     });
     

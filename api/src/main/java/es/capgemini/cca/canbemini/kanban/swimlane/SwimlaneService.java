@@ -10,5 +10,5 @@ public interface SwimlaneService {
 
     void deleteSwimlane(Long id);
 
-    void saveSwimlane(Long id, SwimlaneDto swimlaneDto);
+    Swimlane saveSwimlane(Long id, SwimlaneDto swimlaneDto, Long kanbanId);
 }

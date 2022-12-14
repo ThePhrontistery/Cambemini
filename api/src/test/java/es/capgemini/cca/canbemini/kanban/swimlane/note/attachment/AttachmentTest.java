@@ -13,7 +13,6 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -73,35 +72,4 @@ public class AttachmentTest {
 
         verify(attachmentRepository).deleteById(EXISTS_ATTACHMENT_ID);
     }
-
-    @Test
-    public void saveNotExistsAttachmentIdShouldInsert() {
-
-        AttachmentDto attachmentDto = new AttachmentDto();
-        attachmentDto.setDocument_path(DOCUMENT_NAME);
-
-        ArgumentCaptor<Attachment> attachment = ArgumentCaptor.forClass(Attachment.class);
-
-        attachmentService.saveAttachment(null, attachmentDto);
-
-        verify(attachmentRepository).save(attachment.capture());
-
-        assertEquals(DOCUMENT_NAME, attachment.getValue().getDocument_path());
-    }
-
-    @Test
-    public void saveExistsKanbanIdShouldUpdate() {
-
-        AttachmentDto attachmentDto = new AttachmentDto();
-        attachmentDto.setDocument_path(DOCUMENT_NAME);
-
-        Attachment attachment = mock(Attachment.class);
-
-        when(attachmentRepository.findById(EXISTS_ATTACHMENT_ID)).thenReturn(Optional.of(attachment));
-
-        attachmentService.saveAttachment(EXISTS_ATTACHMENT_ID, attachmentDto);
-
-        verify(attachmentRepository).save(attachment);
-    }
-
 }

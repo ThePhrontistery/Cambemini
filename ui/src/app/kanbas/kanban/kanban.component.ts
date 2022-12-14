@@ -13,6 +13,8 @@ import { LaneEditComponent } from './lane-edit/lane-edit.component';
 import { ActivatedRoute } from '@angular/router';
 import { Notes } from '../model/Notes';
 import { ThisReceiver } from '@angular/compiler';
+import { LoginService } from 'src/app/login/login.service';
+import { Permission } from '../model/Permission';
 @Component({
   selector: 'app-kanba-list',
   templateUrl: './kanban.component.html',
@@ -22,20 +24,28 @@ export class KanbanComponent implements OnInit {
   lanes: Lane[] = [];
   kanbasListId: string[] = [];
   kanbanId:number;
-  userId:number = 1;
+  userId:number;
+  permission: Permission;
   constructor(
     private KanbasService: KanbasService,
     private dialog: MatDialog,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private loginService: LoginService
   ) {}
 
   ngOnInit(): void {
     
-    this.lanes = [];
-    this.kanbasListId =[];
-    this.kanbanId = Number(this.activatedRoute.snapshot.params.id);
+    this.loginService.user.subscribe(user => {
+      if(user != null) {
+        this.userId = user.id;
+        this.lanes = [];
+        this.kanbasListId =[];
+        this.kanbanId = Number(this.activatedRoute.snapshot.params.id);
+        
+        this.getkanban();
+      }
+    })
     
-    this.getkanban();
     
     this.KanbasService.emitRemoveLane.subscribe((lane) => {
       let index = this.lanes.findIndex((xLane) => lane.id == xLane.id);
@@ -45,10 +55,12 @@ export class KanbanComponent implements OnInit {
 
   getkanban(){
     this.KanbasService.getKanban(this.userId,this.kanbanId).subscribe((kanban) => {
-      this.lanes.push(...kanban[0].swimlanes);
+      this.lanes.push(...kanban.swimlanes);
       this.lanes.forEach((e, i) => {
         this.kanbasListId.push('list' + i);
       });
+
+      this.permission = kanban.userKanbanPermission.find(userkp => userkp.users.id == this.userId).permission;
     });
   }
 
@@ -70,19 +82,42 @@ export class KanbanComponent implements OnInit {
     moveItemInArray(this.lanes, event.previousIndex, event.currentIndex);
   }
   
-  saveNote(note:Notes){
-    this.ngOnInit();
+  addNote(note:Notes){
+    
+    let indexLane =this.lanes.findIndex(lane => lane.id== note.swimlane.id);   
+    this.lanes[indexLane].notes.push(note);
+  }
+  
+  editNote(note:Notes){
+    
+    let indexLane =this.lanes.findIndex(lane => lane.id== note.swimlane.id);
+    let indexNote =this.lanes[indexLane].notes.findIndex(noteRes => note.id == noteRes.id);
+    this.lanes[indexLane].notes[indexNote] = note;    
+    
   }
   
   saveLane(lane:Lane){
-    this.ngOnInit();
+   
+    if(lane.id==null){
+      this.lanes.push(lane);
+    }else{
+      let index = this.lanes.findIndex(xLane=>xLane.id==lane.id);
+      if(index >=0 )this.lanes[index]=lane;
+    }
+
   }
 
-  removeNote(note:Notes){
+  removeNote(noteObj:any){
     
-    this.ngOnInit();
+    this.lanes[noteObj.indexLanba].notes.splice(noteObj.indexNote,1)
+       
+    //this.ngOnInit();
   }
 
- 
-    
+  canEdit(): boolean {
+    if(this.permission.rol != "Collaborator")
+      return true;
+    else
+      return false;
+  } 
 }
