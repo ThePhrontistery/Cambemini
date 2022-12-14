@@ -27,13 +27,17 @@ public class Users {
     @Column(name = "username")
     private String email;
 
+    @Column(name = "password")
+    private String password;
+
     @OneToMany(mappedBy = "users")
     @JsonIgnore
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<UserKanbanPermission> user_kanban_permission;
 
-    public Users(String email) {
+    public Users(String email, String password) {
         this.email = email;
+        this.password = password;
     }
 
     protected Users() {
@@ -54,6 +58,14 @@ public class Users {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Set<UserKanbanPermission> getUser_kanban_permission() {

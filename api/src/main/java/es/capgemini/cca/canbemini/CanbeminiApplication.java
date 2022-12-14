@@ -37,11 +37,11 @@ public class CanbeminiApplication {
             AttachmentRepository attachmentRepository, UserKanbanPermissionRepository ukpRepository) {
         return (args) -> {
             // save a few customers
-            Users user1 = new Users("cesar@email.com");
-            Users user2 = new Users("mercedes@email.com");
-            Users user3 = new Users("jacques@email.com");
-            Users user4 = new Users("raul@email.com");
-            Users user5 = new Users("fredy@email.com");
+            Users user1 = new Users("cesar@email.com", "123");
+            Users user2 = new Users("mercedes@email.com", "123");
+            Users user3 = new Users("jacques@email.com", "123");
+            Users user4 = new Users("raul@email.com", "123");
+            Users user5 = new Users("fredy@email.com", "123");
 
             usersRepository.save(user1);
             usersRepository.save(user2);
