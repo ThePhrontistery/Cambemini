@@ -63,6 +63,7 @@ export const KANBAS_DATA_LIST: Kanban[] = [
     title: 'Escape',
     description: 'Phasellus et lectus nec est vulputate semper in cursus metus. Nam eu odio lacus. Etiam elementum elementum enim a tempus. Quisque id pretium metus. Cras malesuada tellus sed urna placerat commodo.',
     select: true,
+    code:"g27ceR4Z8rNCXF3YeeK73jSW0",
     userKanbanPermission:[
       {id:1, users:{id:1,email:'mercedes@escape.com',password:"hola", online:false}, permission:{id:1,rol:"Owner"}},
       {id:2, users:{id:2,email:'raul@escape.com',password:"hola", online:false}, permission:{id:2,rol:"Editor"}}
@@ -74,7 +75,7 @@ export const KANBAS_DATA_LIST: Kanban[] = [
     id: 2,
     title: 'Site',
     description: 'Phasellus et lectus nec est vulputate semper in cursus metus. Nam eu odio lacus. Etiam elementum elementum enim a tempus. Quisque id pretium metus. Cras malesuada tellus sed urna placerat commodo.',
-    
+    code:"g27ceR4Z8rNCXF3YeeK73jSs2",
     select: false,
     userKanbanPermission:[
       {id:3, users:{id:3,email:'cesar@escape.com',password:"hola", online:false}, permission:{id:1,rol:"Owner"}},

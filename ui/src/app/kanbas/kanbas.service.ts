@@ -15,6 +15,7 @@ import { User } from './model/User';
   providedIn: 'root',
 })
 export class KanbasService {
+  
   emitKankaSelect: EventEmitter<Kanban> = new EventEmitter();
   emitSaveKanba: EventEmitter<Kanban> = new EventEmitter();
   emitRemoveLane: EventEmitter<Lane> = new EventEmitter();
@@ -98,6 +99,18 @@ export class KanbasService {
     return this.httpClient.get(url,{
       responseType: 'blob'
     });
+  }
+
+  getByCode(code: string): Observable<Kanban> {
+    let url = this.url + '/code/' + code;
+    return this.httpClient.get<Kanban>(url);
+  }
+
+  saveUserKanbanPermission(user: User, sharedKanban: Kanban): Observable<UserKanbanPermission> {
+    let url = environment.url + 'ukp';
+    url += '/' + sharedKanban.id + "/" + user.id;
+    
+    return this.httpClient.put<UserKanbanPermission>(url, null);
   }
 }
 

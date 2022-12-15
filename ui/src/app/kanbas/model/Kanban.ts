@@ -4,7 +4,9 @@ export class Kanban{
     id:number;
     title:string;
     description:string;
-    
+    code:string;
+    url?:string;
+
     select:boolean;
     userKanbanPermission:UserKanbanPermission[];
    

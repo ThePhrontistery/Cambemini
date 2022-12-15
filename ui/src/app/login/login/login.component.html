@@ -2,8 +2,8 @@
     <h1 class="title">Canbemini</h1>
     <div class="card-login">
         <mat-card>
-            <h1 style="margin-left:50px;" *ngIf="kanbanId==null">Login</h1>
-            <h1 style="margin-left:50px;" *ngIf="kanbanId!=null">Login {{kanbanId}}</h1>
+            <h1 style="margin-left:50px;" *ngIf="sharedKanban==null">Login</h1>
+            <h1 style="margin-left:50px;" *ngIf="sharedKanban!=null">Login {{sharedKanban.title}}</h1>
             <!-- pattern="[a-zA-Z0-9_.-]+@capgemini.com" -->
             <form [formGroup]="form" (ngSubmit)="onSubmit()">
                 <mat-form-field appearance="outline">

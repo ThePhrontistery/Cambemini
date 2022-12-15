@@ -99,4 +99,9 @@ public class KanbanServiceImpl implements KanbanService {
 
     }
 
+    @Override
+    public Kanban getByCode(String code) {
+        return this.kanbanRepository.findByCode(code);
+    }
+
 }

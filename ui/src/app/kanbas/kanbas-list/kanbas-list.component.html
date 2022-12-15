@@ -27,7 +27,12 @@
             <mat-card-actions class="example-button-row">
               <button mat-raised-button *ngIf="isOwner(i)" color="warn" (click)="remove(item)"><mat-icon>delete</mat-icon></button>
               <button mat-raised-button *ngIf="isOwner(i)" color="primary" (click)="edit(item)"><mat-icon>edit</mat-icon></button>
-              <button mat-raised-button (click)="share(item)" color="accent"><mat-icon>share</mat-icon></button>
+              <button mat-raised-button matTooltip="Copy the link to share your companions"
+                matTooltipClass="example-tooltip-uppercase" 
+                aria-label="Button that shows a red tooltip"
+                [matTooltipPosition]="'right'"
+                (click)="share(item)" color="accent"><mat-icon>share</mat-icon>
+              </button>
             </mat-card-actions>
           </mat-card>
 
