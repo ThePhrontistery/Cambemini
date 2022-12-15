@@ -1,0 +1,28 @@
+<div class="container">
+    <h1 *ngIf="userKanbanPermission.id == null">Kanban</h1>
+    <h1 *ngIf="userKanbanPermission.id != null">{{title}}/{{userKanbanPermission.users.email}}</h1>
+
+    <form>
+        <mat-form-field>
+            <mat-label>Identificador</mat-label>
+            <input type="number" matInput placeholder="Identificador" [(ngModel)]="userKanbanPermission.id" name="id" disabled>
+        </mat-form-field>
+      
+        <mat-form-field appearance="fill">
+            <mat-label>Rol</mat-label>
+            <mat-select disableRipple [(ngModel)]="userKanbanPermission.permission.id" (selectionChange)="change($event)" name="permission" required>
+                <mat-option [value]="permission.id" *ngFor="let permission of permisionList">{{permission.rol}}</mat-option>                  
+            </mat-select>
+            <mat-error>EL rol es requerido</mat-error>
+        </mat-form-field>
+        
+   
+        
+    </form>
+
+    <div class="buttons">
+        <button mat-stroked-button (click)="onClose()">Cerrar</button>
+        <button mat-flat-button color="primary" (click)="onSave()">Guardar</button>
+    </div>
+</div>
+

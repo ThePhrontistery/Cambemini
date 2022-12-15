@@ -2,7 +2,7 @@
     <mat-card-header style="display: block;" > 
         
         <div class="space-between">
-            <div class="flet-start">  
+            <div class="flex-start">  
                 <!-- <div class="title">{{item.content}}</div>  -->
             </div>
             
@@ -56,7 +56,7 @@
                     <div class="space-between att"  *ngIf="att.name != null">
                          <div>{{att.name}}</div>
                          
-                         <div class="flet-start">
+                         <div class="flex-start">
                             <button mat-icon-button color="warn" *ngIf="isEditorOwner" (click)="attachmentDelete(att)">
                                 <mat-icon>delete</mat-icon>            
                             </button>

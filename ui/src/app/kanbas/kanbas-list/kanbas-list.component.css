@@ -19,14 +19,4 @@
 .kanbaButtons {
   margin: 5px;
 }
-.user{
-    width: 40px;
-    display: flex;
-    height: 40px;
-    align-items: center;    
-    border-radius: 100%;
-    border: 1px solid;
-    justify-content: center;
-    text-transform: capitalize;
-}
-  
+

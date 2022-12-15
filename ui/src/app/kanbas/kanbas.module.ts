@@ -23,7 +23,8 @@ import {ClipboardModule} from '@angular/cdk/clipboard'
 
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { PermisionEditComponent } from './kanban/permision-edit/permision-edit.component';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { BrowserModule } from '@angular/platform-browser';
     LaneEditComponent,
     KanbasListComponent,
     AttachmentViewerComponent,
+    PermisionEditComponent,
   ],
   imports: [
     CommonModule,
@@ -54,6 +56,7 @@ import { BrowserModule } from '@angular/platform-browser';
     BrowserModule,
     MatTooltipModule,
     ClipboardModule,
+    MatSelectModule,
   ],
   
 })

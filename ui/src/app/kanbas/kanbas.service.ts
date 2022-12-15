@@ -112,6 +112,12 @@ export class KanbasService {
     
     return this.httpClient.put<UserKanbanPermission>(url, null);
   }
+
+  saveUserKanbanPermissionRol(kanbanId:number, userId:number,rolId:number): Observable<UserKanbanPermission> {
+    let url = environment.url + 'ukp/save/' + kanbanId + "/" + userId+"/" + rolId;
+    
+    return this.httpClient.put<UserKanbanPermission>(url, null);
+  }
 }
 
 

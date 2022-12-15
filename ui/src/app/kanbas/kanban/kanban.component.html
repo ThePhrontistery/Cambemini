@@ -18,6 +18,14 @@
             </div>
         </div>
     </div>
+
+    <div *ngIf="permission?.rol=='Owner'">
+        <div class="justify-content-center">
+            <div (click)="changePermission(itemUserKanbanPermission)" class="user ml" [matTooltip]="itemUserKanbanPermission.permission.rol" [matTooltipPosition]="'above'" *ngFor="let itemUserKanbanPermission of userKanbanPermissions">
+                {{itemUserKanbanPermission.users.email |  slice:0:3 }}
+           </div>
+        </div>
+    </div>
 </div>
 
 

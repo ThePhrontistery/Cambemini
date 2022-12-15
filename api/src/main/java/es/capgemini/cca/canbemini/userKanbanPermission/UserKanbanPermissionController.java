@@ -19,4 +19,8 @@ public class UserKanbanPermissionController {
     public void save(@PathVariable(name = "kanbanId") Long kanbanId, @PathVariable(name = "userId") Long userId) {
         ukpService.newUserInKanban(userId, kanbanId, 3L);
     }
+    @RequestMapping(path = { "save/{kanbanId}/{userId}/{permissionId}" }, method = RequestMethod.PUT)
+    public void saveUkp(@PathVariable(name = "kanbanId") Long kanbanId, @PathVariable(name = "userId") Long userId, @PathVariable(name = "permissionId") Long permissionId) {
+        ukpService.newUserInKanban(userId, kanbanId, permissionId);
+    }
 }
