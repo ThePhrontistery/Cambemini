@@ -68,9 +68,6 @@ export class LaneComponent implements OnInit {
 
       });
     });
-
-    
-
     return event;
   }
 
