@@ -2,10 +2,12 @@ package es.capgemini.cca.canbemini;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import es.capgemini.cca.canbemini.kanban.Kanban;
 import es.capgemini.cca.canbemini.kanban.KanbanRepository;
@@ -31,17 +33,20 @@ public class CanbeminiApplication {
         SpringApplication.run(CanbeminiApplication.class, args);
     }
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     @Bean
     public CommandLineRunner demo(KanbanRepository kanbanRepository, SwimlaneRepository swimlaneRepository,
             NoteRepository noteRepository, UsersRepository usersRepository, PermissionRepository permissionRepository,
             AttachmentRepository attachmentRepository, UserKanbanPermissionRepository ukpRepository) {
         return (args) -> {
             // save a few customers
-            Users user1 = new Users("cesar@email.com", "123");
-            Users user2 = new Users("mercedes@email.com", "123");
-            Users user3 = new Users("jacques@email.com", "123");
-            Users user4 = new Users("raul@email.com", "123");
-            Users user5 = new Users("fredy@email.com", "123");
+            Users user1 = new Users("cesar@email.com", passwordEncoder.encode("123"));
+            Users user2 = new Users("mercedes@email.com", passwordEncoder.encode("123"));
+            Users user3 = new Users("jacques@email.com", passwordEncoder.encode("123"));
+            Users user4 = new Users("raul@email.com", passwordEncoder.encode("123"));
+            Users user5 = new Users("fredy@email.com", passwordEncoder.encode("123"));
 
             usersRepository.save(user1);
             usersRepository.save(user2);

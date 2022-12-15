@@ -1,9 +1,12 @@
 package es.capgemini.cca.canbemini.security;
 
-public class LoginCredentialsDto {
+import javax.validation.constraints.NotBlank;
 
+public class LoginRequest {
+    @NotBlank
     private String email;
 
+    @NotBlank
     private String password;
 
     public String getEmail() {
