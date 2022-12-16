@@ -118,6 +118,17 @@ export class KanbasService {
     
     return this.httpClient.put<UserKanbanPermission>(url, null);
   }
+
+  updateOrderLanes(lanes: Lane[], kanbanId: number){
+    let url = this.url + "/swimlane/updateLanesOrder/" + kanbanId;
+
+    return this.httpClient.put(url, lanes);
+  }
+
+  updateOrderNotes(notes: Notes[], swimlaneId){
+    let url = this.url + "/swimlane/note/updateNotesOrder/" + swimlaneId; 
+    return this.httpClient.put(url, notes);
+  }
 }
 
 

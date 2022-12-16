@@ -31,7 +31,7 @@
                 matTooltipClass="example-tooltip-uppercase" 
                 aria-label="Button that shows a red tooltip"
                 [matTooltipPosition]="'right'"
-                (click)="share(item)" color="accent"><mat-icon>share</mat-icon>
+                (click)="share(item); openSnackBar('Share link copied succesfuly!', 'OK!');" color="accent"><mat-icon>share</mat-icon>
               </button>
             </mat-card-actions>
           </mat-card>

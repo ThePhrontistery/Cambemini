@@ -19,7 +19,8 @@ import { KanbanEditComponent } from './kanbas-list/kanban-edit/kanban-edit.compo
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { AttachmentViewerComponent } from './kanban/lane/note/attachment-viewer/attachment-viewer.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
-import {ClipboardModule} from '@angular/cdk/clipboard'
+import {ClipboardModule} from '@angular/cdk/clipboard';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { BrowserModule } from '@angular/platform-browser';
@@ -57,6 +58,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatTooltipModule,
     ClipboardModule,
     MatSelectModule,
+    MatSnackBarModule,
   ],
   
 })

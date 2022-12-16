@@ -26,6 +26,7 @@ export class LaneEditComponent implements OnInit {
     } else {
       this.entitie = new Lane();     
       this.entitie.notes = [];
+      this.entitie.order = this.data.order;
     }
 
     this.entitie.kanban = new Kanban()

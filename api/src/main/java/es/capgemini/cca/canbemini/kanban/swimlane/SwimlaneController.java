@@ -46,4 +46,11 @@ public class SwimlaneController {
     public void delete(@PathVariable("id") Long id) {
         swimlaneService.deleteSwimlane(id);
     }
+
+    @RequestMapping(path = "/updateLanesOrder/{kanbanId}", method = RequestMethod.PUT)
+    public void updateSwimlanesOrder(@RequestBody List<SwimlaneDto> swimlanes,
+            @PathVariable("kanbanId") Long kanbanId) {
+        for (int i = 0; i < swimlanes.size(); i++)
+            swimlaneService.saveSwimlane(swimlanes.get(i).getId(), swimlanes.get(i), kanbanId);
+    }
 }

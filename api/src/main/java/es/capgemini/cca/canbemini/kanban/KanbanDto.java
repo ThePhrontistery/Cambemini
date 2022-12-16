@@ -52,6 +52,11 @@ public class KanbanDto {
     }
 
     public List<SwimlaneDto> getSwimlanes() {
+        swimlanes.sort((a, a1) -> a.getOrder().compareTo(a1.getOrder()));
+        for (int i = 0; i < swimlanes.size(); i++)
+            // getNotes ordena las notas a la vez que las devuelve, por lo que necesitamos
+            // que se ordenen todas antes de devolver el array
+            swimlanes.get(i).setNotes(swimlanes.get(i).getNotes());
         return swimlanes;
     }
 

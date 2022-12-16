@@ -9,13 +9,16 @@ export const LANE_DATA_LIST: Lane[] = [
   {
     id: 1,
     title: 'To do',
+    order: 1,
     notes: [
       {
         id: 1,
+        order: 1,
         content: 'Cloud design',
       },
       {
-        id: 2,        
+        id: 2,   
+        order: 2,     
         content:
           'Think and design how clients will interact with notes at the same time',
       },
@@ -24,11 +27,12 @@ export const LANE_DATA_LIST: Lane[] = [
   {
     id: 2,
     title: 'To progres',
-  
+    order: 2,
 
     notes: [
       {
         id: 3,
+        order: 1,
         content: 'Implementation of our Angular 14 Kanva UI',
       },
     ],
@@ -36,9 +40,11 @@ export const LANE_DATA_LIST: Lane[] = [
   {
     id: 3,
     title: 'Done',
+    order: 3,
     notes: [
       {
         id: 4,
+        order: 1,
         content: 'UI Design',
         
       },
@@ -47,10 +53,11 @@ export const LANE_DATA_LIST: Lane[] = [
   {
     id: 4,
     title: 'Deploy',
-   
+    order: 4,
     notes: [
       {
         id: 5,
+        order: 1,
         content: 'UI Design',
       },
     ],

@@ -33,7 +33,7 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
-    public Note saveNote(Long id, NoteDto noteDto ,Long swimlaneId) {
+    public Note saveNote(Long id, NoteDto noteDto, Long swimlaneId) {
         Note note = null;
 
         if (id == null)
@@ -43,11 +43,12 @@ public class NoteServiceImpl implements NoteService {
 
         note.setContent(noteDto.getContent());
         note.setSwimlane(swimlaneService.findSwimlane(swimlaneId));
+        note.setOrder(noteDto.getOrder());
 
         BeanUtils.copyProperties(noteDto, note, "id", "swimlane");
 
         this.noteRepository.save(note);
-        return  note;
+        return note;
     }
 
 }

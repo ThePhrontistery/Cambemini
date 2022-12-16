@@ -1,7 +1,6 @@
 package es.capgemini.cca.canbemini.kanban.swimlane;
 
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -31,6 +30,9 @@ public class Swimlane {
     @Column(name = "title", nullable = false)
     private String title;
 
+    @Column(name = "ord", nullable = false)
+    private Long order;
+
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "kanban_id")
@@ -39,9 +41,10 @@ public class Swimlane {
     @OneToMany(mappedBy = "swimlane", orphanRemoval = true, cascade = CascadeType.PERSIST)
     private List<Note> notes;
 
-    public Swimlane(String title, Kanban kanban) {
+    public Swimlane(String title, Kanban kanban, Long order) {
         this.title = title;
         this.kanban = kanban;
+        this.order = order;
     }
 
     protected Swimlane() {
@@ -85,4 +88,11 @@ public class Swimlane {
         return String.format("Swimlane[id=%d, title='%s']", id, title);
     }
 
+    public Long getOrder() {
+        return order;
+    }
+
+    public void setOrder(Long order) {
+        this.order = order;
+    }
 }
