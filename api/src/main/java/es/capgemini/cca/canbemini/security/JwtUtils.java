@@ -1,13 +1,14 @@
 package es.capgemini.cca.canbemini.security;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import com.auth0.jwt.exceptions.JWTCreationException;
@@ -21,6 +22,10 @@ import io.jsonwebtoken.security.Keys;
 
 @Component
 public class JwtUtils {
+
+    @Autowired
+    UserDetailsServiceImpl userDetailsService;
+
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
     @Value("${jwt_secret}")
     private String keysecret;
@@ -39,7 +44,8 @@ public class JwtUtils {
         Claims claims = Jwts.parserBuilder().setSigningKey(keysecret.getBytes()).build().parseClaimsJws(token)
                 .getBody();
         String email = claims.getSubject();
-        return new UsernamePasswordAuthenticationToken(email, null, Collections.emptyList());
+        UserDetails userDetails = userDetailsService.loadUserByUsername(email);
+        return new UsernamePasswordAuthenticationToken(email, null, userDetails.getAuthorities());
     }
 
     public String getEmailFromJwtToken(String token) {

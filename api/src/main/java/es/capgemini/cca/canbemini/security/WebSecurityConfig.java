@@ -3,6 +3,7 @@ package es.capgemini.cca.canbemini.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -33,6 +34,11 @@ public class WebSecurityConfig {
     }
 
     @Bean
+    public JWTAuthorizationFilter authoritationFilter() {
+        return new JWTAuthorizationFilter();
+    }
+
+    @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
 
@@ -53,10 +59,11 @@ public class WebSecurityConfig {
     }
 
     @Bean
+    @Order(1)
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
-                .antMatchers("/auth/**").permitAll().antMatchers("/api/**").authenticated();
+                .antMatchers("/auth/**").permitAll();
 
         http.authenticationProvider(authenticationProvider());
 
@@ -64,4 +71,26 @@ public class WebSecurityConfig {
 
         return http.build();
     }
+
+    @Bean
+    @Order(2)
+    public SecurityFilterChain filterChainKanban(HttpSecurity http) throws Exception {
+        http.cors().and().csrf().disable().exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
+                .antMatchers("/api/kanban/delete/{id}").access("hasAuthority('OWNER#id')").and()
+                .authenticationProvider(authenticationProvider()).authorizeRequests().anyRequest().authenticated();
+        /*
+         * http.cors().and().csrf().disable().exceptionHandling().
+         * authenticationEntryPoint(unauthorizedHandler).and()
+         * .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).
+         * and().authorizeRequests()
+         * .antMatchers("/api/kanban/delete/{id}").hasRole("OWNER#id");
+         */
+        // http.authenticationProvider(authenticationProvider());
+
+        http.addFilterAfter(authoritationFilter(), UsernamePasswordAuthenticationFilter.class);
+
+        return http.build();
+    }
+
 }

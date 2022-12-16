@@ -1,58 +1,49 @@
 package es.capgemini.cca.canbemini.security;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import es.capgemini.cca.canbemini.userKanbanPermission.UserKanbanPermission;
 import es.capgemini.cca.canbemini.users.Users;
 
 public class UserDetailsImpl implements UserDetails {
     private static final long serialVersionUID = 1L;
 
-    private Long id;
-
-    private String username;
-
-    private String email;
-
-    @JsonIgnore
-    private String password;
+    private Users user;
 
     // private Collection<? extends GrantedAuthority> authorities;
 
-    public UserDetailsImpl(Long id, String email, String password) {
-        this.id = id;
-
-        this.email = email;
-        this.password = password;
-
+    public UserDetailsImpl(Users user) {
+        this.user = user;
     }
 
     public static UserDetailsImpl build(Users user) {
 
-        return new UserDetailsImpl(user.getId(), user.getEmail(), user.getPassword());
+        return new UserDetailsImpl(user);
     }
 
     public Long getId() {
-        return id;
+        return user.getId();
     }
 
     public String getEmail() {
-        return email;
+        return user.getEmail();
     }
 
     @Override
     public String getPassword() {
-        return password;
+        return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return username;
+        return user.getEmail();
     }
 
     @Override
@@ -81,13 +72,18 @@ public class UserDetailsImpl implements UserDetails {
             return true;
         if (o == null || getClass() != o.getClass())
             return false;
-        UserDetailsImpl user = (UserDetailsImpl) o;
-        return Objects.equals(id, user.id);
+        UserDetailsImpl userDetailsImpl = (UserDetailsImpl) o;
+        return Objects.equals(user.getId(), userDetailsImpl.getId());
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // TODO Auto-generated method stub
-        return null;
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        for (UserKanbanPermission ukp : user.getUser_kanban_permission()) {
+            authorities.add(
+                    new SimpleGrantedAuthority(ukp.getPermission().getRol().toUpperCase() + ukp.getKanban().getId()));
+
+        }
+        return authorities;
     }
 }

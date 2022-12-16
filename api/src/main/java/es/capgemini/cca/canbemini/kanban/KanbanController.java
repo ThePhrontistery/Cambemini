@@ -3,6 +3,8 @@ package es.capgemini.cca.canbemini.kanban;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,6 +22,7 @@ import es.capgemini.cca.canbemini.userKanbanPermission.UserKanbanPermissionServi
 @RequestMapping(value = "/api/kanban")
 @RestController
 @CrossOrigin(origins = "*")
+
 public class KanbanController {
 
     @Autowired
@@ -64,7 +67,8 @@ public class KanbanController {
         kanbanService.saveKanban(id, kanban, userId);
     }
 
-    @RequestMapping(path = "{id}", method = RequestMethod.DELETE)
+    @RequestMapping(path = "/delete/{id}", method = RequestMethod.DELETE)
+    @PreAuthorize("hasPermission(#id, 'OWNER')")
     public void delete(@PathVariable("id") Long id) {
         kanbanService.deleteKanban(id);
     }
