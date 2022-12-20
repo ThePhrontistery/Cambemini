@@ -3,7 +3,11 @@ package es.capgemini.cca.canbemini.users;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
+import es.capgemini.cca.canbemini.security.UserDetailsImpl;
 
 @Service
 public class UsersServiceImpl implements UsersService {
@@ -29,6 +33,11 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
+    public Users findUsersByEmail(String email) {
+        return this.usersRepository.findByEmail(email).orElse(null);
+    }
+
+    @Override
     public void saveUsers(Long id, UsersDto usersDto) {
         Users users = null;
 
@@ -40,6 +49,21 @@ public class UsersServiceImpl implements UsersService {
         users.setEmail(usersDto.getEmail());
 
         this.usersRepository.save(users);
+    }
+
+    public Boolean verifyUser(Long userId, UserDetailsImpl userDetailsImpl) {
+        Boolean ok = false;
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        Users user = this.usersRepository.findByEmail(authentication.getPrincipal().toString()).orElse(null);
+        Long loggedUser = user.getId();
+
+        if (userId.equals(loggedUser)) {
+            ok = true;
+        }
+        return ok;
+
     }
 
 }

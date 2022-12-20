@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import es.capgemini.cca.canbemini.permission.Permission;
 import es.capgemini.cca.canbemini.permission.PermissionDto;
 import es.capgemini.cca.canbemini.permission.PermissionService;
+import es.capgemini.cca.canbemini.security.NotAuthorizedException;
+import es.capgemini.cca.canbemini.security.UserDetailsImpl;
 import es.capgemini.cca.canbemini.userKanbanPermission.UserKanbanPermissionDto;
 import es.capgemini.cca.canbemini.userKanbanPermission.UserKanbanPermissionService;
 import es.capgemini.cca.canbemini.users.Users;
@@ -49,6 +51,16 @@ public class KanbanServiceImpl implements KanbanService {
     @Override
     public void deleteKanban(Long id) {
         this.kanbanRepository.deleteById(id);
+    }
+
+    @Override
+    public Boolean verifyUser(Long userId, UserDetailsImpl userDetailsImpl) {
+        return this.userService.verifyUser(userId, userDetailsImpl);
+    }
+
+    @Override
+    public Boolean isAuthorized(String permission, Long kanbanId) throws NotAuthorizedException {
+        return this.ukpService.isAuthorized(permission, kanbanId);
     }
 
     /*
