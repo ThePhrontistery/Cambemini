@@ -20,11 +20,11 @@ const routes: Routes = [
     ],
   },
   {
-    path: 'kanbans/share/:id',
+    path: 'kanbans/share/:code',
     component: LoginComponent,
     children: [
       {
-        path: 'kanbans/share/:id',
+        path: 'kanbans/share/:code',
         component: LoginComponent,
       },
     ],

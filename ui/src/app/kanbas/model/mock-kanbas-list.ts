@@ -9,13 +9,16 @@ export const LANE_DATA_LIST: Lane[] = [
   {
     id: 1,
     title: 'To do',
+    order: 1,
     notes: [
       {
         id: 1,
+        order: 1,
         content: 'Cloud design',
       },
       {
-        id: 2,        
+        id: 2,   
+        order: 2,     
         content:
           'Think and design how clients will interact with notes at the same time',
       },
@@ -24,11 +27,12 @@ export const LANE_DATA_LIST: Lane[] = [
   {
     id: 2,
     title: 'To progres',
-  
+    order: 2,
 
     notes: [
       {
         id: 3,
+        order: 1,
         content: 'Implementation of our Angular 14 Kanva UI',
       },
     ],
@@ -36,9 +40,11 @@ export const LANE_DATA_LIST: Lane[] = [
   {
     id: 3,
     title: 'Done',
+    order: 3,
     notes: [
       {
         id: 4,
+        order: 1,
         content: 'UI Design',
         
       },
@@ -47,10 +53,11 @@ export const LANE_DATA_LIST: Lane[] = [
   {
     id: 4,
     title: 'Deploy',
-   
+    order: 4,
     notes: [
       {
         id: 5,
+        order: 1,
         content: 'UI Design',
       },
     ],
@@ -63,6 +70,7 @@ export const KANBAS_DATA_LIST: Kanban[] = [
     title: 'Escape',
     description: 'Phasellus et lectus nec est vulputate semper in cursus metus. Nam eu odio lacus. Etiam elementum elementum enim a tempus. Quisque id pretium metus. Cras malesuada tellus sed urna placerat commodo.',
     select: true,
+    code:"g27ceR4Z8rNCXF3YeeK73jSW0",
     userKanbanPermission:[
       {id:1, users:{id:1,email:'mercedes@escape.com',password:"hola", online:false}, permission:{id:1,rol:"Owner"}},
       {id:2, users:{id:2,email:'raul@escape.com',password:"hola", online:false}, permission:{id:2,rol:"Editor"}}
@@ -74,7 +82,7 @@ export const KANBAS_DATA_LIST: Kanban[] = [
     id: 2,
     title: 'Site',
     description: 'Phasellus et lectus nec est vulputate semper in cursus metus. Nam eu odio lacus. Etiam elementum elementum enim a tempus. Quisque id pretium metus. Cras malesuada tellus sed urna placerat commodo.',
-    
+    code:"g27ceR4Z8rNCXF3YeeK73jSs2",
     select: false,
     userKanbanPermission:[
       {id:3, users:{id:3,email:'cesar@escape.com',password:"hola", online:false}, permission:{id:1,rol:"Owner"}},

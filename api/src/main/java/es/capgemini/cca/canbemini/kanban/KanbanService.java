@@ -14,4 +14,6 @@ public interface KanbanService {
 
     void saveKanban(Long id, KanbanDto kanbanDto, Long userId);
 
+    Kanban getByCode(String code);
+
 }

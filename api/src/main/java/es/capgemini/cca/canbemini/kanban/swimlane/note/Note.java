@@ -1,13 +1,22 @@
 package es.capgemini.cca.canbemini.kanban.swimlane.note;
 
-import javax.persistence.*;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import es.capgemini.cca.canbemini.kanban.swimlane.Swimlane;
 import es.capgemini.cca.canbemini.kanban.swimlane.note.attachment.Attachment;
-
-import java.util.List;
 
 @Entity
 
@@ -22,17 +31,21 @@ public class Note {
     @Column(name = "content", nullable = false, length = 5000)
     private String content;
 
-     @OneToMany(mappedBy = "note", orphanRemoval = true,cascade = CascadeType.PERSIST)
-     private List<Attachment> attachment;
+    @OneToMany(mappedBy = "note", orphanRemoval = true, cascade = CascadeType.PERSIST)
+    private List<Attachment> attachment;
+
+    @Column(name = "ord", nullable = false)
+    private Long order;
 
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "swimlane_id")
     private Swimlane swimlane;
 
-    public Note(String content, Swimlane swimlane) {
+    public Note(String content, Swimlane swimlane, Long order) {
         this.content = content;
         this.swimlane = swimlane;
+        this.order = order;
     }
 
     protected Note() {
@@ -70,4 +83,13 @@ public class Note {
     public void setAttachment(List<Attachment> attachment) {
         this.attachment = attachment;
     }
+
+    public Long getOrder() {
+        return order;
+    }
+
+    public void setOrder(Long order) {
+        this.order = order;
+    }
+
 }

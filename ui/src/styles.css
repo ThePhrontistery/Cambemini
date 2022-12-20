@@ -14,7 +14,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     align-items: center;
 }
 
-.flet-start{
+.flex-start{
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -111,8 +111,21 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     font-weight: bold;
  }
 
- img {
+img {
     object-fit: cover;
     width: 100%;
     height: auto;
-  }
+}
+
+.user{
+    width: 40px;
+    display: flex;
+    height: 40px;
+    align-items: center;    
+    border-radius: 100%;
+    border: 1px solid;
+    justify-content: center;
+    text-transform: capitalize;
+    cursor: pointer;
+}
+  

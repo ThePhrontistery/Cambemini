@@ -16,7 +16,8 @@ import { User } from 'src/app/kanbas/model/User';
 export class HeaderComponent implements OnInit {
   isLoggedIn: Observable<boolean>;
   users:User[]=[];
-  user:UserJwt;  
+  userJwt :UserJwt;  
+  user: User;
   kanban:Kanban;
   constructor(
       public kanbasService:KanbasService,
@@ -24,7 +25,8 @@ export class HeaderComponent implements OnInit {
       public router:Router,
 
     ) {
-    this.user= new UserJwt();
+    this.userJwt= new UserJwt();
+    this.user;
    }
 
   ngOnInit(): void {
@@ -38,8 +40,11 @@ export class HeaderComponent implements OnInit {
     })
     this.isLoggedIn = this.loginService.isLoggedIn;
 
-     this.loginService.userJwt.subscribe(user=>{
-      this.user =user;
+    this.loginService.userJwt.subscribe(user=>{
+      this.userJwt =user;
+    })
+    this.loginService.user.subscribe(userLogin => {
+      this.user = userLogin;
     })
 
     this.router.events.subscribe(x=>{

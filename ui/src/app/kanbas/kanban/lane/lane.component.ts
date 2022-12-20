@@ -42,14 +42,16 @@ export class LaneComponent implements OnInit {
     console.log(this.lane)
 
   }
-
+  
   drop(event: any, laneId: number) {
+    
     if (event.previousContainer === event.container) {
       moveItemInArray(
         event.container.data,
         event.previousIndex,
         event.currentIndex
       );
+
     } else {
       transferArrayItem(
         event.previousContainer.data,
@@ -57,20 +59,20 @@ export class LaneComponent implements OnInit {
         event.previousIndex,
         event.currentIndex
       );
-    }
-
-    event.container.data.forEach((element) => {
       
-      element.laneId = laneId;
-      element.swimlane = new Lane();
-      element.swimlane.id = laneId;
-      this.kanbasService.saveNote(element).subscribe(x=>{
+    }
+        
+    event.container.data.forEach((note, index) => {
+      
+      note.swimlane = new Lane();
+      note.swimlane.id = laneId;
+      if(note.order != index)
+        note.order = index;
 
+      //Esto realiza muchas peticiones, no debería de ser así, pero de momento funciona
+      this.kanbasService.saveNote(note).subscribe(x=>{
       });
     });
-
-    
-
     return event;
   }
 

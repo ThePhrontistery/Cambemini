@@ -13,6 +13,8 @@ public class NoteDto {
 
     private String content;
 
+    private Long order;
+
     private Set<AttachmentDto> attachment;
 
     @JsonIgnore
@@ -57,6 +59,14 @@ public class NoteDto {
 
     public void setSwimlane(SwimlaneDto swimlane) {
         this.swimlane = swimlane;
+    }
+
+    public Long getOrder() {
+        return order;
+    }
+
+    public void setOrder(Long order) {
+        this.order = order;
     }
 
 }

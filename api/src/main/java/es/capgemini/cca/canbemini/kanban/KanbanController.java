@@ -53,11 +53,16 @@ public class KanbanController {
 
     // @GetMapping("/api/kanban")
     @RequestMapping(path = "/{userId}/{kanbanId}", method = RequestMethod.GET)
-    public Kanban getAllUserKanbans(@PathVariable("userId") Long userId, @PathVariable("kanbanId") Long kanbanId) {
+    public KanbanDto getAllUserKanbans(@PathVariable("userId") Long userId, @PathVariable("kanbanId") Long kanbanId) {
         Optional<Kanban> opt = kanbanService.findUserKanbanId(userId, kanbanId).stream().findFirst();
         if (opt.isPresent())
-            return opt.get();
+            return kanbanMapper.KanbanToKanbanDto(opt.get());
         return null;
+    }
+
+    @RequestMapping(path = "/code/{code}", method = RequestMethod.GET)
+    public KanbanDto getKanbanIdByCode(@PathVariable("code") String code) {
+        return kanbanMapper.KanbanToKanbanDto(kanbanService.getByCode(code));
     }
 
     @RequestMapping(path = { "/save/{userId}", "/save/{id}/{userId}" }, method = RequestMethod.PUT)

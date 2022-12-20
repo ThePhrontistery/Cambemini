@@ -1,3 +1,4 @@
+import { UserKanbanPermission } from './../model/User-Kanban-Permission';
 
 import { Lane } from '../model/Lane';
 
@@ -15,6 +16,7 @@ import { Notes } from '../model/Notes';
 import { ThisReceiver } from '@angular/compiler';
 import { LoginService } from 'src/app/login/login.service';
 import { Permission } from '../model/Permission';
+import { PermisionEditComponent } from './permision-edit/permision-edit.component';
 @Component({
   selector: 'app-kanba-list',
   templateUrl: './kanban.component.html',
@@ -26,8 +28,10 @@ export class KanbanComponent implements OnInit {
   kanbanId:number;
   userId:number;
   permission: Permission;
+  title:string;
+  userKanbanPermissions:UserKanbanPermission[]=[];
   constructor(
-    private KanbasService: KanbasService,
+    private kanbasService: KanbasService,
     private dialog: MatDialog,
     private activatedRoute: ActivatedRoute,
     private loginService: LoginService
@@ -44,13 +48,14 @@ export class KanbanComponent implements OnInit {
         this.lanes = [];
         this.kanbasListId =[];
         this.kanbanId = Number(this.activatedRoute.snapshot.params.id);
+        this.userKanbanPermissions = [];
         
         this.getkanban();
       }
     })
     
     
-    this.KanbasService.emitRemoveLane.subscribe((lane) => {
+    this.kanbasService.emitRemoveLane.subscribe((lane) => {
       let index = this.lanes.findIndex((xLane) => lane.id == xLane.id);
       if (index != -1) this.lanes.splice(index, 1);
     });
@@ -58,14 +63,16 @@ export class KanbanComponent implements OnInit {
 
   ngOnChanges(){
     
-    this.KanbasService.emitKankaSelect.emit(null);
+    this.kanbasService.emitKankaSelect.emit(null);
   }
 
   getkanban(){
-    this.KanbasService.getKanban(this.userId,this.kanbanId).subscribe((kanban) => {
-      
-      this.KanbasService.emitKankaSelect.emit(kanban);
+    this.kanbasService.getKanban(this.userId,this.kanbanId).subscribe((kanban) => {
+      this.title = kanban.title;
+      this.kanbasService.emitKankaSelect.emit(kanban);
       this.lanes.push(...kanban.swimlanes);
+      this.userKanbanPermissions.push(...kanban.userKanbanPermission);
+
       this.lanes.forEach((e, i) => {
         this.kanbasListId.push('list' + i);
       });
@@ -77,7 +84,7 @@ export class KanbanComponent implements OnInit {
   add() {
     
     const dialogRef = this.dialog.open(LaneEditComponent, {
-          data: {kanbanId:this.kanbanId},
+          data: {kanbanId:this.kanbanId, order: this.lanes.length},
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -90,6 +97,11 @@ export class KanbanComponent implements OnInit {
 
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.lanes, event.previousIndex, event.currentIndex);
+    this.lanes.forEach((lane, index) => {
+      if(index != lane.order)
+        lane.order = index;
+    })
+    this.kanbasService.updateOrderLanes(this.lanes, this.kanbanId).subscribe(result => {});
   }
   
   addNote(note:Notes){
@@ -129,5 +141,21 @@ export class KanbanComponent implements OnInit {
       return true;
     else
       return false;
-  } 
+  }
+  
+  changePermission(userKanbanPermission:UserKanbanPermission){
+      const dialogRef = this.dialog.open(PermisionEditComponent, {
+        data: {userKanbanPermission:userKanbanPermission, title:this.title,kanbanId:this.kanbanId},
+      });
+
+      dialogRef.afterClosed().subscribe((result) => {
+        if (result) {
+          debugger
+          let index = this.userKanbanPermissions.findIndex(ukp=>ukp.id==result.id);
+          this.userKanbanPermissions[index] = result;
+        }
+      });
+      
+      return true;
+  }
 }

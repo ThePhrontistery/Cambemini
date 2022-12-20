@@ -15,6 +15,7 @@ import { User } from './model/User';
   providedIn: 'root',
 })
 export class KanbasService {
+  
   emitKankaSelect: EventEmitter<Kanban> = new EventEmitter();
   emitSaveKanba: EventEmitter<Kanban> = new EventEmitter();
   emitRemoveLane: EventEmitter<Lane> = new EventEmitter();
@@ -98,6 +99,35 @@ export class KanbasService {
     return this.httpClient.get(url,{
       responseType: 'blob'
     });
+  }
+
+  getByCode(code: string): Observable<Kanban> {
+    let url = this.url + '/code/' + code;
+    return this.httpClient.get<Kanban>(url);
+  }
+
+  saveUserKanbanPermission(user: User, sharedKanban: Kanban): Observable<UserKanbanPermission> {
+    let url = environment.url + 'ukp';
+    url += '/' + sharedKanban.id + "/" + user.id;
+    
+    return this.httpClient.put<UserKanbanPermission>(url, null);
+  }
+
+  saveUserKanbanPermissionRol(kanbanId:number, userId:number,rolId:number): Observable<UserKanbanPermission> {
+    let url = environment.url + 'ukp/save/' + kanbanId + "/" + userId+"/" + rolId;
+    
+    return this.httpClient.put<UserKanbanPermission>(url, null);
+  }
+
+  updateOrderLanes(lanes: Lane[], kanbanId: number){
+    let url = this.url + "/swimlane/updateLanesOrder/" + kanbanId;
+
+    return this.httpClient.put(url, lanes);
+  }
+
+  updateOrderNotes(notes: Notes[], swimlaneId){
+    let url = this.url + "/swimlane/note/updateNotesOrder/" + swimlaneId; 
+    return this.httpClient.put(url, notes);
   }
 }
 

@@ -6,6 +6,8 @@ import { User } from '../kanbas/model/User';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Permission } from '../kanbas/model/Permission';
+import { Kanban } from '../kanbas/model/Kanban';
+import { KanbasService } from '../kanbas/kanbas.service';
 
 
 
@@ -24,23 +26,27 @@ export class LoginService {
 
   constructor(
     private router: Router,
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private kanbanService: KanbasService,
   ) {
     this.loggedIn.subscribe(result => {
       this.checkIsLoggedIn = result;
     })
   }
 
-  login(user: User) {
+  login(user: User, sharedKanban?: Kanban) {
     // this.loggedIn.next(true);
     
      if (user.password === 'hola' ) {
       this.getUserByEmail(user.email).subscribe(result => {
         this.user.next(result);
-      });
 
-      this.loggedIn.next(true);
-      this.router.navigate(['/']);
+        if(sharedKanban != null)
+          this.kanbanService.saveUserKanbanPermission(result, sharedKanban).subscribe(result =>{});
+
+        this.loggedIn.next(true);
+        this.router.navigate(['/']);
+      });
      }else{
        alert("Usuario o contraseña incorrectos!")
      }

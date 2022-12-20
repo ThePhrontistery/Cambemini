@@ -18,9 +18,14 @@ import { KanbasListComponent } from './kanbas-list/kanbas-list.component';
 import { KanbanEditComponent } from './kanbas-list/kanban-edit/kanban-edit.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { AttachmentViewerComponent } from './kanban/lane/note/attachment-viewer/attachment-viewer.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {ClipboardModule} from '@angular/cdk/clipboard';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { BrowserModule } from '@angular/platform-browser';
+import { PermisionEditComponent } from './kanban/permision-edit/permision-edit.component';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -32,6 +37,7 @@ import { BrowserModule } from '@angular/platform-browser';
     LaneEditComponent,
     KanbasListComponent,
     AttachmentViewerComponent,
+    PermisionEditComponent,
   ],
   imports: [
     CommonModule,
@@ -49,6 +55,10 @@ import { BrowserModule } from '@angular/platform-browser';
     ReactiveFormsModule,
     PdfViewerModule,
     BrowserModule,
+    MatTooltipModule,
+    ClipboardModule,
+    MatSelectModule,
+    MatSnackBarModule,
   ],
   
 })

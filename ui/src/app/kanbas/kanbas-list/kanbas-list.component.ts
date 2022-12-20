@@ -7,7 +7,10 @@ import { Kanban } from '../model/Kanban';
 import { Component, OnInit } from '@angular/core';
 import { User } from '../model/User';
 import { LoginService } from 'src/app/login/login.service';
+import {Clipboard} from '@angular/cdk/clipboard';
 import { Permission } from '../model/Permission';
+import { environment } from 'src/environments/environment';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-kanbas',
@@ -22,10 +25,15 @@ export class KanbasListComponent implements OnInit {
     private router: Router,
     private kanbaService: KanbasService,
     public matDialog: MatDialog,
-    private loginService: LoginService
-
+    private loginService: LoginService,
+    private clipboard: Clipboard,
+    private _snackBar: MatSnackBar,
   ) {}
 
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action);
+  }
+  
   ngOnInit(): void {
     this.loginService.user.subscribe(user => {
       if(user != null){
@@ -98,6 +106,7 @@ export class KanbasListComponent implements OnInit {
   }
 
   share(kanban:Kanban){
-      this.router.navigate(['kanbans/share/',kanban.id]);
+    kanban.url = environment.frontUrl+'kanbans/share/'+kanban.code;
+    this.clipboard.copy(kanban.url);
   }
 }
