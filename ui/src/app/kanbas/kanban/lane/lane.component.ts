@@ -42,8 +42,9 @@ export class LaneComponent implements OnInit {
     console.log(this.lane)
 
   }
-
+  
   drop(event: any, laneId: number) {
+    
     if (event.previousContainer === event.container) {
       moveItemInArray(
         event.container.data,
@@ -58,56 +59,21 @@ export class LaneComponent implements OnInit {
         event.previousIndex,
         event.currentIndex
       );
+      
     }
-    //Para cada nota del contenedor anterior guarda el nuevo orden
-    //this.updateContainerNotes(event.previousContainer.data);
-    //Para cada nota del nuevo contenedor, guarda el nuevo orden y el swimlaneId asociado
-    //this.updateContainerNotes(event.container.data, laneId);
+        
+    event.container.data.forEach((note, index) => {
       
-    
-     event.container.data.forEach((element, index) => {
-      
-      element.laneId = laneId;
-      element.swimlane = new Lane();
-      element.swimlane.id = laneId;
-
-      this.kanbasService.saveNote(element).subscribe(x=>{
-
-      });
-    }); 
-    return event;
-  }
-
-  /**
-   * Función que actualiza el orden de las notas de un contenedor
-   * (No funciona, aún en progreso, no entiendo bien como funciona la
-   * función drop)
-   * @param containerData 
-   * @param laneId 
-   */
-  updateContainerNotes(containerData: any, laneId?:number){
-    let containerNotes: Notes[] = [];
-    
-    containerData.forEach((note, index) => {
-      
-      //Si no tiene bien puesto el index, ponlo
-      if(note.order != index){
+      note.swimlane = new Lane();
+      note.swimlane.id = laneId;
+      if(note.order != index)
         note.order = index;
-        debugger
-        containerNotes.push(note)
-      }
 
-      if(laneId != null){
-        note.swimlane = new Lane();
-        note.swimlane.id = laneId;
-      }
-
+      //Esto realiza muchas peticiones, no debería de ser así, pero de momento funciona
+      this.kanbasService.saveNote(note).subscribe(x=>{
+      });
     });
-    //y guarda las notas
-    if(laneId != null)
-      this.kanbasService.updateOrderNotes(containerNotes, laneId).subscribe(x=>{
-      
-    });
+    return event;
   }
 
   add() {
