@@ -1,11 +1,8 @@
 package es.capgemini.cca.canbemini.kanban.swimlane.note.attachment;
 
 import java.util.List;
-import java.util.Optional;
 
-import es.capgemini.cca.canbemini.kanban.swimlane.note.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -14,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import es.capgemini.cca.canbemini.kanban.swimlane.note.NoteService;
 
 @Service
 public class AttachmentServiceImpl implements AttachmentService {
@@ -25,12 +24,10 @@ public class AttachmentServiceImpl implements AttachmentService {
     NoteService noteService;
 
     @Value("${spring.server.url}")
-    private  String url;
+    private String url;
 
     @Value("${spring.server.port}")
-    private  String port;
-
-
+    private String port;
 
     @Override
     public List<Attachment> findAttachmentNotes(Long noteId) {
@@ -48,7 +45,7 @@ public class AttachmentServiceImpl implements AttachmentService {
     }
 
     @Override
-    public Attachment saveAttachment(Long noteId,Long id, MultipartFile multipartFile) {
+    public Attachment saveAttachment(Long noteId, Long id, MultipartFile multipartFile) {
         Attachment attachment = null;
 
         if (id == null)
@@ -60,37 +57,35 @@ public class AttachmentServiceImpl implements AttachmentService {
         attachment.setType(multipartFile.getContentType());
         attachment.setNote(noteService.getNote(noteId));
 
-        try{
+        try {
 
-            byte file[] =  multipartFile.getBytes();
-            if(file.length>0)attachment.setFile(file);
+            byte file[] = multipartFile.getBytes();
+            if (file.length > 0)
+                attachment.setFile(file);
             this.attachmentRepository.save(attachment);
             String fileDownloadUri = ServletUriComponentsBuilder
-                    .fromHttpUrl(url+":"+port+"/api/kanban/swimlane/note/attachment/files")
-                    .path("/"+attachment.getId())
-                    .toUriString();
+                    .fromHttpUrl(url + ":" + port + "/api/kanban/swimlane/note/attachment/files")
+                    .path("/" + attachment.getId()).toUriString();
             attachment.setDocument_path(fileDownloadUri);
             this.attachmentRepository.save(attachment);
             return attachment;
 
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
-        return  null;
+        return null;
     }
 
     @Override
     public ResponseEntity<byte[]> downloadFile(Long id) {
-        Attachment attachment =  attachmentRepository.findById(id)
+        Attachment attachment = attachmentRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
         byte[] file = attachment.getFile();
-
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + attachment.getName() + "\"")
                 .body(file);
     }
-
 
 }

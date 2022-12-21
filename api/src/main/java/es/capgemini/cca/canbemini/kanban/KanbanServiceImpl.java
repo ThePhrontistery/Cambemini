@@ -8,7 +8,8 @@ import org.springframework.stereotype.Service;
 import es.capgemini.cca.canbemini.permission.Permission;
 import es.capgemini.cca.canbemini.permission.PermissionDto;
 import es.capgemini.cca.canbemini.permission.PermissionService;
-import es.capgemini.cca.canbemini.userKanbanPermission.UserKanbanPermissionDto;
+import es.capgemini.cca.canbemini.security.NotAuthorizedException;
+import es.capgemini.cca.canbemini.security.UserDetailsImpl;
 import es.capgemini.cca.canbemini.userKanbanPermission.UserKanbanPermissionService;
 import es.capgemini.cca.canbemini.users.Users;
 import es.capgemini.cca.canbemini.users.UsersDto;
@@ -49,26 +50,10 @@ public class KanbanServiceImpl implements KanbanService {
         this.kanbanRepository.deleteById(id);
     }
 
-    /*
-     * @Override public void saveKanban(Long id, KanbanDto kanbanDto, Long userId) {
-     * Kanban kanban = null; if (id == null) kanban = new Kanban(); else kanban =
-     * this.getKanban(id);
-     * 
-     * kanban.setTitle(kanbanDto.getTitle());
-     * kanban.setDescription(kanbanDto.getDescription());
-     * 
-     * this.ukpService.saveUkp(null, userId, kanbanDto, 1L);
-     * 
-     * this.kanbanRepository.save(kanban);
-     * 
-     * }
-     */
-
     @Override
     public void saveKanban(Long id, KanbanDto kanbanDto, Long userId) {
         Kanban kanban = null;
 
-        UserKanbanPermissionDto ukpDto = new UserKanbanPermissionDto();
         UsersDto userDto = new UsersDto();
         PermissionDto permissionDto = new PermissionDto();
 
@@ -102,6 +87,16 @@ public class KanbanServiceImpl implements KanbanService {
     @Override
     public Kanban getByCode(String code) {
         return this.kanbanRepository.findByCode(code);
+    }
+
+    @Override
+    public Boolean isAuthorized(String permission, Long kanbanId) throws NotAuthorizedException {
+        return this.ukpService.isAuthorized(permission, kanbanId);
+    }
+
+    @Override
+    public Boolean verifyUser(Long userId, UserDetailsImpl userDetailsImpl) {
+        return this.userService.verifyUser(userId, userDetailsImpl);
     }
 
 }

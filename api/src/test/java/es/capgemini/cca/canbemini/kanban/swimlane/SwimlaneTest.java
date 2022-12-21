@@ -36,7 +36,6 @@ public class SwimlaneTest {
 
     private static final Long EXISTS_SWIMLANE_ID = 1L;
     private static final Long EXISTS_KANBAN_ID = 1L;
-    private static final String SWIMLANE_NAME = "New Swimlane";
 
     @Test
     public void findAllShouldReturnAllSwimlanes() {

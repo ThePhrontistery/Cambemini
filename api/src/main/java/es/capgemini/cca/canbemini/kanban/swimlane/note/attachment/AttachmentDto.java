@@ -2,9 +2,6 @@ package es.capgemini.cca.canbemini.kanban.swimlane.note.attachment;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import es.capgemini.cca.canbemini.kanban.swimlane.note.Note;
-import es.capgemini.cca.canbemini.kanban.swimlane.note.NoteDto;
-
 public class AttachmentDto {
 
     private Long id;
@@ -15,10 +12,12 @@ public class AttachmentDto {
     private String type;
     @JsonIgnore
     private byte[] file;
-    public AttachmentDto( String document_path) {
+
+    public AttachmentDto(String document_path) {
 
         this.document_path = document_path;
     }
+
     protected AttachmentDto() {
 
     }
