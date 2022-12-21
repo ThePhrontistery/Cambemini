@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import es.capgemini.cca.canbemini.mapppers.KanbanMapper;
 import es.capgemini.cca.canbemini.mapppers.UserKanbanPermissionMapper;
 import es.capgemini.cca.canbemini.security.UserDetailsImpl;
-import es.capgemini.cca.canbemini.userKanbanPermission.UserKanbanPermissionDto;
 import es.capgemini.cca.canbemini.userKanbanPermission.UserKanbanPermissionService;
 
 @RequestMapping(value = "/api/kanban")
@@ -83,9 +82,4 @@ public class KanbanController {
         kanbanService.deleteKanban(kanbanId);
     }
 
-    @RequestMapping(path = "", method = RequestMethod.GET)
-    public List<UserKanbanPermissionDto> getAllUserKanbanPermission() {
-        return userKanbanPermissionMapper
-                .userKanbanPermissionListToUserKanbanPermissionListDto(this.userKanbanPermisssionService.get());
-    }
 }
