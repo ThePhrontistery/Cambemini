@@ -15,7 +15,7 @@
 
                 <mat-form-field appearance="outline">
                     <mat-label for="password">Passsword</mat-label>
-                    <input matInput placeholder="Password" formControlName="password" name="password" required [type]="hide ? 'password' : 'text'">
+                    <input type="password" matInput placeholder="Password" formControlName="password" name="password" required [type]="hide ? 'password' : 'text'">
                     <mat-icon matPrefix>lock</mat-icon>
                     <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                     <mat-error>La contraseña no puede estar vacía</mat-error>                    
@@ -26,7 +26,7 @@
                 </mat-checkbox>
 
                 <div class="login-button">
-                    <button mat-flat-button color="primary">Login</button>
+                    <button mat-flat-button color="primary" type = "submit">Login</button>
                 </div>
                 
                 <div class="justify-content-center mt-1">
