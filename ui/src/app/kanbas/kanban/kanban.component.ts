@@ -1,3 +1,5 @@
+import { NoteBlock } from './../model/note-block';
+import { StompService } from './../websockect/stomp.service';
 import { UserKanbanPermission } from './../model/User-Kanban-Permission';
 
 import { Lane } from '../model/Lane';
@@ -17,6 +19,9 @@ import { ThisReceiver } from '@angular/compiler';
 import { LoginService } from 'src/app/login/login.service';
 import { Permission } from '../model/Permission';
 import { PermisionEditComponent } from './permision-edit/permision-edit.component';
+
+import * as SockJS from 'sockjs-client';
+import { User } from '../model/User';
 @Component({
   selector: 'app-kanba-list',
   templateUrl: './kanban.component.html',
@@ -29,12 +34,15 @@ export class KanbanComponent implements OnInit {
   userId:number;
   permission: Permission;
   title:string;
+  message:string = "";
+  users:User[]=[];
   userKanbanPermissions:UserKanbanPermission[]=[];
   constructor(
     private kanbasService: KanbasService,
     private dialog: MatDialog,
     private activatedRoute: ActivatedRoute,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private stompService: StompService
   ) {
     console.log('entra');
   }
@@ -49,12 +57,29 @@ export class KanbanComponent implements OnInit {
         this.kanbasListId =[];
         this.kanbanId = Number(this.activatedRoute.snapshot.params.id);
         this.userKanbanPermissions = [];
-        
+        this.users=[];
         this.getkanban();
       }
     })
     
     
+    this.stompService.subscribe('/kanbans/'+this.kanbanId, (res) => {
+      
+      let noteBlock:NoteBlock =   JSON.parse(res.body);
+       
+      if(noteBlock.userId == this.userId) return;
+      let index = this.lanes.findIndex(lane => lane.id==noteBlock.swimlaneId);
+      if(index < 0) return;        
+        
+      let indexNote = this.lanes[index].notes.findIndex(note => note.id==noteBlock.noteId);
+        
+      if(indexNote < 0) return;
+      if(noteBlock.block==true)
+        this.lanes[index].notes[indexNote].usersBlock = this.users.find(user => user.id == noteBlock.userId)
+        else
+        this.lanes[index].notes[indexNote].usersBlock = null;
+     });
+
     this.kanbasService.emitRemoveLane.subscribe((lane) => {
       let index = this.lanes.findIndex((xLane) => lane.id == xLane.id);
       if (index != -1) this.lanes.splice(index, 1);
@@ -72,7 +97,7 @@ export class KanbanComponent implements OnInit {
       this.kanbasService.emitKankaSelect.emit(kanban);
       this.lanes.push(...kanban.swimlanes);
       this.userKanbanPermissions.push(...kanban.userKanbanPermission);
-
+      this.users = kanban.userKanbanPermission.flatMap(x=>x.users);
       this.lanes.forEach((e, i) => {
         this.kanbasListId.push('list' + i);
       });
@@ -157,5 +182,13 @@ export class KanbanComponent implements OnInit {
       });
       
       return true;
+  }
+
+
+
+  block(noteBlock:NoteBlock){
+    noteBlock.userId=this.userId;
+    this.stompService.sendNote(this.kanbanId,noteBlock);
+    
   }
 }

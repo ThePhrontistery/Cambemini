@@ -24,9 +24,12 @@ export class NoteEditComponent implements OnInit {
     
     if (this.data.task != null) {
       this.note = Object.assign({}, this.data.task);
-    } else {
-      this.note = new Notes();      
     }
+     else {
+      this.note = new Notes();  
+      this.note.order = 0;    
+    }
+
     this.note.swimlane= new Lane();
     this.note.swimlane.id= this.data.lane.id;
    

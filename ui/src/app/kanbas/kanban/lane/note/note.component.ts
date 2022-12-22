@@ -1,3 +1,5 @@
+import { NoteBlock } from './../../../model/note-block';
+import { StompService } from './../../../websockect/stomp.service';
 import { DialogConfirmationComponent } from './../../../../core/dialog-confirmation/dialog-confirmation.component';
 import { Attachment } from './../../../model/attachment';
 import { NoteEditComponent } from '../note-edit/note-edit.component';
@@ -26,20 +28,26 @@ export class NoteComponent implements OnInit {
   @Input() isEditorOwner: boolean;
   @Output() editNote: EventEmitter<Notes> = new EventEmitter();
   @Output() removeNote: EventEmitter<any> = new EventEmitter();
+  @Output() block: EventEmitter<NoteBlock> = new EventEmitter();
 
   spiner:boolean = false;
 
   uploadProgress:number;
   uploadSub: Subscription;
-
+  styleBlock = ''
+  blockBy:boolean = false;
   constructor(
     private kanbasService: KanbasService,
     public dialog: MatDialog,
-    // private sanitizer:DomSanitizer
+    private stompService:StompService
 
      ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if(this.item.usersBlock!=null){
+      this.styleBlock = "border: 1rem solid red; display: flex; flex-direction: column;"
+    }
+  }
 
   remove() {
     const dialogRef = this.dialog.open(DialogConfirmationComponent, {
@@ -151,6 +159,18 @@ export class NoteComponent implements OnInit {
         })
        }
      });
+  }
+
+  emit(block:boolean){
+    
+     let noteBlock:NoteBlock = {noteId:this.item.id,swimlaneId:null,userId:null, block:block};
+     this.block.emit(noteBlock);
+     this.blockBy = block;
+  }
+
+  blocker(){
+    this.blockBy = !this.blockBy;
+    this.emit(this.blockBy);
   }
   
 }

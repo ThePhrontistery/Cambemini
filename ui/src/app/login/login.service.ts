@@ -41,11 +41,19 @@ export class LoginService {
       this.getUserByEmail(user.email).subscribe(result => {
         this.user.next(result);
 
-        if(sharedKanban != null)
-          this.kanbanService.saveUserKanbanPermission(result, sharedKanban).subscribe(result =>{});
+        if(sharedKanban != null){
+          this.kanbanService.saveUserKanbanPermission(result, sharedKanban).subscribe(result =>{
+            this.loggedIn.next(true);
+            this.router.navigate(['/']);
+          });
+        }
+        else{
+          this.loggedIn.next(true);
+          this.router.navigate(['/']);
+        }
+          
 
-        this.loggedIn.next(true);
-        this.router.navigate(['/']);
+      
       });
      }else{
        alert("Usuario o contraseña incorrectos!")

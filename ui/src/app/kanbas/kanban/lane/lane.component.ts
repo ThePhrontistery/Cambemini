@@ -1,3 +1,5 @@
+import { NoteBlock } from './../../model/note-block';
+import { StompService } from './../../websockect/stomp.service';
 import { Notes } from '../../model/Notes';
 import { DialogConfirmationComponent } from '../../../core/dialog-confirmation/dialog-confirmation.component';
 import { KanbasService } from '../../kanbas.service';
@@ -30,12 +32,14 @@ export class LaneComponent implements OnInit {
   @Output()editXNote: EventEmitter<Notes>= new EventEmitter();
   @Output()saveLane:EventEmitter<Lane>= new EventEmitter();
   @Output()removeNote:EventEmitter<Notes>= new EventEmitter();
-
+  @Output()block:EventEmitter<NoteBlock>= new EventEmitter();
+  
 
   
   constructor(
     public kanbasService: KanbasService,
-    public matDialog: MatDialog
+    public matDialog: MatDialog,
+    
   ) {}
 
   ngOnInit(): void {
@@ -72,7 +76,11 @@ export class LaneComponent implements OnInit {
       //Esto realiza muchas peticiones, no debería de ser así, pero de momento funciona
       this.kanbasService.saveNote(note).subscribe(x=>{
       });
+
+      
     });
+
+    
     return event;
   }
 
@@ -82,6 +90,7 @@ export class LaneComponent implements OnInit {
     });
     
     dialogRef.afterClosed().subscribe((result) => {
+      if(result!=null)
       this.addNote.emit(result);
     });
     
@@ -98,7 +107,7 @@ export class LaneComponent implements OnInit {
     });
 
      dialogRef.afterClosed().subscribe(res=>{
-   
+        if(res!=null)
         this.saveLane.emit(res);
 
      })
@@ -136,5 +145,10 @@ export class LaneComponent implements OnInit {
   deleteNote(note:Notes){
     
     this.removeNote.emit(note);
+  }
+
+  blockNote(noteBlock:NoteBlock){
+    noteBlock.swimlaneId = this.lane.id;
+    this.block.emit(noteBlock);
   }
 }
