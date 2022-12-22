@@ -19,7 +19,6 @@ import es.capgemini.cca.canbemini.kanban.swimlane.Swimlane;
 import es.capgemini.cca.canbemini.kanban.swimlane.note.attachment.Attachment;
 
 @Entity
-
 @Table(name = "Note")
 public class Note {
 
@@ -49,7 +48,7 @@ public class Note {
     }
 
     protected Note() {
-
+        this.order=1l;
     }
 
     public Long getId() {

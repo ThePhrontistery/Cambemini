@@ -15,3 +15,16 @@
 .noteContent {
     font-size: 1.15vw;
 }
+
+.block{
+    display: flex;
+    flex-direction: column;
+    border: solid 0.1rem red;
+    margin: 0.3rem;
+    padding: 0.3rem;
+    border-radius: 0.5%;
+    -webkit-border-radius: 0.5%;
+    -moz-border-radius: 0.5%;
+    -ms-border-radius: 0.5%;
+    -o-border-radius: 0.5%;
+}

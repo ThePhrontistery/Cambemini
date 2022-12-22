@@ -48,7 +48,7 @@ public class Swimlane {
     }
 
     protected Swimlane() {
-
+        this.order = 1L;
     }
 
     public Long getId() {

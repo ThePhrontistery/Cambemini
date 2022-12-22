@@ -45,7 +45,7 @@ public class Kanban {
     }
 
     protected Kanban() {
-
+        this.code = this.generateCode();
     }
 
     public List<UserKanbanPermission> getUserKanbanPermission() {
