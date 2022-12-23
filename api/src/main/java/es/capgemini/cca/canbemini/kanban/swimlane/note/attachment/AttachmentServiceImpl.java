@@ -13,6 +13,7 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import es.capgemini.cca.canbemini.kanban.swimlane.note.NoteService;
+import es.capgemini.cca.canbemini.security.NotAuthorizedException;
 
 @Service
 public class AttachmentServiceImpl implements AttachmentService {
@@ -86,6 +87,13 @@ public class AttachmentServiceImpl implements AttachmentService {
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + attachment.getName() + "\"")
                 .body(file);
+    }
+
+    @Override
+    public Boolean isAuthorized(String permission, Long attachmentId) throws NotAuthorizedException {
+
+        return this.noteService.isAuthorized(permission, attachmentId);
+
     }
 
 }

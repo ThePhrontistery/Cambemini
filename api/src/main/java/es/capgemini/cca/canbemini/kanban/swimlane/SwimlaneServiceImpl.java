@@ -21,7 +21,6 @@ public class SwimlaneServiceImpl implements SwimlaneService {
     @Override
     public List<Swimlane> findAll(Long kanbanId) {
         return (List<Swimlane>) this.swimlaneRepository.findAll(kanbanId);
-
     }
 
     @Override
@@ -56,9 +55,7 @@ public class SwimlaneServiceImpl implements SwimlaneService {
 
     @Override
     public boolean isAuthorized(String permission, Long swimlaneId) throws NotAuthorizedException {
-
         Swimlane swimlane = this.swimlaneRepository.findById(swimlaneId).orElse(null);
-
         return this.kanbanService.isAuthorized(permission, swimlane.getKanban().getId());
     }
 }

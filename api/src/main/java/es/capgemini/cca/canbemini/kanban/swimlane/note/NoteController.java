@@ -41,10 +41,11 @@ public class NoteController {
         return noteMapper.map(noteService.findAllSwimlaneNotes(swimlaneId));
     }
 
-    @RequestMapping(path = { "/save/{swimlaneId}", "/save/{id}/{swimlaneId}" }, method = RequestMethod.PUT)
-    public Note save(@PathVariable(name = "id", required = false) Long id,
+    @RequestMapping(path = { "/save/{swimlaneId}", "/save/{swimlaneId}/{noteId}" }, method = RequestMethod.PUT)
+    @PreAuthorize("@swimlaneServiceImpl.isAuthorized('Editor',#swimlaneId)")
+    public Note save(@PathVariable(name = "noteId", required = false) Long noteId,
             @PathVariable(name = "swimlaneId", required = true) Long swimlaneId, @RequestBody NoteDto note) {
-        return noteService.saveNote(id, note, swimlaneId);
+        return noteService.saveNote(noteId, note, swimlaneId);
     }
 
     @RequestMapping(path = "{noteId}", method = RequestMethod.DELETE)

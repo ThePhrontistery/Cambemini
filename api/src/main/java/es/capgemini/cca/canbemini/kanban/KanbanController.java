@@ -69,10 +69,11 @@ public class KanbanController {
         return kanbanMapper.KanbanToKanbanDto(kanbanService.getByCode(code));
     }
 
-    @RequestMapping(path = { "/save/{userId}", "/save/{id}/{userId}" }, method = RequestMethod.PUT)
-    public void save(@PathVariable(name = "id", required = false) Long id, @RequestBody KanbanDto kanban,
-            @PathVariable(name = "userId") Long userId) {
-        kanbanService.saveKanban(id, kanban, userId);
+    @RequestMapping(path = { "/save/{userId}", "/save/{kanbanId}/{userId}" }, method = RequestMethod.PUT)
+    @PreAuthorize("@kanbanServiceImpl.verifyUser(#userId, #user) || @kanbanServiceImpl.verifyUser(#userId, #user) && @kanbanServiceImpl.isAuthorized('Editor',#kanbanId)")
+    public void save(@PathVariable(name = "kanbanId", required = false) Long kanbanId, @RequestBody KanbanDto kanban,
+            @PathVariable(name = "userId") Long userId, @AuthenticationPrincipal UserDetailsImpl user) {
+        kanbanService.saveKanban(kanbanId, kanban, userId);
     }
 
     @RequestMapping(path = "/delete/{kanbanId}", method = RequestMethod.DELETE)

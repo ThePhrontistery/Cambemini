@@ -42,12 +42,13 @@ public class SwimlaneController {
     }
 
     @RequestMapping(path = { "/save/{kanbanId}", "/save/{kanbanId}/{swimlaneId}" }, method = RequestMethod.PUT)
+    @PreAuthorize("@kanbanServiceImpl.isAuthorized('Editor',#kanbanId)")
     public void save(@PathVariable(name = "swimlaneId", required = false) Long swimlaneId,
             @RequestBody SwimlaneDto swimlane, @PathVariable(name = "kanbanId", required = true) Long kanbanId) {
         swimlaneService.saveSwimlane(swimlaneId, swimlane, kanbanId);
     }
 
-    @RequestMapping(path = "{swimlaneId}", method = RequestMethod.DELETE)
+    @RequestMapping(path = "/{swimlaneId}", method = RequestMethod.DELETE)
     @PreAuthorize("@swimlaneServiceImpl.isAuthorized('Editor',#swimlaneId)")
     public void delete(@PathVariable("swimlaneId") Long swimlaneId) {
         swimlaneService.deleteSwimlane(swimlaneId);
