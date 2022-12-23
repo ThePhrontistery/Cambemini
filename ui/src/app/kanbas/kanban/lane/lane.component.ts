@@ -1,3 +1,5 @@
+import { NoteBlock } from './../../model/note-block';
+import { StompService } from './../../websockect/stomp.service';
 import { Notes } from '../../model/Notes';
 import { DialogConfirmationComponent } from '../../../core/dialog-confirmation/dialog-confirmation.component';
 import { KanbasService } from '../../kanbas.service';
@@ -25,30 +27,35 @@ export class LaneComponent implements OnInit {
   @Input() index: number;
   @Input() listId: string[];
   @Input() kanbanId: number;
+  @Input() isEditorOwner: boolean;
   @Output()addNote: EventEmitter<Notes>= new EventEmitter();
   @Output()editXNote: EventEmitter<Notes>= new EventEmitter();
   @Output()saveLane:EventEmitter<Lane>= new EventEmitter();
   @Output()removeNote:EventEmitter<Notes>= new EventEmitter();
-
+  @Output()block:EventEmitter<NoteBlock>= new EventEmitter();
+  
 
   
   constructor(
     public kanbasService: KanbasService,
-    public matDialog: MatDialog
+    public matDialog: MatDialog,
+    
   ) {}
 
   ngOnInit(): void {
     console.log(this.lane)
 
   }
-
+  
   drop(event: any, laneId: number) {
+    
     if (event.previousContainer === event.container) {
       moveItemInArray(
         event.container.data,
         event.previousIndex,
         event.currentIndex
       );
+
     } else {
       transferArrayItem(
         event.previousContainer.data,
@@ -56,12 +63,24 @@ export class LaneComponent implements OnInit {
         event.previousIndex,
         event.currentIndex
       );
+      
     }
+        
+    event.container.data.forEach((note, index) => {
+      
+      note.swimlane = new Lane();
+      note.swimlane.id = laneId;
+      if(note.order != index)
+        note.order = index;
 
-    event.container.data.forEach((element) => {
-      element.laneId = laneId;
+      //Esto realiza muchas peticiones, no debería de ser así, pero de momento funciona
+      this.kanbasService.saveNote(note).subscribe(x=>{
+      });
+
+      
     });
 
+    
     return event;
   }
 
@@ -71,6 +90,7 @@ export class LaneComponent implements OnInit {
     });
     
     dialogRef.afterClosed().subscribe((result) => {
+      if(result!=null)
       this.addNote.emit(result);
     });
     
@@ -87,7 +107,7 @@ export class LaneComponent implements OnInit {
     });
 
      dialogRef.afterClosed().subscribe(res=>{
-   
+        if(res!=null)
         this.saveLane.emit(res);
 
      })
@@ -125,5 +145,10 @@ export class LaneComponent implements OnInit {
   deleteNote(note:Notes){
     
     this.removeNote.emit(note);
+  }
+
+  blockNote(noteBlock:NoteBlock){
+    noteBlock.swimlaneId = this.lane.id;
+    this.block.emit(noteBlock);
   }
 }

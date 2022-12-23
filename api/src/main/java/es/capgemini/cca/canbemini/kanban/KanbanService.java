@@ -5,6 +5,7 @@ import java.util.List;
 public interface KanbanService {
 
     List<Kanban> findUserKanbans(Long userId);
+
     List<Kanban> findUserKanbanId(Long userId, Long kanbanId);
 
     Kanban getKanban(Long id);
@@ -13,5 +14,6 @@ public interface KanbanService {
 
     void saveKanban(Long id, KanbanDto kanbanDto, Long userId);
 
+    Kanban getByCode(String code);
 
 }

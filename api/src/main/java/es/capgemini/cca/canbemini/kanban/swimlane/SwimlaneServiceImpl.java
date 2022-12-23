@@ -44,6 +44,7 @@ public class SwimlaneServiceImpl implements SwimlaneService {
 
         swimlane.setTitle(swimlaneDto.getTitle());
         swimlane.setKanban(kanbanService.getKanban(kanbanId));
+        swimlane.setOrder(swimlaneDto.getOrder());
 
         BeanUtils.copyProperties(swimlaneDto, swimlane, "id", "kanban");
 

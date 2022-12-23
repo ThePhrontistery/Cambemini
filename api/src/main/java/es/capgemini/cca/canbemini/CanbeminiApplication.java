@@ -61,12 +61,12 @@ public class CanbeminiApplication {
             kanbanRepository.save(kanban2);
 
             // save a few Swimlanes
-            Swimlane swimlane1 = new Swimlane("TO DO", kanban1);
-            Swimlane swimlane2 = new Swimlane("TO PROGRESS", kanban1);
-            Swimlane swimlane3 = new Swimlane("DONE", kanban1);
-            Swimlane swimlane4 = new Swimlane("TO DO", kanban2);
-            Swimlane swimlane5 = new Swimlane("TO PROGRESS", kanban2);
-            Swimlane swimlane6 = new Swimlane("DONE", kanban2);
+            Swimlane swimlane1 = new Swimlane("TO DO", kanban1, 2L);
+            Swimlane swimlane2 = new Swimlane("TO PROGRESS", kanban1, 1L);
+            Swimlane swimlane3 = new Swimlane("DONE", kanban1, 3L);
+            Swimlane swimlane4 = new Swimlane("TO DO", kanban2, 1L);
+            Swimlane swimlane5 = new Swimlane("TO PROGRESS", kanban2, 2L);
+            Swimlane swimlane6 = new Swimlane("DONE", kanban2, 3L);
             swimlaneRepository.save(swimlane1);
             swimlaneRepository.save(swimlane2);
             swimlaneRepository.save(swimlane3);
@@ -75,16 +75,16 @@ public class CanbeminiApplication {
             swimlaneRepository.save(swimlane6);
 
             // save a few Notes
-            Note note1 = new Note("content1", swimlane1);
-            Note note2 = new Note("content2", swimlane1);
-            Note note3 = new Note("content3", swimlane2);
-            Note note4 = new Note("content4", swimlane3);
-            Note note5 = new Note("content5", swimlane3);
-            Note note6 = new Note("content6", swimlane4);
-            Note note7 = new Note("content7", swimlane4);
-            Note note8 = new Note("content8", swimlane4);
-            Note note9 = new Note("content9", swimlane5);
-            Note note10 = new Note("content10", swimlane5);
+            Note note1 = new Note("content1", swimlane1, 1L);
+            Note note2 = new Note("content2", swimlane1, 2L);
+            Note note3 = new Note("content3", swimlane2, 1L);
+            Note note4 = new Note("content4", swimlane3, 1L);
+            Note note5 = new Note("content5", swimlane3, 2L);
+            Note note6 = new Note("content6", swimlane4, 1L);
+            Note note7 = new Note("content7", swimlane4, 2L);
+            Note note8 = new Note("content8", swimlane4, 3L);
+            Note note9 = new Note("content9", swimlane5, 1L);
+            Note note10 = new Note("content10", swimlane5, 2L);
             noteRepository.save(note1);
             noteRepository.save(note2);
             noteRepository.save(note3);

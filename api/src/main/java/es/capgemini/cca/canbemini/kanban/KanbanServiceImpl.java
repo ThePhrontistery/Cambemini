@@ -38,7 +38,7 @@ public class KanbanServiceImpl implements KanbanService {
 
     @Override
     public List<Kanban> findUserKanbanId(Long userId, Long kanbanId) {
-        return (List<Kanban>) this.kanbanRepository.findUserKanbanId(userId, kanbanId);
+        return this.kanbanRepository.findUserKanbanId(userId, kanbanId);
     }
 
     @Override
@@ -99,6 +99,11 @@ public class KanbanServiceImpl implements KanbanService {
             this.ukpService.saveUkp(null, userId, kanbanId, 1L);
         }
 
+    }
+
+    @Override
+    public Kanban getByCode(String code) {
+        return this.kanbanRepository.findByCode(code);
     }
 
 }

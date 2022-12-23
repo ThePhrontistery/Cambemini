@@ -1,7 +1,6 @@
 package es.capgemini.cca.canbemini.kanban;
 
 import java.util.List;
-import java.util.Set;
 
 import es.capgemini.cca.canbemini.kanban.swimlane.SwimlaneDto;
 import es.capgemini.cca.canbemini.userKanbanPermission.UserKanbanPermissionDto;
@@ -13,6 +12,8 @@ public class KanbanDto {
     private String title;
 
     private String description;
+
+    private String code;
 
     private List<UserKanbanPermissionDto> userKanbanPermission;
 
@@ -51,10 +52,24 @@ public class KanbanDto {
     }
 
     public List<SwimlaneDto> getSwimlanes() {
+        swimlanes.sort((a, a1) -> a.getOrder().compareTo(a1.getOrder()));
+        for (int i = 0; i < swimlanes.size(); i++)
+            // getNotes ordena las notas a la vez que las devuelve, por lo que necesitamos
+            // que se ordenen todas antes de devolver el array
+            swimlanes.get(i).setNotes(swimlanes.get(i).getNotes());
         return swimlanes;
     }
 
     public void setSwimlanes(List<SwimlaneDto> swimlanes) {
         this.swimlanes = swimlanes;
     }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
 }

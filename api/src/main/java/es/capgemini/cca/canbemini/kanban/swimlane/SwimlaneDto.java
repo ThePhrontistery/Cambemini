@@ -1,7 +1,6 @@
 package es.capgemini.cca.canbemini.kanban.swimlane;
 
 import java.util.List;
-import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -13,6 +12,8 @@ public class SwimlaneDto {
 
     @JsonIgnore
     private KanbanDto kanban;
+
+    private Long order;
 
     private List<NoteDto> notes;
 
@@ -43,6 +44,7 @@ public class SwimlaneDto {
     }
 
     public List<NoteDto> getNotes() {
+        notes.sort((a, a1) -> a.getOrder().compareTo(a1.getOrder()));
         return notes;
     }
 
@@ -56,6 +58,14 @@ public class SwimlaneDto {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public Long getOrder() {
+        return order;
+    }
+
+    public void setOrder(Long order) {
+        this.order = order;
     }
 
 }

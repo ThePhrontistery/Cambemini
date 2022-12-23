@@ -37,12 +37,19 @@ public class NoteController {
     }
 
     @RequestMapping(path = { "/save/{swimlaneId}", "/save/{id}/{swimlaneId}" }, method = RequestMethod.PUT)
-    public Note save(@PathVariable(name = "id", required = false) Long id,@PathVariable(name = "swimlaneId", required = true) Long swimlaneId, @RequestBody NoteDto note) {
-        return noteService.saveNote(id, note,swimlaneId);
+    public Note save(@PathVariable(name = "id", required = false) Long id,
+            @PathVariable(name = "swimlaneId", required = true) Long swimlaneId, @RequestBody NoteDto note) {
+        return noteService.saveNote(id, note, swimlaneId);
     }
 
     @RequestMapping(path = "{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable("id") Long id) {
         noteService.deleteNote(id);
+    }
+
+    @RequestMapping(path = "/updateNotesOrder/{swimlaneId}", method = RequestMethod.PUT)
+    public void updateNotesOrder(@RequestBody List<NoteDto> notes, @PathVariable("swimlaneId") Long swimlaneId) {
+        for (int i = 0; i < notes.size(); i++)
+            noteService.saveNote(notes.get(i).getId(), notes.get(i), swimlaneId);
     }
 }

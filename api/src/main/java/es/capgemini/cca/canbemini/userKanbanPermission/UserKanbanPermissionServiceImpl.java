@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import es.capgemini.cca.canbemini.kanban.Kanban;
-import es.capgemini.cca.canbemini.kanban.KanbanDto;
 import es.capgemini.cca.canbemini.permission.Permission;
 import es.capgemini.cca.canbemini.permission.PermissionService;
 import es.capgemini.cca.canbemini.users.Users;
@@ -53,13 +52,28 @@ public class UserKanbanPermissionServiceImpl implements UserKanbanPermissionServ
     }
 
     @Override
-    public void addUserToUkp(Long id, Long userId, Long kanbanId, Long permissionId) {
-        // TODO Auto-generated method stub
-
+    public UserKanbanPermission getUkp(Long id) {
+        return userKanbanPermissionRepository.findById(id).orElse(null);
     }
 
     @Override
-    public UserKanbanPermission getUkp(Long id) {
-        return userKanbanPermissionRepository.findById(id).orElse(null);
+    public void newUserInKanban(Long userId, Long kanbanId, Long permissionId) {
+
+        UserKanbanPermission ukp = this.userKanbanPermissionRepository.findByUserIdAndKanbanCode(userId, kanbanId);
+
+        if (ukp == null) {
+            ukp = new UserKanbanPermission();
+        }
+
+        Kanban kanban = new Kanban("", "");
+        kanban.setId(kanbanId);
+        Users user = userService.findUsers(userId);
+        Permission permission = permissionService.findPermission(permissionId);
+        ukp.setPermission(permission);
+        ukp.setUsers(user);
+        ukp.setKanban(kanban);
+
+        this.userKanbanPermissionRepository.save(ukp);
+
     }
 }

@@ -1,8 +1,14 @@
 import { UserJwt } from './../kanbas/model/UserJwt';
 import { Injectable } from '@angular/core';
-import { User } from './login/model/User';
 import { Router } from '@angular/router';
-import { BehaviorSubject, map, take } from 'rxjs';
+import { BehaviorSubject, map, Observable, take } from 'rxjs';
+import { User } from '../kanbas/model/User';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { Permission } from '../kanbas/model/Permission';
+import { Kanban } from '../kanbas/model/Kanban';
+import { KanbasService } from '../kanbas/kanbas.service';
+
 
 
 @Injectable({
@@ -10,32 +16,53 @@ import { BehaviorSubject, map, take } from 'rxjs';
 })
 export class LoginService {
   public loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  public user: BehaviorSubject<UserJwt> = new BehaviorSubject<UserJwt>(null);
+  public userJwt: BehaviorSubject<UserJwt> = new BehaviorSubject<UserJwt>(null);
+  public user: BehaviorSubject<User> = new BehaviorSubject<User>(null);
   public checkIsLoggedIn: boolean;
 
   get isLoggedIn() {
     return this.loggedIn.asObservable();
   }
 
-  
-
   constructor(
-    private router: Router
+    private router: Router,
+    private httpClient: HttpClient,
+    private kanbanService: KanbasService,
   ) {
     this.loggedIn.subscribe(result => {
       this.checkIsLoggedIn = result;
     })
   }
 
-  login(user: User) {
+  login(user: User, sharedKanban?: Kanban) {
     // this.loggedIn.next(true);
     
-     if (user.email === 'ejemplo@capgemini.com' && user.password === 'hola' ) {
-       this.loggedIn.next(true);
-       this.router.navigate(['/']);
+     if (user.password === 'hola' ) {
+      this.getUserByEmail(user.email).subscribe(result => {
+        this.user.next(result);
+
+        if(sharedKanban != null){
+          this.kanbanService.saveUserKanbanPermission(result, sharedKanban).subscribe(result =>{
+            this.loggedIn.next(true);
+            this.router.navigate(['/']);
+          });
+        }
+        else{
+          this.loggedIn.next(true);
+          this.router.navigate(['/']);
+        }
+          
+
+      
+      });
      }else{
        alert("Usuario o contraseña incorrectos!")
      }
+  }
+
+  getUserByEmail(email: string): Observable<User> {
+    let url = environment.url + 'users?email=' + email;
+    return this.httpClient.get<User>(url);
   }
 
   loginGoogle(credencial:any){
@@ -52,12 +79,15 @@ export class LoginService {
     user.iss = objectUser.iss; 
     user.picture = objectUser.picture; 
 
-    this.user.next(user);
+    this.userJwt.next(user);
     this.loggedIn.next(true);
+    this.getUserByEmail(user.email).subscribe(result => {
+      this.user.next(result);
+    });
     
       return true;
     }catch(e){
-      this.user.next(null);
+      this.userJwt.next(null);
       this.loggedIn.next(false);    
       return false;
     }
@@ -78,7 +108,7 @@ export class LoginService {
   logout() {    
     sessionStorage.removeItem('token')
     this.loggedIn.next(false);
-    this.user.next(null);
+    this.userJwt.next(null);
     this.router.navigate(['/login']);
   }
   

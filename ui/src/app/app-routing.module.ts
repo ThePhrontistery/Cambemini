@@ -5,12 +5,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { KanbanComponent } from './kanbas/kanban/kanban.component';
 import { LoginComponent } from './login/login/login.component';
 import { LoginGuard } from './login/login.guard';
-/*
-const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full'},
-  { path: 'kanbas', component: KanbaListComponent },
-  { path: 'login', component: LoginComponent}
-];*/
 
 const routes: Routes = [
   { path: '', redirectTo: '/kanbans', pathMatch: 'full' },
@@ -22,6 +16,16 @@ const routes: Routes = [
       {
         path: 'kanbans/:id',
         component: KanbanComponent,
+      },
+    ],
+  },
+  {
+    path: 'kanbans/share/:code',
+    component: LoginComponent,
+    children: [
+      {
+        path: 'kanbans/share/:code',
+        component: LoginComponent,
       },
     ],
   },

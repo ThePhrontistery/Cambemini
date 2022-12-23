@@ -10,15 +10,13 @@
     background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
     background-size: cover;
   }
-  
-.user{
-    width: 40px;
-    display: flex;
-    height: 40px;
-    align-items: center;    
-    border-radius: 100%;
-    border: 1px solid;
-    justify-content: center;
-    text-transform: capitalize;
+  .example-button-row {
+    display: table-cell;
+  }
+  .example-button-row .mat-mdc-button-base {
+    margin: 8px 8px 8px 0;
+  }
+.kanbaButtons {
+  margin: 5px;
 }
-  
+

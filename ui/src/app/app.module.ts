@@ -1,3 +1,4 @@
+import { StompService } from './kanbas/websockect/stomp.service';
 import { LoginModule } from './login/login.module';
 import { KanbasModule } from './kanbas/kanbas.module';
 import { CoreModule } from './core/core.module';
@@ -9,10 +10,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 
+
 @NgModule({
   declarations: [
     AppComponent,
-
   ],
   imports: [
     BrowserModule,
@@ -26,7 +27,7 @@ import { BrowserModule } from '@angular/platform-browser';
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
   ],
-  providers: [],
+  providers: [StompService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

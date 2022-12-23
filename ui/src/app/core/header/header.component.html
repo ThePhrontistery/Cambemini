@@ -2,26 +2,25 @@
 <!-- <mat-toolbar> -->
     <mat-toolbar-row>
         <div class="header_container">
-            <div class="header_title" routerLink="/kanbas">              
+            <div class="header_title" routerLink="/kanbans">              
                 <mat-icon>home</mat-icon>
             </div>
 
-            <!-- <div class="header_separator"> | </div> -->
-
+            <div class="header_separator" *ngIf="kanban!=null"> | </div>
 
             <div class="header_menu">
-                <!-- <app-kanba-select ></app-kanba-select> -->
+                <div *ngIf="kanban!=null"  class="ml">{{kanban.title}}</div>              
             </div>
 
             
             <div class="header_login">
                <div class="space-between">  
              
-                    <div class="image-cropper" *ngIf="user!=null">
-                        <img [src]="user.picture" class="rounded" />
+                    <div class="image-cropper" *ngIf="userJwt!=null">
+                        <img  [src]="userJwt.picture" class="rounded" />
                     </div>
-                    <div style="margin-left:0.5rem;" *ngIf="user!=null">{{user.name }}</div>
-                    <div style="margin-left:0.5rem;" *ngIf="user==null">Nombre completo</div>
+                    <div style="margin-left:0.5rem;" *ngIf="userJwt!=null">{{userJwt.name }}</div>
+                    <div style="margin-left:0.5rem;" *ngIf="user!=null && userJwt==null">{{user.email}}</div>
 
                     <button mat-icon-button><mat-icon (click)="onLogout()">exit_to_app</mat-icon></button>     
                 </div>

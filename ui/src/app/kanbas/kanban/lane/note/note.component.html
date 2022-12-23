@@ -1,80 +1,96 @@
-<mat-card class="mt-1" cdkDrag>     
-    <mat-card-header style="display: block;" > 
+<div [ngClass]="{'block': item.usersBlock !=null}">
 
-        <div class="space-between" >
-            <div class="flet-start">  
-                <!-- <div class="title">{{item.content}}</div>  -->
+    <mat-card class="mt-1" cdkDrag (cdkDragStarted)="emit(true)"  >     
+        <mat-card-header style="display: block;" > 
+            
+            <div class="space-between">
+                <div class="flex-start">  
+                    <!-- <div class="title">{{item.content}}</div>  -->
+                </div>
+                
+                <div>
+                    <button mat-icon-button *ngIf="isEditorOwner && blockBy==false" (click)="blocker()" >
+                        <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="person"></mat-icon>
+                    </button> 
+                   
+                    <button mat-icon-button *ngIf="isEditorOwner && blockBy==true" (click)="blocker()">
+                        <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="block"></mat-icon>
+                    </button> 
+                    <button mat-icon-button *ngIf="isEditorOwner" (click)="edit()">
+                        <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="edit"></mat-icon>
+                    </button> 
+                    <button mat-icon-button *ngIf="isEditorOwner" (click)="remove()">
+                        <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="close"></mat-icon>
+                    </button>
+                </div>
             </div>
             
-            <div>
-                <button mat-icon-button (click)="edit()">
-                    <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="edit"></mat-icon>
-                </button> 
-                <button mat-icon-button (click)="remove()">
-                    <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="close"></mat-icon>
-                </button>
-            </div>
-        </div>
+        </mat-card-header>
         
-    </mat-card-header>
-    
-    <!-- <mat-divider></mat-divider> -->
-    
-    <mat-card-content class="pad">
-        <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
         
-       
-            <p *ngIf="item.content != null || item.content !=''" style="text-align: justify;">{{item.content}}</p>
-            <p *ngIf="item.content== null || item.content ==''" style="text-align: justify;">Inserte el contenido de la nota</p>
-     
+        
+        <mat-card-content class="pad">
+            <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
 
-        <div class ="file upload">
-            <div class="space-between"> 
-                <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.value=''; fileUpload.click()">
-                    <mat-icon>attach_file</mat-icon>
-                </button>
-                <div *ngIf="item.attachment?.length==0 || item.attachment==null"  class="title">Añada sus ficheros adjuntos</div>
-                <div *ngIf="item.attachment?.length>0" class="title">Ficheros ajuntos</div>
+
+            <div class="noteContent">
+                <p *ngIf="item.content != null || item.content !=''" style="text-align: justify;">{{item.content}}</p>
+                <p *ngIf="item.content== null || item.content ==''" style="text-align: justify;">Inserte el contenido de la nota</p>
             </div>
-           
 
-            <div class="progress">
+            <div class ="file upload">
+                <div class="space-between"> 
+                    <button mat-mini-fab color="primary" *ngIf="isEditorOwner" class="upload-btn" (click)="fileUpload.value=''; fileUpload.click()">
+                        <mat-icon>attach_file</mat-icon>
+                    </button>
+                    <div *ngIf="(item.attachment?.length==0 || item.attachment==null) && isEditorOwner" class="title">Añada sus ficheros adjuntos</div>
+                    <div *ngIf="item.attachment?.length>0" class="title">Ficheros adjuntos</div>
+                </div>
+            
 
-                <mat-progress-bar class="progress-bar" mode="determinate" [value]="uploadProgress" *ngIf="uploadProgress">
-              
-                </mat-progress-bar>
-              
-                <mat-icon class="cancel-upload" (click)="cancelUpload()" 
-                          *ngIf="uploadProgress">delete_forever</mat-icon>
-              
-              </div>
+                <div class="progress">
 
-             <div *ngIf="item.attachment!=null">
-                <div *ngFor="let att of item.attachment" class="cont-att" >
-                    
-                    <div class="space-between att"  *ngIf="att.name != null">
-                         <div>{{att.name}}</div>
-                         
-                         <div class="flet-start">
-                            <button mat-icon-button color="warn" (click)="attachmentDelete(att)">
-                                <mat-icon>delete</mat-icon>            
-                            </button>
+                    <mat-progress-bar class="progress-bar" mode="determinate" [value]="uploadProgress" *ngIf="uploadProgress">
+                
+                    </mat-progress-bar>
+                
+                    <mat-icon class="cancel-upload" (click)="cancelUpload()" 
+                            *ngIf="uploadProgress">delete_forever</mat-icon>
+                
+                </div>
 
-                            <button mat-icon-button color="disabled" (click)="viewFile(att)">
-                                <mat-icon>visibility</mat-icon>            
-                            </button>
-                          
-                           
+                <div *ngIf="item.attachment!=null">
+                    <div *ngFor="let att of item.attachment" class="cont-att" >
+                        
+                        <div class="space-between att"  *ngIf="att.name != null">
+                            <div>{{att.name}}</div>
+                            
+                            <div class="flex-start">
+                                <button mat-icon-button color="warn" *ngIf="isEditorOwner" (click)="attachmentDelete(att)">
+                                    <mat-icon>delete</mat-icon>            
+                                </button>
 
-                            <button mat-icon-button color="disabled" (click)="downloadFile(att)">
-                                <mat-icon>download</mat-icon>            
-                            </button>
-                        </div>                        
+                                <button mat-icon-button color="disabled" (click)="viewFile(att)">
+                                    <mat-icon>visibility</mat-icon>            
+                                </button>
+                            
+                            
+
+                                <button mat-icon-button color="disabled" (click)="downloadFile(att)">
+                                    <mat-icon>download</mat-icon>            
+                                </button>
+                            </div>                        
+                        </div>
                     </div>
                 </div>
-             </div>
-        </div>
-       
-    </mat-card-content>
+            </div>
+        
+        </mat-card-content>
 
-</mat-card>
+    </mat-card>
+    <div class="flex-end mt" *ngIf="item.usersBlock!=null">
+        <div  class="user ml" >
+            {{item.usersBlock.email |  slice:0:3 }}
+    </div>
+    </div>
+</div>

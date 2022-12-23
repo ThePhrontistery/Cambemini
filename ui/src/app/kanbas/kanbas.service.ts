@@ -9,11 +9,13 @@ import { Lane } from './model/Lane';
 import { Notes } from './model/Notes';
 import { HttpClient, HttpEvent } from '@angular/common/http';
 import { UserKanbanPermission } from './model/User-Kanban-Permission';
+import { User } from './model/User';
 
 @Injectable({
   providedIn: 'root',
 })
 export class KanbasService {
+  
   emitKankaSelect: EventEmitter<Kanban> = new EventEmitter();
   emitSaveKanba: EventEmitter<Kanban> = new EventEmitter();
   emitRemoveLane: EventEmitter<Lane> = new EventEmitter();
@@ -28,10 +30,10 @@ export class KanbasService {
     return this.httpClient.get<Kanban[]>(url);
   }
 
-  getKanban(userId: number, kanbanId: number): Observable<Kanban[]> {
+  getKanban(userId: number, kanbanId: number): Observable<Kanban> {
     //Adicionar al url el kanbanId a la peticion
     let url = this.url + '/' + userId + '/' + kanbanId;
-    return this.httpClient.get<Kanban[]>(url);
+    return this.httpClient.get<Kanban>(url);
   }
 
   saveKanban(kanban: Kanban, userId: number): Observable<Kanban> {
@@ -49,8 +51,8 @@ export class KanbasService {
 
   saveSwimlane(lane: any, kanbanId:number) {
     let url = this.url + '/swimlane/save';
-    if (lane.id != null) url += '/' + lane.id;
     url+='/'+kanbanId;
+    if (lane.id != null) url += '/' + lane.id;
     return this.httpClient.put(url, lane);
   }
 
@@ -97,6 +99,35 @@ export class KanbasService {
     return this.httpClient.get(url,{
       responseType: 'blob'
     });
+  }
+
+  getByCode(code: string): Observable<Kanban> {
+    let url = this.url + '/code/' + code;
+    return this.httpClient.get<Kanban>(url);
+  }
+
+  saveUserKanbanPermission(user: User, sharedKanban: Kanban): Observable<UserKanbanPermission> {
+    let url = environment.url + 'ukp';
+    url += '/' + sharedKanban.id + "/" + user.id;
+    
+    return this.httpClient.put<UserKanbanPermission>(url, null);
+  }
+
+  saveUserKanbanPermissionRol(kanbanId:number, userId:number,rolId:number): Observable<UserKanbanPermission> {
+    let url = environment.url + 'ukp/save/' + kanbanId + "/" + userId+"/" + rolId;
+    
+    return this.httpClient.put<UserKanbanPermission>(url, null);
+  }
+
+  updateOrderLanes(lanes: Lane[], kanbanId: number){
+    let url = this.url + "/swimlane/updateLanesOrder/" + kanbanId;
+
+    return this.httpClient.put(url, lanes);
+  }
+
+  updateOrderNotes(notes: Notes[], swimlaneId){
+    let url = this.url + "/swimlane/note/updateNotesOrder/" + swimlaneId; 
+    return this.httpClient.put(url, notes);
   }
 }
 

@@ -1,3 +1,5 @@
+import { NoteBlock } from './../../../model/note-block';
+import { StompService } from './../../../websockect/stomp.service';
 import { DialogConfirmationComponent } from './../../../../core/dialog-confirmation/dialog-confirmation.component';
 import { Attachment } from './../../../model/attachment';
 import { NoteEditComponent } from '../note-edit/note-edit.component';
@@ -23,31 +25,53 @@ export class NoteComponent implements OnInit {
   @Input() index: number;
   @Input() indexY: number;
   @Input() taskLane: Lane;
+  @Input() isEditorOwner: boolean;
   @Output() editNote: EventEmitter<Notes> = new EventEmitter();
   @Output() removeNote: EventEmitter<any> = new EventEmitter();
+  @Output() block: EventEmitter<NoteBlock> = new EventEmitter();
 
   spiner:boolean = false;
 
   uploadProgress:number;
   uploadSub: Subscription;
-
+  styleBlock = ''
+  blockBy:boolean = false;
   constructor(
     private kanbasService: KanbasService,
     public dialog: MatDialog,
-    // private sanitizer:DomSanitizer
+    private stompService:StompService
 
      ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if(this.item.usersBlock!=null){
+      this.styleBlock = "border: 1rem solid red; display: flex; flex-direction: column;"
+    }
+  }
 
   remove() {
-    this.kanbasService.removeNote(this.item).subscribe((result) => {
-      this.removeNote.emit({
-        note: this.item,
-        indexLanba: this.indexY,
-        indexNote: this.index,
-      });
+    const dialogRef = this.dialog.open(DialogConfirmationComponent, {
+      data: {
+        title: 'Eliminar nota',
+        description:
+          'Atención si borra la nota:' +
+          this.item.content +
+          ' se perderán sus datos.<br> ¿Desea eliminar la nota?',
+      },
     });
+     
+    dialogRef.afterClosed().subscribe((result) => {
+       if (result) {
+        this.kanbasService.removeNote(this.item).subscribe((result) => {
+          this.removeNote.emit({
+            note: this.item,
+            indexLanba: this.indexY,
+            indexNote: this.index,
+          });
+        });
+       }
+     });
+    
     return true;
   }
 
@@ -62,64 +86,6 @@ export class NoteComponent implements OnInit {
 
     return true;
   }
-
-
-
-  // getFileExtension(fileName: string) {
-  //   return fileName
-  //     .slice(fileName.lastIndexOf('.') + 1, fileName.length)
-  //     .toUpperCase();
-  // }
-
-  // base64ToFile(base64Data, fileName: string) {
-  //   const contentType = this.getContentType(fileName);
-  //   const sliceSize = 512;
-
-  //   const byteCharacters = atob(base64Data);
-  //   let byteArrays = [];
-
-  //   for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-  //     let slice = byteCharacters.slice(offset, offset + sliceSize);
-
-  //     let byteNumbers = new Array(slice.length);
-  //     for (let i = 0; i < slice.length; i++) {
-  //       byteNumbers[i] = slice.charCodeAt(i);
-  //     }
-
-  //     const byteArray = new Uint8Array(byteNumbers);
-  //     byteArrays = [...byteArrays, byteArray];
-  //   }
-  //   return new File(byteArrays, fileName, { type: FileType.IMAGE_PNG });
-  // }
-
-  // getFileType(fileName: string) {
-  //   const fileExtension = this.getFileExtension(fileName);
-
-  //   const options = {
-  //     JPEG: 'JPEG',
-  //     JPG: 'JPG',
-  //     PNG: 'PNG',
-  //     PDF: 'PDF',
-  //   };
-
-  //   return options[fileExtension];
-  // }
-
-  // getContentType(fileName: string) {
-  //   switch (this.getFileType(fileName)) {
-  //     case 'JPEG':
-  //     case 'JPG':
-  //       return FileType.IMAGE_JPEG;
-  //     case 'PNG':
-  //       return FileType.IMAGE_PNG;
-  //     default:
-  //       return FileType.APPLICATION_PDF;
-  //   }
-  // }
-
-  // getUrl(att:Attachment){
-  //   return this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(this.base64ToFile(att.file,att.document_path)));
-  // }
 
    onFileSelected(event) {
 
@@ -137,7 +103,10 @@ export class NoteComponent implements OnInit {
       );
 
       this.uploadSub = upload.subscribe(event => {
-        if(event instanceof HttpResponse){          
+        if(event instanceof HttpResponse){  
+          if(this.item.attachment==null){
+            this.item.attachment = [];
+          }        
            this.item.attachment.push(event.body);
         }
          
@@ -190,6 +159,18 @@ export class NoteComponent implements OnInit {
         })
        }
      });
+  }
+
+  emit(block:boolean){
+    
+     let noteBlock:NoteBlock = {noteId:this.item.id,swimlaneId:null,userId:null, block:block};
+     this.block.emit(noteBlock);
+     this.blockBy = block;
+  }
+
+  blocker(){
+    this.blockBy = !this.blockBy;
+    this.emit(this.blockBy);
   }
   
 }
