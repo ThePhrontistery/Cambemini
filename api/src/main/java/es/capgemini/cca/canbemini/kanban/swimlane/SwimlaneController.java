@@ -3,6 +3,8 @@ package es.capgemini.cca.canbemini.kanban.swimlane;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +17,7 @@ import es.capgemini.cca.canbemini.mapppers.SwimlaneMapper;
 @RequestMapping(value = "/api/kanban/swimlane")
 @RestController
 @CrossOrigin(origins = "*")
+@EnableWebSecurity
 public class SwimlaneController {
     @Autowired
     SwimlaneService swimlaneService;
@@ -26,12 +29,14 @@ public class SwimlaneController {
 
     }
 
-    @RequestMapping(path = "/get/{id}", method = RequestMethod.GET)
-    public SwimlaneDto getSwimlane(@PathVariable("id") Long id) {
-        return swimlaneMapper.SwimlaneToSwimlaneDto(swimlaneService.findSwimlane(id));
+    @RequestMapping(path = "/get/{swimlaneId}", method = RequestMethod.GET)
+    @PreAuthorize("@swimlaneServiceImpl.isAuthorized('Collaborator',#swimlaneId)")
+    public SwimlaneDto getSwimlane(@PathVariable("swimlaneId") Long swimlaneId) {
+        return swimlaneMapper.SwimlaneToSwimlaneDto(swimlaneService.findSwimlane(swimlaneId));
     }
 
     @RequestMapping(path = "/{kanbanId}", method = RequestMethod.GET)
+    @PreAuthorize("@kanbanServiceImpl.isAuthorized('Collaborator',#kanbanId)")
     public List<SwimlaneDto> getAllKanbanSwimlanes(@PathVariable("kanbanId") Long kanbanId) {
         return swimlaneMapper.swimlaneListToSwimlaneListDto(swimlaneService.findAll(kanbanId));
     }
@@ -42,12 +47,14 @@ public class SwimlaneController {
         swimlaneService.saveSwimlane(swimlaneId, swimlane, kanbanId);
     }
 
-    @RequestMapping(path = "{id}", method = RequestMethod.DELETE)
-    public void delete(@PathVariable("id") Long id) {
-        swimlaneService.deleteSwimlane(id);
+    @RequestMapping(path = "{swimlaneId}", method = RequestMethod.DELETE)
+    @PreAuthorize("@swimlaneServiceImpl.isAuthorized('Editor',#swimlaneId)")
+    public void delete(@PathVariable("swimlaneId") Long swimlaneId) {
+        swimlaneService.deleteSwimlane(swimlaneId);
     }
 
     @RequestMapping(path = "/updateLanesOrder/{kanbanId}", method = RequestMethod.PUT)
+    @PreAuthorize("@kanbanServiceImpl.isAuthorized('Collaborator',#kanbanId)")
     public void updateSwimlanesOrder(@RequestBody List<SwimlaneDto> swimlanes,
             @PathVariable("kanbanId") Long kanbanId) {
         for (int i = 0; i < swimlanes.size(); i++)

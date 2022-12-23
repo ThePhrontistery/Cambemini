@@ -3,6 +3,8 @@ package es.capgemini.cca.canbemini.kanban;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import es.capgemini.cca.canbemini.permission.Permission;
@@ -31,7 +33,10 @@ public class KanbanServiceImpl implements KanbanService {
     PermissionService permissionService;
 
     @Override
-    public List<Kanban> findUserKanbans(Long userId) {
+    public List<Kanban> findUserKanbans() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Users user = userService.findByEmail(auth.getPrincipal().toString());
+        Long userId = user.getId();
         return (List<Kanban>) this.kanbanRepository.findUserKanbans(userId);
     }
 

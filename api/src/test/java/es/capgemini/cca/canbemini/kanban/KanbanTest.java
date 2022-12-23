@@ -11,13 +11,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+
+import es.capgemini.cca.canbemini.users.UsersServiceImpl;
 
 @ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.LENIENT)
 public class KanbanTest {
 
     @Mock
@@ -26,9 +35,21 @@ public class KanbanTest {
     @InjectMocks
     KanbanServiceImpl kanbanService;
 
+    @InjectMocks
+    UsersServiceImpl userService;
+
     public static final Long EXISTS_KANBAN_ID = 1L;
     public static final Long NOT_EXISTS_KANBAN_ID = 9L;
     public static final Long EXISTS_USER_ID = 1L;
+
+    @Mock
+    private Authentication auth;
+
+    @BeforeEach
+    public void initSecurityContext() {
+        when(auth.getPrincipal()).thenReturn("cesar@email.com");
+        SecurityContextHolder.getContext().setAuthentication(auth);
+    }
 
     @Test
     public void findAllShouldReturnAllUserKanbans() {
@@ -38,7 +59,7 @@ public class KanbanTest {
 
         when(kanbanRepository.findUserKanbans(EXISTS_USER_ID)).thenReturn(list);
 
-        List<Kanban> kanbans = kanbanService.findUserKanbans(EXISTS_USER_ID);
+        List<Kanban> kanbans = kanbanService.findUserKanbans();
 
         assertNotNull(kanbans);
         assertEquals(1, kanbans.size());
@@ -70,5 +91,10 @@ public class KanbanTest {
         this.kanbanService.deleteKanban(EXISTS_KANBAN_ID);
 
         verify(kanbanRepository).deleteById(EXISTS_KANBAN_ID);
+    }
+
+    @AfterEach
+    public void clearSecurityContext() {
+        SecurityContextHolder.clearContext();
     }
 }

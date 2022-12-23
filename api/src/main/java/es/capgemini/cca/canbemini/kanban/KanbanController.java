@@ -49,10 +49,9 @@ public class KanbanController {
         return kanbanMapper.KanbanToKanbanDto(kanbanService.getKanban(kanbanId));
     }
 
-    @RequestMapping(path = "/{userId}", method = RequestMethod.GET)
-    @PreAuthorize("@kanbanServiceImpl.verifyUser(#userId, #user)")
-    public List<KanbanDto> getAllUserKanbans(@PathVariable("userId") Long userId) {
-        return kanbanMapper.KanbanListToKanbaListDto(kanbanService.findUserKanbans(userId));
+    @RequestMapping(path = "", method = RequestMethod.GET)
+    public List<KanbanDto> getAllUserKanbans() {
+        return kanbanMapper.KanbanListToKanbaListDto(kanbanService.findUserKanbans());
     }
 
     @RequestMapping(path = "/{userId}/{kanbanId}", method = RequestMethod.GET)

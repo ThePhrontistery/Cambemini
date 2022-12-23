@@ -1,5 +1,6 @@
 package es.capgemini.cca.canbemini.security;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,8 +28,12 @@ public class JwtUtils {
     UserDetailsServiceImpl userDetailsService;
 
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
+
     @Value("${jwt_secret}")
     private String keysecret;
+
+    @Value("${jwt_expirationTime}")
+    private Long expirationTime;
 
     // JWToken
     public String generateToken(String email) throws IllegalArgumentException, JWTCreationException {
@@ -36,7 +41,7 @@ public class JwtUtils {
         claim.put("email", email);
 
         return Jwts.builder().setSubject(email).addClaims(claim).signWith(Keys.hmacShaKeyFor(keysecret.getBytes()))
-                .compact();
+                .setExpiration(new Date((new Date()).getTime() + expirationTime)).compact();
     }
 
     // JWToken

@@ -7,7 +7,7 @@ import es.capgemini.cca.canbemini.security.UserDetailsImpl;
 
 public interface KanbanService {
 
-    List<Kanban> findUserKanbans(Long userId);
+    List<Kanban> findUserKanbans();
 
     List<Kanban> findUserKanbanId(Long userId, Long kanbanId);
 
