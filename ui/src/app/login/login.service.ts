@@ -8,6 +8,8 @@ import { environment } from 'src/environments/environment';
 import { Permission } from '../kanbas/model/Permission';
 import { Kanban } from '../kanbas/model/Kanban';
 import { KanbasService } from '../kanbas/kanbas.service';
+import { LoginRequest } from './login/model/LoginRequest';
+import { LoginReply } from './login/model/LoginReply';
 
 
 
@@ -19,6 +21,7 @@ export class LoginService {
   public userJwt: BehaviorSubject<UserJwt> = new BehaviorSubject<UserJwt>(null);
   public user: BehaviorSubject<User> = new BehaviorSubject<User>(null);
   public checkIsLoggedIn: boolean;
+  public token: BehaviorSubject<String> = new BehaviorSubject<String>(null);
 
   get isLoggedIn() {
     return this.loggedIn.asObservable();
@@ -37,19 +40,21 @@ export class LoginService {
   login(user: User, sharedKanban?: Kanban) {
     // this.loggedIn.next(true);
     
-     if (user.password === 'hola' ) {
-      this.getUserByEmail(user.email).subscribe(result => {
-        this.user.next(result);
+    let loginRequest: LoginRequest = {
+      email: user.email,
+      password: user.password
+    };
 
-        if(sharedKanban != null)
-          this.kanbanService.saveUserKanbanPermission(result, sharedKanban).subscribe(result =>{});
+    this.secureLogin(loginRequest).subscribe(loginReply => {
+      this.user.next(loginReply.user);
+      this.token.next(loginReply.token);
 
-        this.loggedIn.next(true);
-        this.router.navigate(['/']);
-      });
-     }else{
-       alert("Usuario o contraseña incorrectos!")
-     }
+      if(sharedKanban != null)
+      this.kanbanService.saveUserKanbanPermission(loginReply.user, sharedKanban).subscribe(result =>{});
+
+      this.loggedIn.next(true);
+      this.router.navigate(['/']);
+    });
   }
 
   getUserByEmail(email: string): Observable<User> {
@@ -95,6 +100,11 @@ export class LoginService {
     }).join(''));
 
     return JSON.parse(jsonPayload);
+  }
+
+  secureLogin(req: LoginRequest): Observable<LoginReply> {
+    let url = environment.auth + 'login';
+    return this.httpClient.post<LoginReply>(url, req);
   }
 
   logout() {    
