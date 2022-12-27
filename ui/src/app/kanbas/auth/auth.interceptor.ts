@@ -21,7 +21,7 @@ export class AuthInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if(this.token != null){
       request = request.clone({
-        setHeaders:{Authorization: "Bearer " + this.token}
+        setHeaders:{Authorization: "Bearer " + this.token, 'Access-Control-Allow-Origin': 'http://localhost:8080'}
       });
     }
     return next.handle(request);

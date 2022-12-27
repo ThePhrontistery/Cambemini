@@ -22,7 +22,7 @@ import es.capgemini.cca.canbemini.userKanbanPermission.UserKanbanPermissionServi
 
 @RequestMapping(value = "/api/kanban")
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class KanbanController {
