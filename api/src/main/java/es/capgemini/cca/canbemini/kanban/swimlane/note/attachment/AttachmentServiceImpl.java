@@ -85,14 +85,14 @@ public class AttachmentServiceImpl implements AttachmentService {
         byte[] file = attachment.getFile();
 
         return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + attachment.getName() + "\"")
-                .body(file);
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + attachment.getName()).body(file);
     }
 
     @Override
     public Boolean isAuthorized(String permission, Long attachmentId) throws NotAuthorizedException {
 
-        return this.noteService.isAuthorized(permission, attachmentId);
+        Attachment attachment = this.attachmentRepository.findById(attachmentId).orElse(null);
+        return this.noteService.isAuthorized(permission, attachment.getNote().getId());
 
     }
 

@@ -16,7 +16,7 @@ import es.capgemini.cca.canbemini.mapppers.SwimlaneMapper;
 
 @RequestMapping(value = "/api/kanban/swimlane")
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
 @EnableWebSecurity
 public class SwimlaneController {
     @Autowired

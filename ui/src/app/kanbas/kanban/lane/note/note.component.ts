@@ -121,15 +121,27 @@ export class NoteComponent implements OnInit {
   }
 
   downloadFile(att:Attachment) {
-       window.open(att.document_path);
+    this.kanbasService.downloadAttachment(att.document_path).subscribe(response => {
+      console.log(response.headers.get('content-disposition'));
+      debugger
+      const fileName = response.headers.get('content-disposition')?.split(';')[1].split('=')[1];
+      const file = response.body as Blob;
+      const blobUrl = URL.createObjectURL(file);
+      const a = document.createElement('a');
+      a.style.display = 'none';
+      a.href = blobUrl;
+      a.download = fileName;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(blobUrl);
+    });
   }
 
   viewFile(att:Attachment){
     const dialogRef = this.dialog.open(AttachmentViewerComponent, {
       data: { attachment: att },
     });
-
-    
   }
   
   attachmentDelete(att:Attachment){

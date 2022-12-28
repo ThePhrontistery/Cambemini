@@ -19,7 +19,7 @@ import es.capgemini.cca.canbemini.mapppers.AttachmentMapper;
 
 @RequestMapping(value = "/api/kanban/swimlane/note/attachment")
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
 public class AttachmentController {
 
     @Autowired
@@ -42,7 +42,7 @@ public class AttachmentController {
     }
 
     @RequestMapping(path = "/get/{attachmentId}", method = RequestMethod.GET)
-    @PreAuthorize("@attachmentServiceImpl.isAuthorized('Editor',#attachmentId)")
+    @PreAuthorize("@attachmentServiceImpl.isAuthorized('Collaborator',#attachmentId)")
     public AttachmentDto getAttachment(@PathVariable("attachmentId") Long attachmentId) {
         return attachmentMapper.AttachmentToAttachmentDto(attachmentService.findAttachment(attachmentId));
     }
@@ -62,13 +62,13 @@ public class AttachmentController {
     }
 
     @RequestMapping(path = "/{attachmentId}", method = RequestMethod.DELETE)
-    @PreAuthorize("@attachmentServiceImpl.isAuthorized('Owner',#attachmentId)")
+    @PreAuthorize("@attachmentServiceImpl.isAuthorized('Editor',#attachmentId)")
     public void delete(@PathVariable("attachmentId") Long attachmentId) {
         attachmentService.deleteAttachment(attachmentId);
     }
 
     @GetMapping(value = "/files/{fileId}")
-    @PreAuthorize("@attachmentServiceImpl.isAuthorized('Editor',#fileId)")
+    @PreAuthorize("@attachmentServiceImpl.isAuthorized('Collaborator',#fileId)")
     ResponseEntity<byte[]> downloadFile(@PathVariable Long fileId) {
         return attachmentService.downloadFile(fileId);
     }
