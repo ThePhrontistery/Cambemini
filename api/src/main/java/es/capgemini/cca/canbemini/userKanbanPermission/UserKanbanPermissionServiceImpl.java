@@ -3,11 +3,14 @@ package es.capgemini.cca.canbemini.userKanbanPermission;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import es.capgemini.cca.canbemini.kanban.Kanban;
 import es.capgemini.cca.canbemini.permission.Permission;
 import es.capgemini.cca.canbemini.permission.PermissionService;
+import es.capgemini.cca.canbemini.security.NotAuthorizedException;
 import es.capgemini.cca.canbemini.users.Users;
 import es.capgemini.cca.canbemini.users.UsersService;
 
@@ -59,7 +62,7 @@ public class UserKanbanPermissionServiceImpl implements UserKanbanPermissionServ
     @Override
     public void newUserInKanban(Long userId, Long kanbanId, Long permissionId) {
 
-        UserKanbanPermission ukp = this.userKanbanPermissionRepository.findByUserIdAndKanbanCode(userId, kanbanId);
+        UserKanbanPermission ukp = this.userKanbanPermissionRepository.findByUserIdAndKanbanId(userId, kanbanId);
 
         if (ukp == null) {
             ukp = new UserKanbanPermission();
@@ -74,6 +77,45 @@ public class UserKanbanPermissionServiceImpl implements UserKanbanPermissionServ
         ukp.setKanban(kanban);
 
         this.userKanbanPermissionRepository.save(ukp);
+
+    }
+
+    @Override
+    public boolean isAuthorized(String permission, Long kanbanId) throws NotAuthorizedException {
+        String opc = permission;
+        Boolean ok = false;
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        Users user = this.userService.findByEmail(authentication.getPrincipal().toString());
+        Long usersId = user.getId();
+
+        UserKanbanPermission ukp = userKanbanPermissionRepository.findUkpByUserAndKanban(kanbanId, usersId);
+        if (ukp != null) {
+            switch (opc) {
+            case "Owner":
+                if (ukp.getPermission().getRol().equals("Owner")) {
+                    ok = true;
+                }
+                break;
+
+            case "Editor":
+                if (ukp.getPermission().getRol().equals("Owner") || ukp.getPermission().getRol().equals("Editor")) {
+                    ok = true;
+                }
+                break;
+
+            case "Collaborator":
+                if (ukp.getPermission().getRol().equals("Owner") || ukp.getPermission().getRol().equals("Editor")
+                        || ukp.getPermission().getRol().equals("Collaborator")) {
+                    ok = true;
+                }
+                break;
+            }
+            return ok;
+        } else {
+            throw new NotAuthorizedException("This user is not a member of this kanban!");
+
+        }
 
     }
 }

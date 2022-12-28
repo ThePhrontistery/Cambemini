@@ -27,6 +27,9 @@ import es.capgemini.cca.canbemini.users.UsersRepository;
 @SpringBootApplication
 public class CanbeminiApplication {
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     private static final Logger log = LoggerFactory.getLogger(CanbeminiApplication.class);
 
     public static void main(String[] args) {
@@ -140,7 +143,7 @@ public class CanbeminiApplication {
             Kanban kanban = kanbanRepository.findById(1L).orElse(null);
             log.info("Kanban found with findById(1L):");
             log.info("--------------------------------");
-            // log.info(kanban.toString());
+            log.info(kanban.toString());
             log.info("");
 
         };

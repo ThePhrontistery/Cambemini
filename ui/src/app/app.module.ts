@@ -7,8 +7,9 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
+import { AuthInterceptor } from './kanbas/auth/auth.interceptor';
 
 
 @NgModule({
@@ -27,7 +28,12 @@ import { BrowserModule } from '@angular/platform-browser';
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
   ],
+<<<<<<< HEAD
   providers: [StompService],
+=======
+  providers: [
+  ],
+>>>>>>> origin/future
   bootstrap: [AppComponent]
 })
 export class AppModule { }

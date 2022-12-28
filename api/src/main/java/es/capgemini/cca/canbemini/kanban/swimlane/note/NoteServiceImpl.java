@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import es.capgemini.cca.canbemini.kanban.swimlane.SwimlaneService;
+import es.capgemini.cca.canbemini.security.NotAuthorizedException;
 
 @Service
 public class NoteServiceImpl implements NoteService {
@@ -47,6 +48,14 @@ public class NoteServiceImpl implements NoteService {
 
         this.noteRepository.save(note);
         return note;
+    }
+
+    @Override
+    public boolean isAuthorized(String permission, Long noteId) throws NotAuthorizedException {
+
+        Note note = this.noteRepository.findById(noteId).orElse(null);
+
+        return this.swimlaneService.isAuthorized(permission, note.getSwimlane().getId());
     }
 
 }

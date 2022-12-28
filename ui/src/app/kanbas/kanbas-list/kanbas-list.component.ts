@@ -20,6 +20,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 export class KanbasListComponent implements OnInit {
   listKanbas: Kanban[] = [];
   user: User;
+  token: String;
 
   constructor(
     private router: Router,
@@ -42,7 +43,9 @@ export class KanbasListComponent implements OnInit {
           this.listKanbas = kanba;
         });
       }
-    })
+    });
+
+    
   }
  
   go(item: Kanban) {

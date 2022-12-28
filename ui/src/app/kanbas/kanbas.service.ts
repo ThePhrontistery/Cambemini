@@ -26,7 +26,7 @@ export class KanbasService {
   constructor(private httpClient: HttpClient) {}
 
   getKanbans(userId: number): Observable<Kanban[]> {
-    let url = this.url + '/' + userId;
+    let url = this.url;
     return this.httpClient.get<Kanban[]>(url);
   }
 

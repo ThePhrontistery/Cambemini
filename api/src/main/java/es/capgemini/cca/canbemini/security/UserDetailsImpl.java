@@ -16,6 +16,7 @@ public class UserDetailsImpl implements UserDetails {
     private static final long serialVersionUID = 1L;
 
     private Users user;
+<<<<<<< HEAD
 
     // private Collection<? extends GrantedAuthority> authorities;
 
@@ -26,6 +27,25 @@ public class UserDetailsImpl implements UserDetails {
     public static UserDetailsImpl build(Users user) {
 
         return new UserDetailsImpl(user);
+=======
+    private String ROLE_USER = "ROLE_";
+
+    private Collection<? extends GrantedAuthority> authorities;
+
+    public UserDetailsImpl(Users user, Collection<? extends GrantedAuthority> authorities) {
+        this.user = user;
+        this.authorities = authorities;
+    }
+
+    public static UserDetailsImpl build(Users user) {
+        List<GrantedAuthority> authorities = new ArrayList<>();
+
+        for (UserKanbanPermission ukp : user.getUser_kanban_permission()) {
+            authorities.add(new SimpleGrantedAuthority(ukp.getPermission().getRol() + ukp.getKanban().getId()));
+
+        }
+        return new UserDetailsImpl(user, authorities);
+>>>>>>> origin/future
     }
 
     public Long getId() {
@@ -79,9 +99,16 @@ public class UserDetailsImpl implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
+<<<<<<< HEAD
         for (UserKanbanPermission ukp : user.getUser_kanban_permission()) {
             authorities.add(
                     new SimpleGrantedAuthority(ukp.getPermission().getRol().toUpperCase() + ukp.getKanban().getId()));
+=======
+
+        for (UserKanbanPermission ukp : user.getUser_kanban_permission()) {
+            authorities.add(
+                    new SimpleGrantedAuthority(ROLE_USER + ukp.getPermission().getRol() + ukp.getKanban().getId()));
+>>>>>>> origin/future
 
         }
         return authorities;
