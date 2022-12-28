@@ -1,19 +1,23 @@
-/*Prueba que al hacer click en el botón "add", verifique que se abre una ventana modal o un formulario para 
-agregar una nueva tarea, y luego complete el formulario y verifique que se agrega correctamente 
-a la lista de tareas.*/
-describe('Añadir funcionalidades a las task', () => {
-  it('añadir nuevas task a la lista', () => {
-    cy.visit('/');//me falta añadir la URL
+//AÑADIR UN NUEVO KANBAN
+describe('Añadir Kanban', () => {
+  it('debe mostrar un formulario de nuevo Kanban al hacer clic en el botón Añadir y permitir añadir un nuevo Kanban', () => {
+    cy.visit('/kanbans'); // Visitar la página de Kanban
 
-    cy.get('.addButton button').click(); // click the add button
+    cy.get('addButton[mat-fab]').click(); // Hacer clic en el botón Añadir
 
-    // check that the modal or form for adding a new task is displayed
-    cy.get('.modal').should('be.visible'); 
-    cy.get('.form-control').type('My new task'); // type the task name in the form
+    // Verificar que se muestra el formulario de nuevo Kanban
+    cy.get('.form-new-kanban').should('be.visible');
 
-    cy.get('.submit-button').click(); // submit the form
+    // Rellenar el formulario de nuevo Kanban
+    cy.get('input[name=title]').type('Mi nuevo Kanban');
+    cy.get('textarea[name=description]').type('Una descripción para mi nuevo Kanban');
 
-    // check that the new task is displayed in the task list
-    cy.get('.task-list').should('contain', 'My new task');
+    // esto debería hacer click en el botón
+    cy.get('button[type=buttonSave]').click();
+
+    // Verificar que se ha añadido el nuevo Kanban a la lista
+    cy.get('.kamba-card').should('have.length', 1); // La lista debe tener un solo elemento
+    cy.get('.kamba-card mat-card-title').should('have.text', 'Mi nuevo Kanban');
   });
 });
+
