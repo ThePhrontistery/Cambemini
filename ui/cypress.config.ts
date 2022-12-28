@@ -26,3 +26,10 @@ export default defineConfig({
     },
   },
 });
+// enviar el token de autenticación
+module.exports = {
+  requestTimeout: 60000,
+  headers: {
+    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjZXNhckBlbWFpbC5jb20iLCJlbWFpbCI6ImNlc2FyQGVtYWlsLmNvbSJ9.wH0jIVJJqesxCAgzg35KD7Ez5x3U0UTfeh6z6TgNJfI',
+  },
+};
