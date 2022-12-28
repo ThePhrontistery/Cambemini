@@ -18,6 +18,7 @@ export default defineConfig({
   //tiempo máximo que debe esperar a que se cargue la página antes de que expire
   pageLoadTimeout: 100000,
   e2e: {
+    //configuración de la URL para que apunte al puerto 4200
     baseUrl:"http://localhost:4200/",
     //esta función permite especificar listeners de eventos
     setupNodeEvents(on, config) {
