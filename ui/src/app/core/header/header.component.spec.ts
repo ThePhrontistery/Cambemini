@@ -8,7 +8,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HeaderComponent } from './header.component';
 import { of, Observable } from 'rxjs';
-import { User } from 'src/app/login/login/model/User';
+import { User } from 'src/app/login/login/model/LoginRequest';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 const loginMock = {

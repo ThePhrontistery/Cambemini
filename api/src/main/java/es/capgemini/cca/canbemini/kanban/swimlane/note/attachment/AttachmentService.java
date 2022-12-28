@@ -1,10 +1,11 @@
 package es.capgemini.cca.canbemini.kanban.swimlane.note.attachment;
 
-import org.springframework.core.io.ByteArrayResource;
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
+import es.capgemini.cca.canbemini.security.NotAuthorizedException;
 
 public interface AttachmentService {
 
@@ -17,4 +18,6 @@ public interface AttachmentService {
     Attachment saveAttachment(Long noteId, Long id, MultipartFile multipartFile);
 
     ResponseEntity<byte[]> downloadFile(Long id);
+
+    public Boolean isAuthorized(String permission, Long kanbanId) throws NotAuthorizedException;
 }

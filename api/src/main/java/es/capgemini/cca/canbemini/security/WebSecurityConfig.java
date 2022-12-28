@@ -7,7 +7,6 @@ import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -17,10 +16,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
-@EnableGlobalMethodSecurity(
-        // securedEnabled = true,
-        // jsr250Enabled = true,
-        prePostEnabled = true)
+
 public class WebSecurityConfig {
     @Autowired
     UserDetailsService userDetailsService;
@@ -60,37 +56,17 @@ public class WebSecurityConfig {
 
     @Bean
     @Order(1)
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChainKanban(HttpSecurity http) throws Exception {
+
         http.cors().and().csrf().disable().exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
-                .antMatchers("/auth/**").permitAll();
+                .antMatchers("/auth/**").permitAll().antMatchers("/api/**").authenticated();
 
+        http.headers().frameOptions().disable();
         http.authenticationProvider(authenticationProvider());
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
-
-    @Bean
-    @Order(2)
-    public SecurityFilterChain filterChainKanban(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable().exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
-                .antMatchers("/api/kanban/delete/{id}").access("hasAuthority('OWNER#id')").and()
-                .authenticationProvider(authenticationProvider()).authorizeRequests().anyRequest().authenticated();
-        /*
-         * http.cors().and().csrf().disable().exceptionHandling().
-         * authenticationEntryPoint(unauthorizedHandler).and()
-         * .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).
-         * and().authorizeRequests()
-         * .antMatchers("/api/kanban/delete/{id}").hasRole("OWNER#id");
-         */
-        // http.authenticationProvider(authenticationProvider());
-
-        http.addFilterAfter(authoritationFilter(), UsernamePasswordAuthenticationFilter.class);
-
-        return http.build();
-    }
-
 }

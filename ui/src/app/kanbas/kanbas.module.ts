@@ -26,6 +26,8 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { BrowserModule } from '@angular/platform-browser';
 import { PermisionEditComponent } from './kanban/permision-edit/permision-edit.component';
 import { MatSelectModule } from '@angular/material/select';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './auth/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -60,6 +62,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatSelectModule,
     MatSnackBarModule,
   ],
-  
+  providers: [{provide: HTTP_INTERCEPTORS, useClass:AuthInterceptor, multi: true},],
+
 })
 export class KanbasModule { }

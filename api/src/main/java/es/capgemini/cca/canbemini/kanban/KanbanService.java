@@ -2,9 +2,12 @@ package es.capgemini.cca.canbemini.kanban;
 
 import java.util.List;
 
+import es.capgemini.cca.canbemini.security.NotAuthorizedException;
+import es.capgemini.cca.canbemini.security.UserDetailsImpl;
+
 public interface KanbanService {
 
-    List<Kanban> findUserKanbans(Long userId);
+    List<Kanban> findUserKanbans();
 
     List<Kanban> findUserKanbanId(Long userId, Long kanbanId);
 
@@ -16,4 +19,7 @@ public interface KanbanService {
 
     Kanban getByCode(String code);
 
+    public Boolean isAuthorized(String permission, Long kanbanId) throws NotAuthorizedException;
+
+    public Boolean verifyUser(Long userId, UserDetailsImpl userDetailsImpl);
 }
