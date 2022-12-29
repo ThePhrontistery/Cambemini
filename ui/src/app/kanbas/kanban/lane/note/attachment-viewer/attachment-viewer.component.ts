@@ -1,6 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Attachment } from 'src/app/kanbas/model/attachment';
+
+import { Attachment } from './../../../../model/attachment';
+import { KanbasService } from '../../../../kanbas.service';
 
 @Component({
   selector: 'app-attachment-viewer',
@@ -15,12 +17,22 @@ export class AttachmentViewerComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<AttachmentViewerComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
+    private kanbasService: KanbasService,
   ) { }
 
   ngOnInit(): void {
     this.attachment = this.data.attachment;
-    this.src = this.attachment.document_path;
-    this.attType = this.attachment.type;
+    let blobUrl = "";
+
+    this.kanbasService.downloadAttachment(this.attachment.document_path).subscribe(response => {
+      const fileName = response.headers.get('content-disposition')?.split(';')[1].split('=')[1];
+      const file = response.body as Blob;
+      blobUrl = URL.createObjectURL(file);
+      this.src = blobUrl;
+      
+      this.attType = this.attachment.type;
+      debugger
+    });
   }
 
   close(){

@@ -7,9 +7,6 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Lane } from '../../../model/Lane';
 import { Notes } from '../../../model/Notes';
-import { FileType } from 'src/app/kanbas/model/file-type';
-
-import {DomSanitizer} from '@angular/platform-browser';
 import { finalize, Subscription } from 'rxjs';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { AttachmentViewerComponent } from './attachment-viewer/attachment-viewer.component';
@@ -122,7 +119,6 @@ export class NoteComponent implements OnInit {
 
   downloadFile(att:Attachment) {
     this.kanbasService.downloadAttachment(att.document_path).subscribe(response => {
-      console.log(response.headers.get('content-disposition'));
       debugger
       const fileName = response.headers.get('content-disposition')?.split(';')[1].split('=')[1];
       const file = response.body as Blob;

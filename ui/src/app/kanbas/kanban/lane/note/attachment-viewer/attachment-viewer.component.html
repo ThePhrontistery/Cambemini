@@ -11,6 +11,12 @@
     </pdf-viewer>
 </div>
 
+<div *ngIf="attType == 'text/plain'">
+    <pdf-viewer [src]="src" [render-text]="true" [original-size]="false"
+        style="width: 800px; height: 600px">
+    </pdf-viewer>
+</div>
+
 <div *ngIf="attType == 'image/png' || attType == 'image/jpeg' || attType == 'image/jpg' || attType == 'image/gif'">
     <img [src]="src" />
 </div>

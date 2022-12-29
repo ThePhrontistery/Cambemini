@@ -85,7 +85,8 @@ public class AttachmentServiceImpl implements AttachmentService {
         byte[] file = attachment.getFile();
 
         return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + attachment.getName()).body(file);
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + attachment.getName())
+                .header(HttpHeaders.ACCESS_CONTROL_EXPOSE_HEADERS, "Content-Disposition").body(file);
     }
 
     @Override
