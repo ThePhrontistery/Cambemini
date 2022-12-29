@@ -1,12 +1,16 @@
 # Canbemini 
 Easily create Kanbans in a moment
 
-Canbemeni [Spring Boot](http://projects.spring.io/spring-boot/) sample app.
+## Features
+* 
+
+Canbemeni [Spring Boot](http://projects.spring.io/spring-boot/) and [Angular](https://angular.io/guide/what-is-angular) sample app.
 
 ## Application use
 
 - [H2 Data Base](https://www.h2database.com/html/main.html)
 - [JPA](https://spring.io/projects/spring-data-jpa)
+- [Angular Material](https://material.angular.io/guide/getting-started)
 
 ## Requirements
 
@@ -14,19 +18,29 @@ For building and running the application you need:
 
 - [JDK 17](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
 - [Gradle 7.6](https://gradle.org/install/)
+- [Node.js](https://nodejs.org/en/about/) --> [download node.js 18.12.1 LTS](https://nodejs.org/dist/v18.12.1/node-v18.12.1-x64.msi)
 
 ## How to Run 
 
-* Clone this repository 
+* [Clone](https://github.com/ThePhrontistery/Canbemini.git) this repository 
 * Make sure you are using JDK 17 and Gradle 7.5.1 
-* The web application is accessible via localhost:8080
+---open a terminal---
+* Install necessary dependencies: npm install
+* Run the project: ng serve
+* Open the browser at http://localhost:4200/login to see the project in action
 
 
 ## Running the application locally
 
 There are several ways to run a Spring Boot application on your local machine. One way is to execute the `main` method in the `es.capgemini.cca.canbemini.CanbemeniApplication` class from your IDE.
-Run the server and browse to `localhost:8080/kanban`
 
+Will compile and run the back-end api in port http://localhost:8080  using a gradle task foccused on Spring Boot. [more info about bootRun](https://docs.spring.io/spring-boot/docs/current/gradle-plugin/reference/htmlsingle/#running-your-application)
+
+
+## How to use
+
+Enter the application through the browser of your choice, log in with: cesar@email.com, mercedes@email.com, jacques@email.com or raul@email.com, 
+the password is "hola" in all cases.
 
 ## About Spring Boot
 
