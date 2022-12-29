@@ -16,7 +16,7 @@ import es.capgemini.cca.canbemini.mapppers.NoteMapper;
 
 @RequestMapping(value = "/api/kanban/swimlane/note")
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
 @EnableWebSecurity
 public class NoteController {
     @Autowired
@@ -41,14 +41,14 @@ public class NoteController {
         return noteMapper.map(noteService.findAllSwimlaneNotes(swimlaneId));
     }
 
-    @RequestMapping(path = { "/save/{swimlaneId}", "/save/{swimlaneId}/{noteId}" }, method = RequestMethod.PUT)
+    @RequestMapping(path = { "/{swimlaneId}", "/{swimlaneId}/{noteId}" }, method = RequestMethod.PUT)
     @PreAuthorize("@swimlaneServiceImpl.isAuthorized('Editor',#swimlaneId)")
     public Note save(@PathVariable(name = "noteId", required = false) Long noteId,
             @PathVariable(name = "swimlaneId", required = true) Long swimlaneId, @RequestBody NoteDto note) {
         return noteService.saveNote(noteId, note, swimlaneId);
     }
 
-    @RequestMapping(path = "{noteId}", method = RequestMethod.DELETE)
+    @RequestMapping(path = "/{noteId}", method = RequestMethod.DELETE)
     @PreAuthorize("@noteServiceImpl.isAuthorized('Editor',#noteId)")
     public void delete(@PathVariable("noteId") Long noteId) {
         noteService.deleteNote(noteId);
