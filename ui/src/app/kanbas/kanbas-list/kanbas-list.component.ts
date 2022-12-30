@@ -31,6 +31,7 @@ export class KanbasListComponent implements OnInit {
     private _snackBar: MatSnackBar,
   ) {}
 
+  //Abre una notificacion que muestra el mensaje pasado por parámetro
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action);
   }
@@ -44,17 +45,15 @@ export class KanbasListComponent implements OnInit {
         });
       }
     });
-
-    
   }
  
-  go(item: Kanban) {
-    this.kanbaService.kanba = item;
+  openKanban(item: Kanban) {
     this.router.navigate(['kanbans', item.id]);
     return true;
   }
 
-  remove(kanban: Kanban) {
+  //Funcion a implementar multilenguaje
+  removeKanban(kanban: Kanban) {
     const dialogRef = this.matDialog.open(DialogConfirmationComponent, {
       data: {
         title: 'Eliminar kanban',
@@ -74,7 +73,7 @@ export class KanbasListComponent implements OnInit {
      });
   }
 
-  newKanba() {
+  newKanban() {
     const dialogRef = this.matDialog.open(KanbanEditComponent, {
       data: null,
     });
@@ -86,7 +85,7 @@ export class KanbasListComponent implements OnInit {
     return true;
   }
 
-  edit(kanba: Kanban) {
+  editKanban(kanba: Kanban) {
     const dialogRef = this.matDialog.open(KanbanEditComponent, {
       data: kanba,
     });
@@ -108,8 +107,10 @@ export class KanbasListComponent implements OnInit {
       return false;
   }
 
-  share(kanban:Kanban){
+  shareKanban(kanban:Kanban){
+    //Construye la url del kanban a compartir
     kanban.url = environment.frontUrl+'kanbans/share/'+kanban.code;
+    //copia al portapapeles la url del kanban
     this.clipboard.copy(kanban.url);
   }
 }

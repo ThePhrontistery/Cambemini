@@ -16,22 +16,23 @@ import { User } from './model/User';
 })
 export class KanbasService {
   
+  //Event emmiters
   emitKankaSelect: EventEmitter<Kanban> = new EventEmitter();
   emitSaveKanba: EventEmitter<Kanban> = new EventEmitter();
   emitRemoveLane: EventEmitter<Lane> = new EventEmitter();
 
-  kanba: Kanban;
-  kanbas: Kanban[];
+  //path url
   url = environment.url + 'kanban';
+
   constructor(private httpClient: HttpClient) {}
 
+  //Methods
   getKanbans(userId: number): Observable<Kanban[]> {
     let url = this.url;
     return this.httpClient.get<Kanban[]>(url);
   }
 
   getKanban(userId: number, kanbanId: number): Observable<Kanban> {
-    //Adicionar al url el kanbanId a la peticion
     let url = this.url + '/' + userId + '/' + kanbanId;
     return this.httpClient.get<Kanban>(url);
   }

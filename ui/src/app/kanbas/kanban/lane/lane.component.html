@@ -3,7 +3,7 @@
     cdkDropList
     id="list{{index}}" [cdkDropListConnectedTo]="listId"     
     [cdkDropListData]="lane.notes"
-    (cdkDropListDropped)="drop($event,lane.id)"
+    (cdkDropListDropped)="dropNote($event,lane.id)"
     class = "task-list"
 >
 <mat-card class="kanbas">
@@ -11,19 +11,19 @@
         <div class="space-between w-100">
             <mat-card-title class="laneTitle">{{lane.title}}</mat-card-title>
             <div>
-                <button mat-icon-button *ngIf="isEditorOwner" (click)="edit()"> <mat-icon>edit</mat-icon></button>
-                <button mat-icon-button *ngIf="isEditorOwner" (click)="delete()"> <mat-icon>close</mat-icon></button>
+                <button mat-icon-button *ngIf="isEditorOwner" (click)="editLane()"> <mat-icon>edit</mat-icon></button>
+                <button mat-icon-button *ngIf="isEditorOwner" (click)="deleteLane()"> <mat-icon>close</mat-icon></button>
             </div>
         </div>
     </mat-card-header>
     <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
     <mat-card-content>
-        <button *ngIf="isEditorOwner" (click)="add()" mat-stroked-button   class="addTaskButton"><mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="add"></mat-icon>
+        <button *ngIf="isEditorOwner" (click)="addNote()" mat-stroked-button   class="addTaskButton"><mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="add"></mat-icon>
         </button>
        
     </mat-card-content>
         <div class="min-width">
-            <app-note [taskLane]="lane" (block)="blockNote($event)" [isEditorOwner]="isEditorOwner" (removeNote)="deleteNote($event)" (editNote)="editNote($event)" [index]="i" [indexY]="index" *ngFor="let itemKanba of lane.notes;let i=index;" [item]="itemKanba"></app-note>
+            <app-note [taskLane]="lane" (emitBlockNote)="blockNote($event)" [isEditorOwner]="isEditorOwner" (emitRemoveNote)="deleteNote($event)" (emitEditNote)="editNote($event)" [index]="i" [indexY]="index" *ngFor="let note of lane.notes;let i=index;" [note]="note"></app-note>
         </div>
   </mat-card>
 </div>

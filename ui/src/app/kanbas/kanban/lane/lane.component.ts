@@ -28,11 +28,11 @@ export class LaneComponent implements OnInit {
   @Input() listId: string[];
   @Input() kanbanId: number;
   @Input() isEditorOwner: boolean;
-  @Output()addNote: EventEmitter<Notes>= new EventEmitter();
-  @Output()editXNote: EventEmitter<Notes>= new EventEmitter();
-  @Output()saveLane:EventEmitter<Lane>= new EventEmitter();
-  @Output()removeNote:EventEmitter<Notes>= new EventEmitter();
-  @Output()block:EventEmitter<NoteBlock>= new EventEmitter();
+  @Output()emitAddNote: EventEmitter<Notes>= new EventEmitter();
+  @Output()emitEditXNote: EventEmitter<Notes>= new EventEmitter();
+  @Output()emitSaveLane:EventEmitter<Lane>= new EventEmitter();
+  @Output()emitRemoveNote:EventEmitter<Notes>= new EventEmitter();
+  @Output()emitBlockNote:EventEmitter<NoteBlock>= new EventEmitter();
   
 
   
@@ -47,7 +47,7 @@ export class LaneComponent implements OnInit {
 
   }
   
-  drop(event: any, laneId: number) {
+  dropNote(event: any, laneId: number) {
     
     if (event.previousContainer === event.container) {
       moveItemInArray(
@@ -84,20 +84,20 @@ export class LaneComponent implements OnInit {
     return event;
   }
 
-  add() {
+  addNote() {
     const dialogRef = this.matDialog.open(NoteEditComponent, {
       data: { lane: this.lane },
     });
     
     dialogRef.afterClosed().subscribe((result) => {
       if(result!=null)
-      this.addNote.emit(result);
+      this.emitAddNote.emit(result);
     });
     
     return true;
   }
 
-  edit() {
+  editLane() {
     
     const dialogRef = this.matDialog.open(LaneEditComponent, {
       data: { 
@@ -108,16 +108,18 @@ export class LaneComponent implements OnInit {
 
      dialogRef.afterClosed().subscribe(res=>{
         if(res!=null)
-        this.saveLane.emit(res);
+        this.emitSaveLane.emit(res);
 
      })
 
     return true;
   }
 
-  delete() {
+  deleteLane() {
     
     const dialogRef = this.matDialog.open(DialogConfirmationComponent, {
+
+      //Language control required, new component needed
       data: {
         title: 'Eliminar un carril',
         description:
@@ -139,16 +141,16 @@ export class LaneComponent implements OnInit {
 
   editNote(note:Notes){
     
-     this.editXNote.emit(note);
+     this.emitEditXNote.emit(note);
   }
   
   deleteNote(note:Notes){
     
-    this.removeNote.emit(note);
+    this.emitRemoveNote.emit(note);
   }
 
   blockNote(noteBlock:NoteBlock){
     noteBlock.swimlaneId = this.lane.id;
-    this.block.emit(noteBlock);
+    this.emitBlockNote.emit(noteBlock);
   }
 }

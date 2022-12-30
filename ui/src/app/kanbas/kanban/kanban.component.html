@@ -3,17 +3,17 @@
 
 <div class="mt" >
     <div class="addButton">
-        <button mat-fab color="primary" (click)="add()">
+        <button mat-fab color="primary" (click)="addSwimlane()">
             <mat-icon>add</mat-icon>
         </button>
     </div>
 
     <div class="justify-content-center" style="margin-bottom: 1rem;" >
         <div class="lane-list" cdkDropList cdkDropListOrientation="horizontal"
-         (cdkDropListDropped)="drop($event)">
-            <div class="list-box" *ngFor="let item of lanes;let i=index; " cdkDrag>
+         (cdkDropListDropped)="dropCard($event)">
+            <div class="list-box" *ngFor="let lane of lanes;let i=index; " cdkDrag>
                
-                    <app-lane (block)="block($event)" [lane]="item" [isEditorOwner]="canEdit()" [index]="i" (removeNote)="removeNote($event)" (saveLane)="saveLane($event)" (addNote)="addNote($event)" (editXNote)="editNote($event)"  [kanbanId]="kanbanId" [listId]="kanbasListId"></app-lane>
+                    <app-lane (emitBlockNote)="blockNote($event)" [lane]="lane" [isEditorOwner]="canEdit()" [index]="i" (removeNote)="removeNote($event)" (emitSaveLane)="saveLane($event)" (emitAddNote)="addNote($event)" (emitEditXNote)="editNote($event)"  [kanbanId]="kanbanId" [listId]="kanbasListId"></app-lane>
                 
             </div>
         </div>

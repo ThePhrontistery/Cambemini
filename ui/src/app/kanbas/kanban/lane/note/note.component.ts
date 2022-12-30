@@ -18,21 +18,23 @@ import { AttachmentViewerComponent } from './attachment-viewer/attachment-viewer
   styleUrls: ['./note.component.css'],
 })
 export class NoteComponent implements OnInit {
-  @Input() item: Notes;
+  @Input() note: Notes;
   @Input() index: number;
   @Input() indexY: number;
   @Input() taskLane: Lane;
   @Input() isEditorOwner: boolean;
-  @Output() editNote: EventEmitter<Notes> = new EventEmitter();
-  @Output() removeNote: EventEmitter<any> = new EventEmitter();
-  @Output() block: EventEmitter<NoteBlock> = new EventEmitter();
+  @Output() emitEditNote: EventEmitter<Notes> = new EventEmitter();
+  @Output() emitRemoveNote: EventEmitter<any> = new EventEmitter();
+  @Output() emitBlockNote: EventEmitter<NoteBlock> = new EventEmitter();
 
-  spiner:boolean = false;
-
+  //Variables usadas en la subida de un attachment
   uploadProgress:number;
   uploadSub: Subscription;
-  styleBlock = ''
-  blockBy:boolean = false;
+
+  //Style of the note when it is blocked by another user
+  styleNoteBlocked = ''
+
+  noteIsBlocked :boolean = false;
   constructor(
     private kanbasService: KanbasService,
     public dialog: MatDialog,
@@ -41,27 +43,27 @@ export class NoteComponent implements OnInit {
      ) {}
 
   ngOnInit(): void {
-    if(this.item.usersBlock!=null){
-      this.styleBlock = "border: 1rem solid red; display: flex; flex-direction: column;"
+    if(this.note.usersBlock!=null){
+      this.styleNoteBlocked = "border: 1rem solid red; display: flex; flex-direction: column;"
     }
   }
 
-  remove() {
+  removeNote() {
     const dialogRef = this.dialog.open(DialogConfirmationComponent, {
       data: {
         title: 'Eliminar nota',
         description:
           'Atención si borra la nota:' +
-          this.item.content +
+          this.note.content +
           ' se perderán sus datos.<br> ¿Desea eliminar la nota?',
       },
     });
      
     dialogRef.afterClosed().subscribe((result) => {
        if (result) {
-        this.kanbasService.removeNote(this.item).subscribe((result) => {
-          this.removeNote.emit({
-            note: this.item,
+        this.kanbasService.removeNote(this.note).subscribe((result) => {
+          this.emitRemoveNote.emit({
+            note: this.note,
             indexLanba: this.indexY,
             indexNote: this.index,
           });
@@ -72,13 +74,13 @@ export class NoteComponent implements OnInit {
     return true;
   }
 
-  edit() {
+  editNote() {
     const dialogRef = this.dialog.open(NoteEditComponent, {
-      data: { task: this.item, lane: this.taskLane },
+      data: { task: this.note, lane: this.taskLane },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      if (result != null) this.editNote.emit(result);
+      if (result != null) this.emitEditNote.emit(result);
     });
 
     return true;
@@ -93,18 +95,18 @@ export class NoteComponent implements OnInit {
       let attachment= new Attachment();
       attachment.name = file.name;
 
-      const upload =  this.kanbasService.uploadAttachment(this.item.id, file).pipe(
+      const upload =  this.kanbasService.uploadAttachment(this.note.id, file).pipe(
         finalize(() =>{
-          this.reset()
+          this.resetUploadProgress()
         })
       );
 
       this.uploadSub = upload.subscribe(event => {
         if(event instanceof HttpResponse){  
-          if(this.item.attachment==null){
-            this.item.attachment = [];
+          if(this.note.attachment==null){
+            this.note.attachment = [];
           }        
-           this.item.attachment.push(event.body);
+           this.note.attachment.push(event.body);
         }
          
         if (event.type == HttpEventType.UploadProgress) {
@@ -117,10 +119,11 @@ export class NoteComponent implements OnInit {
 
   cancelUpload() {
     this.uploadSub.unsubscribe();
-    this.reset();
+    this.resetUploadProgress();
   }
 
-  reset() {
+  //resetea las variables de progreso para que desaparezca la barra del % de subida
+  resetUploadProgress() {
     this.uploadProgress = null;
     this.uploadSub = null;
   }
@@ -162,23 +165,23 @@ export class NoteComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
        if (result) {
         this.kanbasService.removeAttachment(att.id).subscribe(r=>{
-           let index=this.item.attachment.findIndex(tatt=> tatt.id==att.id);
-           this.item.attachment.splice(index,1);
+           let index=this.note.attachment.findIndex(tatt=> tatt.id==att.id);
+           this.note.attachment.splice(index,1);
         })
        }
      });
   }
 
-  emit(block:boolean){
+  blockNote(blockNote:boolean){
     
-     let noteBlock:NoteBlock = {noteId:this.item.id,swimlaneId:null,userId:null, block:block};
-     this.block.emit(noteBlock);
-     this.blockBy = block;
+     let noteBlock:NoteBlock = {noteId:this.note.id,swimlaneId:null,userId:null, block:blockNote};
+     this.emitBlockNote.emit(noteBlock);
+     this.noteIsBlocked = blockNote;
   }
 
   blocker(){
-    this.blockBy = !this.blockBy;
-    this.emit(this.blockBy);
+    this.noteIsBlocked = !this.noteIsBlocked;
+    this.blockNote(this.noteIsBlocked);
   }
   
 }

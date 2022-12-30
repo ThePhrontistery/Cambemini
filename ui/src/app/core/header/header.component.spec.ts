@@ -8,7 +8,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HeaderComponent } from './header.component';
 import { of, Observable } from 'rxjs';
-import { User } from 'src/app/login/login/model/LoginRequest';
+import { User } from 'src/app/kanbas/model/User';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 const loginMock = {
@@ -64,6 +64,7 @@ describe('HeaderComponent', () => {
     let kanba:Kanban = {
       id: 1,
       title: 'Escape',
+      code:'',
       description: 'Phasellus et lectus nec est vulputate semper in cursus metus. Nam eu odio lacus. Etiam elementum elementum enim a tempus. Quisque id pretium metus. Cras malesuada tellus sed urna placerat commodo.',
       select: true,
       userKanbanPermission:[
