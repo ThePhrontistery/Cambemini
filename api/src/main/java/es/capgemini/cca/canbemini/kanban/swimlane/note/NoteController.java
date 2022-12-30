@@ -3,6 +3,8 @@ package es.capgemini.cca.canbemini.kanban.swimlane.note;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,7 +16,8 @@ import es.capgemini.cca.canbemini.mapppers.NoteMapper;
 
 @RequestMapping(value = "/api/kanban/swimlane/note")
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
+@EnableWebSecurity
 public class NoteController {
     @Autowired
     NoteService noteService;
@@ -26,28 +29,33 @@ public class NoteController {
 
     }
 
-    @RequestMapping(path = "/get/{id}", method = RequestMethod.GET)
-    public NoteDto getNote(@PathVariable("id") Long id) {
-        return noteMapper.noteToNoteDto(noteService.getNote(id));
+    @RequestMapping(path = "/get/{noteId}", method = RequestMethod.GET)
+    @PreAuthorize("@noteServiceImpl.isAuthorized('Collaborator',#noteId)")
+    public NoteDto getNote(@PathVariable("noteId") Long noteId) {
+        return noteMapper.noteToNoteDto(noteService.getNote(noteId));
     }
 
     @RequestMapping(path = "/{swimlaneId}", method = RequestMethod.GET)
+    @PreAuthorize("@swimlaneServiceImpl.isAuthorized('Collaborator',#swimlaneId)")
     public List<NoteDto> getAllNotes(@PathVariable("swimlaneId") Long swimlaneId) {
         return noteMapper.map(noteService.findAllSwimlaneNotes(swimlaneId));
     }
 
-    @RequestMapping(path = { "/save/{swimlaneId}", "/save/{id}/{swimlaneId}" }, method = RequestMethod.PUT)
-    public Note save(@PathVariable(name = "id", required = false) Long id,
+    @RequestMapping(path = { "/{swimlaneId}", "/{swimlaneId}/{noteId}" }, method = RequestMethod.PUT)
+    @PreAuthorize("@swimlaneServiceImpl.isAuthorized('Editor',#swimlaneId)")
+    public Note save(@PathVariable(name = "noteId", required = false) Long noteId,
             @PathVariable(name = "swimlaneId", required = true) Long swimlaneId, @RequestBody NoteDto note) {
-        return noteService.saveNote(id, note, swimlaneId);
+        return noteService.saveNote(noteId, note, swimlaneId);
     }
 
-    @RequestMapping(path = "{id}", method = RequestMethod.DELETE)
-    public void delete(@PathVariable("id") Long id) {
-        noteService.deleteNote(id);
+    @RequestMapping(path = "/{noteId}", method = RequestMethod.DELETE)
+    @PreAuthorize("@noteServiceImpl.isAuthorized('Editor',#noteId)")
+    public void delete(@PathVariable("noteId") Long noteId) {
+        noteService.deleteNote(noteId);
     }
 
     @RequestMapping(path = "/updateNotesOrder/{swimlaneId}", method = RequestMethod.PUT)
+    @PreAuthorize("@swimlaneServiceImpl.isAuthorized('Collaborator',#swimlaneId)")
     public void updateNotesOrder(@RequestBody List<NoteDto> notes, @PathVariable("swimlaneId") Long swimlaneId) {
         for (int i = 0; i < notes.size(); i++)
             noteService.saveNote(notes.get(i).getId(), notes.get(i), swimlaneId);

@@ -26,7 +26,7 @@ export class KanbasService {
   constructor(private httpClient: HttpClient) {}
 
   getKanbans(userId: number): Observable<Kanban[]> {
-    let url = this.url + '/' + userId;
+    let url = this.url;
     return this.httpClient.get<Kanban[]>(url);
   }
 
@@ -63,9 +63,9 @@ export class KanbasService {
   }
 
   saveNote(note: Notes): Observable<Notes> {
-    let url = this.url + '/swimlane/note/save';
-    if (note.id != null) url += '/' + note.id;
+    let url = this.url + '/swimlane/note';
     url += '/' + note.swimlane.id;
+    if (note.id != null) url += '/' + note.id;
     return this.httpClient.put<Notes>(url, note);
   }
 
@@ -128,6 +128,11 @@ export class KanbasService {
   updateOrderNotes(notes: Notes[], swimlaneId){
     let url = this.url + "/swimlane/note/updateNotesOrder/" + swimlaneId; 
     return this.httpClient.put(url, notes);
+  }
+
+  downloadAttachment(document_path: string) {
+    return this.httpClient.get(document_path, 
+      {observe:'response', responseType:'blob'});
   }
 }
 

@@ -44,7 +44,6 @@ public class SwimlaneIT {
     public static final Long NEW_SWIMLANE_ID = 7L;
     public static final Long MODIFY_KANBAN_ID = 1L;
     private static final Long MODIFY_SWIMLANE_ID = 1L;
-    private static final String MODIFY_SWIMLANE_TITLE = "KANBAN_NUEVO";
     private static final Long DELETE_SWIMLANE_ID = 1L;
     private static final Long EXIST_KANBAN_ID = 2L;
 

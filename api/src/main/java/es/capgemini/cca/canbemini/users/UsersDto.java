@@ -11,6 +11,8 @@ public class UsersDto {
 
     private String email;
 
+    private String password;
+
     @JsonIgnore
     private Set<UserKanbanPermissionDto> user_kanban_permission;
 
@@ -28,6 +30,14 @@ public class UsersDto {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Set<UserKanbanPermissionDto> getUser_kanban_permission() {

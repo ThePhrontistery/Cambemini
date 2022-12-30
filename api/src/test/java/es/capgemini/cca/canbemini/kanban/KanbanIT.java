@@ -15,6 +15,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
 
 import es.capgemini.cca.canbemini.userKanbanPermission.UserKanbanPermissionServiceImpl;
@@ -58,10 +59,12 @@ public class KanbanIT {
     public static final String NEW_KANBAN_DESCRIPTION = "New Kanban Description";
 
     @Test
+    // @WithUserDetails("mercedes@email.com")
+    @WithMockUser(value = "mercedes@email.com")
     public void findAllShouldReturnAllUserKanbans() {
 
-        ResponseEntity<List<KanbanDto>> response = restTemplate
-                .exchange(LOCALHOST + port + SERVICE_PATH + EXIST_USER_ID, HttpMethod.GET, null, responseType);
+        ResponseEntity<List<KanbanDto>> response = restTemplate.exchange(LOCALHOST + port + SERVICE_PATH,
+                HttpMethod.GET, null, responseType);
 
         assertNotNull(response);
         assertEquals(2, response.getBody().size());
@@ -75,10 +78,6 @@ public class KanbanIT {
 
         restTemplate.exchange(LOCALHOST + port + SERVICE_PATH_SAVE + EXIST_USER_ID, HttpMethod.PUT,
                 new HttpEntity<>(kanbanDto), Void.class);
-
-        // restTemplate.exchange(LOCALHOST + port + SERVICE_PATH_UKP, HttpMethod.PUT,
-        // new HttpEntity<>(kanbanDto),Void.class);
-        // ukpService.saveUkp(null, EXIST_USER_ID, EXISTS_KANBAN_ID, 1L);
 
         ResponseEntity<List<KanbanDto>> response = restTemplate
                 .exchange(LOCALHOST + port + SERVICE_PATH + EXIST_USER_ID, HttpMethod.GET, null, responseType);

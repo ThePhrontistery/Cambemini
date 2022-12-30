@@ -2,6 +2,8 @@ package es.capgemini.cca.canbemini.users;
 
 import java.util.List;
 
+import es.capgemini.cca.canbemini.security.UserDetailsImpl;
+
 public interface UsersService {
     List<Users> findAll();
 
@@ -12,4 +14,6 @@ public interface UsersService {
     void saveUsers(Long id, UsersDto usersDto);
 
     Users findByEmail(String email);
+
+    public Boolean verifyUser(Long userId, UserDetailsImpl userDetailsImpl);
 }

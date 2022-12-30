@@ -26,24 +26,23 @@ public class UsersController {
 
     }
 
-    @RequestMapping(path = "/{id}", method = RequestMethod.GET)
-    public UsersDto findUsers(@PathVariable("id") Long id) {
-        return usersMapper.UsersToUsersDto(usersService.findUsers(id));
+    @RequestMapping(path = "/{userId}", method = RequestMethod.GET)
+    public UsersDto findUsers(@PathVariable("userId") Long userId) {
+        return usersMapper.UsersToUsersDto(usersService.findUsers(userId));
     }
 
-    @RequestMapping(path = { "", "/{id}" }, method = RequestMethod.PUT)
-    public void save(@PathVariable(name = "id", required = false) Long id, @RequestBody UsersDto usersDto) {
-        usersService.saveUsers(id, usersDto);
+    @RequestMapping(path = { "", "/{userId}" }, method = RequestMethod.PUT)
+    public void save(@PathVariable(name = "userId", required = false) Long userId, @RequestBody UsersDto usersDto) {
+        usersService.saveUsers(userId, usersDto);
     }
 
-    @RequestMapping(path = "{id}", method = RequestMethod.DELETE)
-    public void delete(@PathVariable("id") Long id) {
-        usersService.deleteUsers(id);
+    @RequestMapping(path = "/{userId}", method = RequestMethod.DELETE)
+    public void delete(@PathVariable("userId") Long userId) {
+        usersService.deleteUsers(userId);
     }
 
     @RequestMapping(path = "", method = RequestMethod.GET)
     public UsersDto findByEmail(@RequestParam(value = "email", required = true) String email) {
-
         return usersMapper.UsersToUsersDto(usersService.findByEmail(email));
     }
 

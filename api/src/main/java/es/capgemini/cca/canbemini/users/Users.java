@@ -4,6 +4,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,13 +28,17 @@ public class Users {
     @Column(name = "username")
     private String email;
 
-    @OneToMany(mappedBy = "users")
+    @Column(name = "password")
+    private String password;
+
+    @OneToMany(mappedBy = "users", fetch = FetchType.EAGER)
     @JsonIgnore
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<UserKanbanPermission> user_kanban_permission;
 
-    public Users(String email) {
+    public Users(String email, String password) {
         this.email = email;
+        this.password = password;
     }
 
     protected Users() {
@@ -46,6 +51,14 @@ public class Users {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getEmail() {

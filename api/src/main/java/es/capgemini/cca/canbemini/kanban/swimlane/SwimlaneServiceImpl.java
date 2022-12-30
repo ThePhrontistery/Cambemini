@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import es.capgemini.cca.canbemini.kanban.KanbanService;
+import es.capgemini.cca.canbemini.security.NotAuthorizedException;
 
 @Service
 public class SwimlaneServiceImpl implements SwimlaneService {
@@ -20,7 +21,6 @@ public class SwimlaneServiceImpl implements SwimlaneService {
     @Override
     public List<Swimlane> findAll(Long kanbanId) {
         return (List<Swimlane>) this.swimlaneRepository.findAll(kanbanId);
-
     }
 
     @Override
@@ -48,10 +48,14 @@ public class SwimlaneServiceImpl implements SwimlaneService {
 
         BeanUtils.copyProperties(swimlaneDto, swimlane, "id", "kanban");
 
-        // swimlane.setKanban(swimlaneDto.getKanban());
         this.swimlaneRepository.save(swimlane);
 
         return swimlane;
     }
 
+    @Override
+    public boolean isAuthorized(String permission, Long swimlaneId) throws NotAuthorizedException {
+        Swimlane swimlane = this.swimlaneRepository.findById(swimlaneId).orElse(null);
+        return this.kanbanService.isAuthorized(permission, swimlane.getKanban().getId());
+    }
 }

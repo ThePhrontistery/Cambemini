@@ -9,9 +9,6 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Lane } from '../../../model/Lane';
 import { Notes } from '../../../model/Notes';
-import { FileType } from 'src/app/kanbas/model/file-type';
-
-import {DomSanitizer} from '@angular/platform-browser';
 import { finalize, Subscription } from 'rxjs';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { AttachmentViewerComponent } from './attachment-viewer/attachment-viewer.component';
@@ -129,15 +126,26 @@ export class NoteComponent implements OnInit {
   }
 
   downloadFile(att:Attachment) {
-       window.open(att.document_path);
+    this.kanbasService.downloadAttachment(att.document_path).subscribe(response => {
+      debugger
+      const fileName = response.headers.get('content-disposition')?.split(';')[1].split('=')[1];
+      const file = response.body as Blob;
+      const blobUrl = URL.createObjectURL(file);
+      const a = document.createElement('a');
+      a.style.display = 'none';
+      a.href = blobUrl;
+      a.download = fileName;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(blobUrl);
+    });
   }
 
   viewFile(att:Attachment){
     const dialogRef = this.dialog.open(AttachmentViewerComponent, {
       data: { attachment: att },
     });
-
-    
   }
   
   attachmentDelete(att:Attachment){
