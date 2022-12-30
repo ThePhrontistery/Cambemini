@@ -49,21 +49,18 @@ For building and running the application you need:
 
 
 ## How to use
-<div align="center">
+
 <img width="517" alt="image" src="https://user-images.githubusercontent.com/102371536/210051462-a586f042-310c-4075-90a4-108f97d94aeb.png">
-</div>
 
 Enter the application through the browser of your choice, log in with: cesar@email.com, mercedes@email.com, jacques@email.com, fredy@email.com or raul@email.com, 
 the password is "123" in all cases.
 
-<div align="center">
 <img width="952" alt="image" src="https://user-images.githubusercontent.com/102371536/210051781-ecdf83ca-5d96-45c0-a979-c5ad53b4a0bc.png">
-</div>
+
 This is the list of Kanbans
 
-<div align="center">
-<img width="960" alt="image" src="https://user-images.githubusercontent.com/102371536/210051992-759e8ec8-a3f0-4ee2-8c82-4b29cfea7125.png">
-</div>
+<img width="958" alt="image" src="https://user-images.githubusercontent.com/102371536/210052568-d769220b-7616-42a6-8b29-a8d5f1a23f1c.png">
+
 When we click on a Kanban from the list of Kanbans, we have this interface for editing the selected Kanban.
 
 
