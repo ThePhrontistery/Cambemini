@@ -3,10 +3,11 @@ import { TestBed } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { LoginService } from './login.service';
 import { BehaviorSubject, of } from 'rxjs';
-import { User } from './login/model/LoginRequest';
+import { User } from '../kanbas/model/User';
 import { Router } from '@angular/router';
 
 const mockUser: User = {
+  id: 1,
   email : 'ejemplo@capgemini.com',
   password : 'hola'
 };
