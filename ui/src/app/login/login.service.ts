@@ -42,7 +42,7 @@ export class LoginService {
     
     let loginRequest: LoginRequest = {
       email: user.email,
-      password: user.password
+      password: user.password,
     };
 
     this.secureLogin(loginRequest).subscribe(loginReply => {

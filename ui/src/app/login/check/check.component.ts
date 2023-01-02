@@ -22,10 +22,10 @@ export class CheckComponent implements OnInit {
 
     let result = this.loginService.loginGoogle(token);
 
-    if(result===true){
-        this.router.navigate([''])
-    }else{
-      this.router.navigate(['login'])
+    if (result === true) {
+      this.router.navigate(['']);
+    } else {
+      this.router.navigate(['login']);
     } 
 
   }
