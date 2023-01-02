@@ -31,7 +31,6 @@ export class LaneComponent implements OnInit {
   @Output()emitAddNote: EventEmitter<Notes>= new EventEmitter();
   @Output()emitEditXNote: EventEmitter<Notes>= new EventEmitter();
   @Output()emitSaveLane:EventEmitter<Lane>= new EventEmitter();
-  @Output()emitRemoveNote:EventEmitter<Notes>= new EventEmitter();
   @Output()emitBlockNote:EventEmitter<NoteBlock>= new EventEmitter();
   
 
@@ -131,9 +130,9 @@ export class LaneComponent implements OnInit {
     
     dialogRef.afterClosed().subscribe((result) => {
        if (result) {
-          return this.kanbasService.removeLane(this.lane).subscribe((result) => {
-            this.kanbasService.emitRemoveLane.emit(this.lane);
-          });
+        return this.kanbasService.removeLane(this.lane).subscribe((result) => {
+          this.kanbasService.emitRemoveLane.emit(this.lane);
+        });
        }
      });
     
@@ -145,8 +144,7 @@ export class LaneComponent implements OnInit {
   }
   
   deleteNote(note:Notes){
-    
-    this.emitRemoveNote.emit(note);
+    this.lane.notes.splice(note.order,1);
   }
 
   blockNote(noteBlock:NoteBlock){

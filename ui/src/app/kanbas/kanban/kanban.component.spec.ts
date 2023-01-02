@@ -53,7 +53,7 @@ describe('KanbaComponent', () => {
     kanbasService = TestBed.inject(KanbasService);
     httpMock = TestBed.inject(HttpTestingController);
     
-    spy=spyOn(kanbasService, 'getKanban').and.callFake(() => of(KANBAS_DATA_LIST));
+    spy=spyOn(kanbasService, 'getKanbans').and.callFake(() => of(KANBAS_DATA_LIST));
     
     fixture.detectChanges();
     console.log('lanes', component.lanes);
@@ -66,8 +66,8 @@ describe('KanbaComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should add', () => {
-    let addResult = component.add();
+  it('should add a swimlane', () => {
+    let addResult = component.addSwimlane();
     expect(addResult).toBeTrue();
   });
   
@@ -77,15 +77,18 @@ describe('KanbaComponent', () => {
     let lane:Lane = {
       id: 1,
       title: 'To do',
+      order: 1,
       notes: [
         {
           id: 1,
           content: 'Cloud design',
+          order: 1,
         },
         {
           id: 2,        
           content:
             'Think and design how clients will interact with notes at the same time',
+          order: 2,
         },
       ],
     };

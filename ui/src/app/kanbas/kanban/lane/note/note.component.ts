@@ -21,7 +21,7 @@ export class NoteComponent implements OnInit {
   @Input() note: Notes;
   @Input() index: number;
   @Input() indexY: number;
-  @Input() taskLane: Lane;
+  @Input() swimlane: Lane;
   @Input() isEditorOwner: boolean;
   @Output() emitEditNote: EventEmitter<Notes> = new EventEmitter();
   @Output() emitRemoveNote: EventEmitter<any> = new EventEmitter();
@@ -76,7 +76,7 @@ export class NoteComponent implements OnInit {
 
   editNote() {
     const dialogRef = this.dialog.open(NoteEditComponent, {
-      data: { task: this.note, lane: this.taskLane },
+      data: { task: this.note, lane: this.swimlane },
     });
 
     dialogRef.afterClosed().subscribe((result) => {

@@ -154,13 +154,6 @@ export class KanbanComponent implements OnInit {
 
   }
 
-  removeNote(noteObj:any){
-    
-    this.lanes[noteObj.indexLanba].notes.splice(noteObj.indexNote,1)
-       
-    //this.ngOnInit();
-  }
-
   canEdit(): boolean {
     if(this.permission.rol != "Collaborator")
       return true;

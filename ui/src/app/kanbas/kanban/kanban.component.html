@@ -13,7 +13,7 @@
          (cdkDropListDropped)="dropCard($event)">
             <div class="list-box" *ngFor="let lane of lanes;let i=index; " cdkDrag>
                
-                    <app-lane (emitBlockNote)="blockNote($event)" [lane]="lane" [isEditorOwner]="canEdit()" [index]="i" (removeNote)="removeNote($event)" (emitSaveLane)="saveLane($event)" (emitAddNote)="addNote($event)" (emitEditXNote)="editNote($event)"  [kanbanId]="kanbanId" [listId]="kanbasListId"></app-lane>
+                    <app-lane (emitBlockNote)="blockNote($event)" [lane]="lane" [isEditorOwner]="canEdit()" [index]="i" (emitSaveLane)="saveLane($event)" (emitAddNote)="addNote($event)" (emitEditXNote)="editNote($event)"  [kanbanId]="kanbanId" [listId]="kanbasListId"></app-lane>
                 
             </div>
         </div>

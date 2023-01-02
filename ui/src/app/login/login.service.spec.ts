@@ -5,8 +5,10 @@ import { LoginService } from './login.service';
 import { BehaviorSubject, of } from 'rxjs';
 import { LoginRequest } from './login/model/LoginRequest';
 import { Router } from '@angular/router';
+import { User } from '../kanbas/model/User';
 
-const mockUser: LoginRequest = {
+const mockUser: User = {
+  id: 1,
   email : 'ejemplo@capgemini.com',
   password : 'hola'
 };

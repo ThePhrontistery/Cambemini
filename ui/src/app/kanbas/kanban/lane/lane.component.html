@@ -23,7 +23,7 @@
        
     </mat-card-content>
         <div class="min-width">
-            <app-note [taskLane]="lane" (emitBlockNote)="blockNote($event)" [isEditorOwner]="isEditorOwner" (emitRemoveNote)="deleteNote($event)" (emitEditNote)="editNote($event)" [index]="i" [indexY]="index" *ngFor="let note of lane.notes;let i=index;" [note]="note"></app-note>
+            <app-note [swimlane]="lane" (emitBlockNote)="blockNote($event)" [isEditorOwner]="isEditorOwner" (emitRemoveNote)="deleteNote($event)" (emitEditNote)="editNote($event)" [index]="i" [indexY]="index" *ngFor="let note of lane.notes;let i=index;" [note]="note"></app-note>
         </div>
   </mat-card>
 </div>

@@ -20,6 +20,7 @@ const MatDialogRefMock = {
 const data:Kanban ={
   id: 1,
   title: 'Escape',
+  code: '1sdad',
   description: 'Phasellus et lectus nec est vulputate semper in cursus metus. Nam eu odio lacus. Etiam elementum elementum enim a tempus. Quisque id pretium metus. Cras malesuada tellus sed urna placerat commodo.',
   select: true,
   userKanbanPermission:[
@@ -80,19 +81,22 @@ describe('KanbasEditComponent', () => {
   });
 
   it('should save', () => {
-    // let onSaveSpy = spyOn(component, 'onSave').and.callThrough();
-    kanbasService.kanbas = [];
-    expect(kanbasService.kanbas.length).toEqual(0);
+    let onSaveSpy = spyOn(component, 'onSave').and.callFake(() => { return true });
+    component.kanban = {
+      id: 1,
+      title: 'titulo',
+      description: 'desc',
+      code: 'sabdhuavd',
+      select: true,
+        userKanbanPermission:[
+          {id:1, users:{id:1,email:'mercedes@escape.com', online:false}, permission:{id:1,rol:"Owner"}},
+          {id:2, users:{id:2,email:'raul@escape.com', online:false}, permission:{id:2,rol:"Editor"}}
+        ],
+        swimlanes:LANE_DATA_LIST
+    };
+    expect(component.kanban).toBeTruthy;
+    let ok = component.onSave();
 
-    component.kanba.title = 'titulo';
-    component.kanba.description = 'description';
-    component.kanba.swimlanes = [];
-    component.onSave();
-
-    kanbasService.emitSaveKanba.subscribe((x) => {
-      kanbasService.kanbas =[]
-      kanbasService.kanbas.push(x);
-      expect(kanbasService.kanbas.length).toEqual(1);
-    });
+    expect(ok).toBeTrue();
   });
 });

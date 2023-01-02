@@ -10,19 +10,23 @@ import { NoteEditComponent } from './note-edit.component';
 const mockTask: Notes = {
   id: 1,
   content: 'Cloud design',
+  order: 3,
 };
 const mockLane: Lane = {
   id: 1,
   title: 'To do',
+  order: 1,
   notes: [
     {
       id: 1,
       content: 'Cloud design',
+      order: 1,
     },
     {
       id: 2,        
       content:
         'Think and design how clients will interact with notes at the same time',
+        order: 2,
     },
   ],
 }

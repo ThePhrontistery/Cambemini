@@ -12,7 +12,7 @@ import { Kanban } from '../../model/Kanban';
 })
 export class KanbanEditComponent implements OnInit {
 
-  kanba:Kanban;
+  kanban:Kanban;
   busy:boolean = false;  
   userId:number = 1;
   constructor(private kanbasService:KanbasService,
@@ -28,12 +28,12 @@ export class KanbanEditComponent implements OnInit {
     });
 
     if(this.data == null){
-      this.kanba = new Kanban();
+      this.kanban = new Kanban();
 
-      this.kanba.swimlanes=[];
+      this.kanban.swimlanes=[];
     }      
     else{
-      this.kanba = Object.assign({}, this.data);        
+      this.kanban = Object.assign({}, this.data);        
     }
   }
 
@@ -44,11 +44,13 @@ export class KanbanEditComponent implements OnInit {
 
   onSave(){
 
+    //Control de doble click
     if(this.busy === true) return false ;
+    
     this.busy = true;
     
     
-    this.kanbasService.saveKanban(this.kanba,this.userId).subscribe(result =>  {
+    this.kanbasService.saveKanban(this.kanban,this.userId).subscribe(result =>  {
       this.dialogRef.close();
     }); 
     
