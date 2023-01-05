@@ -17,6 +17,7 @@ public interface UserKanbanPermissionMapper {
 
     // Los mappings especifican que se ignorará el atributo kanban
     @Mapping(target = "kanban", ignore = true)
+    @Mapping(source = "users", target = "user")//salía un warning que pedia mapear user
     UserKanbanPermission userKanbanPermissionDtoToUserKanbanPermission(
             UserKanbanPermissionDto userKanbanPermissionDto);/*
                                                               * convierte un objeto de tipo UsserKanbanPermissionDto en
