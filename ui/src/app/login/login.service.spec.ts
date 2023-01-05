@@ -3,8 +3,9 @@ import { TestBed } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { LoginService } from './login.service';
 import { BehaviorSubject, of } from 'rxjs';
-import { User } from '../kanbas/model/User';
+import { LoginRequest } from './login/model/LoginRequest';
 import { Router } from '@angular/router';
+import { User } from '../kanbas/model/User';
 
 const mockUser: User = {
   id: 1,

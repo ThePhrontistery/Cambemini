@@ -50,6 +50,7 @@ describe('KanbasService', () => {
 		let kanban:Kanban = {
 			id: 1,
 			title: 'Escape',
+			code: 'sdbiadb',
 			description: 'Phasellus et lectus nec est vulputate semper in cursus metus. Nam eu odio lacus. Etiam elementum elementum enim a tempus. Quisque id pretium metus. Cras malesuada tellus sed urna placerat commodo.',
 			select: true,
 			userKanbanPermission:[

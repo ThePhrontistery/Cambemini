@@ -11,10 +11,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import { CheckComponent } from './check/check.component';
 
 @NgModule({
-  declarations: [
-    LoginComponent,
-    CheckComponent
-  ],
+  declarations: [LoginComponent, CheckComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -24,7 +21,7 @@ import { CheckComponent } from './check/check.component';
     MatCardModule,
     MatButtonModule,
     MatIconModule,
-    MatCheckboxModule
-  ]
+    MatCheckboxModule,
+  ],
 })
-export class LoginModule { }
+export class LoginModule {}

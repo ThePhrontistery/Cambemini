@@ -97,36 +97,29 @@ describe('LaneComponent', () => {
     
   });
 
-  it('should create', () => {
+  it('should create component', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should add', () => {
-    let resultAdd = component.add();
+  it('should add Swimlane', () => {
+    let resultAdd = component.addNote();
     expect(resultAdd).toBeTrue();
   });
 
-  xit('should delete', () => {
-    let resultDelete = component.delete();
+  xit('should delete Swimlane', () => {
+    let resultDelete = component.deleteLane();
     expect(resultDelete).toBeTrue();
   });
 
-  it('should edit', () => {
-    let resultEdit = component.edit();
-    expect(resultEdit).toBeTrue();
-  });
-
-  it('should edit', () => {
-    let resultEdit = component.edit();
+  it('should edit Swimlane', () => {
+    let resultEdit = component.editLane();
     expect(resultEdit).toBeTrue();
   });
  
 
-  it('should drop', () => {
+  it('should drop note card', () => {
     expect(event.container.data.length).toEqual(2);
-    let resultEvent = component.drop(event,0)
+    let resultEvent = component.dropNote(event, 0);
     expect(resultEvent.container.data.length).toEqual(3);
   });
-
-  
 });

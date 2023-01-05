@@ -1,6 +1,6 @@
-<div [ngClass]="{'block': item.usersBlock !=null}">
+<div [ngClass]="{'block': note.usersBlock !=null}">
 
-    <mat-card class="mt-1" cdkDrag (cdkDragStarted)="emit(true)"  >     
+    <mat-card class="mt-1" cdkDrag (cdkDragStarted)="blockNote(true)"  >     
         <mat-card-header style="display: block;" > 
             
             <div class="space-between">
@@ -9,17 +9,17 @@
                 </div>
                 
                 <div>
-                    <button mat-icon-button *ngIf="isEditorOwner && blockBy==false" (click)="blocker()" >
+                    <button mat-icon-button *ngIf="isEditorOwner && noteIsBlocked==false" (click)="blocker()" >
                         <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="person"></mat-icon>
                     </button> 
                    
-                    <button mat-icon-button *ngIf="isEditorOwner && blockBy==true" (click)="blocker()">
+                    <button mat-icon-button *ngIf="isEditorOwner && noteIsBlocked==true" (click)="blocker()">
                         <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="block"></mat-icon>
                     </button> 
-                    <button mat-icon-button *ngIf="isEditorOwner" (click)="edit()">
+                    <button mat-icon-button *ngIf="isEditorOwner" (click)="editNote()">
                         <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="edit"></mat-icon>
                     </button> 
-                    <button mat-icon-button *ngIf="isEditorOwner" (click)="remove()">
+                    <button mat-icon-button *ngIf="isEditorOwner" (click)="removeNote()">
                         <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="close"></mat-icon>
                     </button>
                 </div>
@@ -34,8 +34,8 @@
 
 
             <div class="noteContent">
-                <p *ngIf="item.content != null || item.content !=''" style="text-align: justify;">{{item.content}}</p>
-                <p *ngIf="item.content== null || item.content ==''" style="text-align: justify;">Inserte el contenido de la nota</p>
+                <p *ngIf="note.content != null || note.content !=''" style="text-align: justify;">{{note.content}}</p>
+                <p *ngIf="note.content== null || note.content ==''" style="text-align: justify;">Inserte el contenido de la nota</p>
             </div>
 
             <div class ="file upload">
@@ -43,8 +43,8 @@
                     <button mat-mini-fab color="primary" *ngIf="isEditorOwner" class="upload-btn" (click)="fileUpload.value=''; fileUpload.click()">
                         <mat-icon>attach_file</mat-icon>
                     </button>
-                    <div *ngIf="(item.attachment?.length==0 || item.attachment==null) && isEditorOwner" class="title">Añada sus ficheros adjuntos</div>
-                    <div *ngIf="item.attachment?.length>0" class="title">Ficheros adjuntos</div>
+                    <div *ngIf="(note.attachment?.length==0 || note.attachment==null) && isEditorOwner" class="title">Añada sus ficheros adjuntos</div>
+                    <div *ngIf="note.attachment?.length>0" class="title">Ficheros adjuntos</div>
                 </div>
             
 
@@ -59,8 +59,8 @@
                 
                 </div>
 
-                <div *ngIf="item.attachment!=null">
-                    <div *ngFor="let att of item.attachment" class="cont-att" >
+                <div *ngIf="note.attachment!=null">
+                    <div *ngFor="let att of note.attachment" class="cont-att" >
                         
                         <div class="space-between att"  *ngIf="att.name != null">
                             <div>{{att.name}}</div>
@@ -88,9 +88,9 @@
         </mat-card-content>
 
     </mat-card>
-    <div class="flex-end mt" *ngIf="item.usersBlock!=null">
+    <div class="flex-end mt" *ngIf="note.usersBlock!=null">
         <div  class="user ml" >
-            {{item.usersBlock.email |  slice:0:3 }}
+            {{note.usersBlock.email |  slice:0:3 }}
     </div>
     </div>
 </div>

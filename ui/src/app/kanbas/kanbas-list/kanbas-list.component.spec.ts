@@ -30,6 +30,7 @@ const RouterMock = {
 const kanba: Kanban = {
   id: 1,
   title: 'Escape',
+  code: 'asdasd',
   description: 'Phasellus et lectus nec est vulputate semper in cursus metus. Nam eu odio lacus. Etiam elementum elementum enim a tempus. Quisque id pretium metus. Cras malesuada tellus sed urna placerat commodo.',
   select: true,
   userKanbanPermission:[
@@ -85,6 +86,7 @@ describe('KanbasComponent', () => {
       {
         id: 1,
         title: 'Escape',
+        code: '1asd',
         description: 'Phasellus et lectus nec est vulputate semper in cursus metus. Nam eu odio lacus. Etiam elementum elementum enim a tempus. Quisque id pretium metus. Cras malesuada tellus sed urna placerat commodo.',
         select: true,
         userKanbanPermission:[
@@ -102,26 +104,26 @@ describe('KanbasComponent', () => {
     * parámetro, esto hace que ejecute esa funcion mock en lugar de la definida en el servicio.
     */
     let spyOnRemove = spyOn(kanbasService,"removeKanban").and.callFake(() => {return of()});
-    component.remove(component.listKanbas[0]);
+    component.removeKanban(component.listKanbas[0]);
    
     expect(spyOnRemove).toHaveBeenCalled();
     
   });
 
   it('should newKanba', () => {
-    let getNewKanba = component.newKanba();
+    let getNewKanba = component.newKanban();
     expect(getNewKanba).toBeTrue();
   });
 
   it('should editKanba', () => {
-    let edit = component.edit(kanba);
+    let edit = component.editKanban(kanba);
     expect(edit).toBeTrue();
   });
   
-  it('should go', () => {
+  it('should open the Kanban', () => {
     
     // let spyOnGo = spyOn(component,'go').withArgs(kanba).and.callFake(()=>null);
-    let goResult = component.go(kanba); 
+    let goResult = component.openKanban(kanba); 
     expect(goResult).toBeTruthy();
   });
 });

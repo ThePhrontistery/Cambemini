@@ -106,7 +106,7 @@ export class KanbanComponent implements OnInit {
     });
   }
 
-  add() {
+  addSwimlane() {
     
     const dialogRef = this.dialog.open(LaneEditComponent, {
           data: {kanbanId:this.kanbanId, order: this.lanes.length},
@@ -120,7 +120,7 @@ export class KanbanComponent implements OnInit {
     return true;
   }
 
-  drop(event: CdkDragDrop<string[]>) {
+  dropCard(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.lanes, event.previousIndex, event.currentIndex);
     this.lanes.forEach((lane, index) => {
       if(index != lane.order)
@@ -154,13 +154,6 @@ export class KanbanComponent implements OnInit {
 
   }
 
-  removeNote(noteObj:any){
-    
-    this.lanes[noteObj.indexLanba].notes.splice(noteObj.indexNote,1)
-       
-    //this.ngOnInit();
-  }
-
   canEdit(): boolean {
     if(this.permission.rol != "Collaborator")
       return true;
@@ -186,7 +179,7 @@ export class KanbanComponent implements OnInit {
 
 
 
-  block(noteBlock:NoteBlock){
+  blockNote(noteBlock:NoteBlock){
     noteBlock.userId=this.userId;
     this.stompService.sendNote(this.kanbanId,noteBlock);
     

@@ -49,22 +49,26 @@ describe('Note', () => {
     fixture = TestBed.createComponent(NoteComponent);
     component = fixture.componentInstance;
 
-    component.item = {
+    component.note = {
       id: 1,
       content: 'Cloud design',
+      order: 1,
     },
-    component.taskLane = {
+    component.swimlane = {
       id: 1,
       title: 'To do',
+      order: 1,
       notes: [
         {
           id: 1,
           content: 'Cloud design',
+          order: 1,
         },
         {
           id: 2,        
           content:
             'Think and design how clients will interact with notes at the same time',
+            order: 2,
         },
       ],
     },
@@ -82,13 +86,13 @@ describe('Note', () => {
   })
 
   it('should remove', () => {
-    let checkCode = component.remove();
+    let checkCode = component.removeNote();
     
     expect(checkCode).toBeTrue();
   });
 
   it('should edit', () => {
-    let checkCode = component.edit();
+    let checkCode = component.editNote();
 
     expect(checkCode).toBeTrue();
   });

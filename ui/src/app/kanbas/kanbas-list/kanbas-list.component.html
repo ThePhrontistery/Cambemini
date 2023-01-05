@@ -2,19 +2,21 @@
 
 
     <div class="justify-content-center mt">
-      <button mat-fab type="addButton" (click)="newKanba()" color="primary" aria-label="Example icon button with a delete icon">
+
+      <button mat-fab type="addButton"  (click) = "newKanban()" color="primary" aria-label="Example icon button with a delete icon">
+
         <mat-icon>add</mat-icon>
       </button>
 
       <div class="justify-content-center" *ngIf="listKanbas.length>0">      
 
         <mat-card class="kamba-card" *ngFor="let item of listKanbas; let i = index;">
-            <mat-card-header (click)="go(item)" >    
+            <mat-card-header (click)="openKanban(item)" >    
               <mat-card-title>{{item.title}}</mat-card-title>
               <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
             </mat-card-header>
            
-            <mat-card-content (click)="go(item)">
+            <mat-card-content (click)="openKanban(item)">
               <p>
                {{item.description}}
               </p>
@@ -25,13 +27,13 @@
               </div>
             </mat-card-content>
             <mat-card-actions class="example-button-row">
-              <button mat-raised-button *ngIf="isOwner(i)" color="warn" (click)="remove(item)"><mat-icon>delete</mat-icon></button>
-              <button mat-raised-button *ngIf="isOwner(i)" color="primary" (click)="edit(item)"><mat-icon>edit</mat-icon></button>
+              <button mat-raised-button *ngIf="isOwner(i)" color="warn" (click)="removeKanban(item)"><mat-icon>delete</mat-icon></button>
+              <button mat-raised-button *ngIf="isOwner(i)" color="primary" (click)="editKanban(item)"><mat-icon>edit</mat-icon></button>
               <button mat-raised-button matTooltip="Copy the link to share your companions"
                 matTooltipClass="example-tooltip-uppercase" 
                 aria-label="Button that shows a red tooltip"
                 [matTooltipPosition]="'right'"
-                (click)="share(item); openSnackBar('Share link copied succesfuly!', 'OK!');" color="accent"><mat-icon>share</mat-icon>
+                (click)="shareKanban(item); openSnackBar('Share link copied succesfuly!', 'OK!');" color="accent"><mat-icon>share</mat-icon>
               </button>
             </mat-card-actions>
           </mat-card>

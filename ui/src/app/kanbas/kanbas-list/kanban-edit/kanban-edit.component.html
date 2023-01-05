@@ -3,13 +3,13 @@
     <form>
         <mat-form-field>
             <mat-label>Title</mat-label>
-            <input type="text" matInput placeholder="Kanbas Title..." [(ngModel)]="kanba.title" name="title" required>
+            <input type="text" matInput placeholder="Kanbas Title..." [(ngModel)]="kanban.title" name="title" required>
             <mat-error>El título no puede estar vacío</mat-error>
         </mat-form-field>
         
         <mat-form-field>
             <mat-label>Description</mat-label>
-            <textarea matInput placeholder="Kanbas description..." [(ngModel)]="kanba.description" name="description" required></textarea>
+            <textarea matInput placeholder="Kanbas description..." [(ngModel)]="kanban.description" name="description" required></textarea>
             <mat-error>La descripcion no puede estar vacía</mat-error>
         </mat-form-field>
     </form>
