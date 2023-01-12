@@ -6,14 +6,15 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import es.capgemini.cca.canbemini.userKanbanPermission.UserKanbanPermissionDto;
 
+//representa un objeto que se usa para intercambiar información entre la aplicación y la base de datos
 public class UsersDto {
-    private Long id;
+    private Long id;// clave primaria
 
     private String email;
 
     private String password;
 
-    @JsonIgnore
+    @JsonIgnore // este campo no debe incluirse cuando la clase se serialice a formato JSON
     private Set<UserKanbanPermissionDto> user_kanban_permission;
 
     public Long getId() {

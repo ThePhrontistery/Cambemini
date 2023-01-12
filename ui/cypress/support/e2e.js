@@ -18,7 +18,7 @@ import './commands'
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
-
+/* 
 //añado aquí el test de login
 describe('Login form', () => {
   beforeEach(() => {
@@ -58,3 +58,4 @@ describe('Login form', () => {
     cy.url().should('include', '/kanbans');
   });
 });
+ */

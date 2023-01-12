@@ -10,7 +10,7 @@
 
         <mat-form-field>
             <mat-label>Titulo</mat-label>
-            <input type="text" matInput placeholder="Titulo del item" [(ngModel)]="entitie.title" name="title" required>
+            <input type="title" matInput placeholder="Titulo del item" [(ngModel)]="entitie.title" name="title" required>
             <mat-error>El titulo no puede estar vacío</mat-error>
         </mat-form-field>
         
@@ -18,6 +18,6 @@
 
     <div class="buttons">
         <button mat-stroked-button (click)="onClose()">Cerrar</button>
-        <button mat-flat-button color="primary" (click)="onSave()">Guardar</button>
+        <button mat-flat-button type="saveButton" color="primary" (click)="onSave()">Guardar</button>
     </div>
 </div>
