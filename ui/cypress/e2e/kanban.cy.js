@@ -1,7 +1,9 @@
 describe("test relacionados con kanbans", () => {
+  beforeEach(()=>{
+    cy.login();
+  });
   //defino una prueba individual de creación de un kanban
   it("Debe añadir un kanban a un usuario", () => {
-    cy.login()
     //verifico que el botón es visible
     cy.get("button[mat-fab][type=addButton]").should("be.visible");
 
@@ -24,7 +26,6 @@ describe("test relacionados con kanbans", () => {
   });
   //verifica si se muestran mensajes de error cuando el usuario envía el formulario sin completar los campos
   it("debería mostrar mensajes de error cuando el formulario se envía con campos vacíos", () => {
-    cy.login()
     cy.get("button[mat-fab][type=addButton]").click()
     cy.get("form").should("be.visible");
     //hacer click en title
@@ -44,13 +45,11 @@ describe("test relacionados con kanbans", () => {
   });
   //comprobar que al menos haya un kanban
   it("comprobar que exista un kanban", () => {
-    cy.login();
     cy.get(".mat-card").should("be.visible");
   });
 
   //hacer click en el primer kanban
   it("Hacer click en el primer Kanban", () => {
-    cy.login();
     cy.get(".mat-card").click();
     //verifica que la url actual del navegador sea la que quiero
     cy.url().should("contain", "/kanbans/1");
@@ -60,7 +59,6 @@ describe("test relacionados con kanbans", () => {
 
   //entrar en un kanban y salir
   it("Entrar en un kanban y salir a la página principal", () => {
-    cy.login();
     //hacer click en un kanban
     cy.get(".mat-card").click();
     //verificar la url
@@ -71,7 +69,6 @@ describe("test relacionados con kanbans", () => {
 
   //Cambiar a un editor y hacerle owner, por ejemplo, y guardar
   it("Cambio de rol y guardar", () => {
-    cy.login();
     //pinchar en el kanban
     cy.get(".mat-card").click();
     //pinchar en este caso el usuario dos
@@ -86,7 +83,6 @@ describe("test relacionados con kanbans", () => {
 
   //cambiar de rol, pero dar al botón salir
   it("Cambio de rol y dar al botón salir", () => {
-    cy.login();
     cy.get(".mat-card").click();
     cy.get(".justify-content-center > :nth-child(2)").click();
     //verificar que sale el mat dialog
@@ -99,7 +95,6 @@ describe("test relacionados con kanbans", () => {
 
   //borrar un kanban
   it("Eliminar un Kanban", () => {
-    cy.login();
     //pinchar en el botón eliminar
     cy.get(".mat-warn > .mat-button-wrapper > .mat-icon").click();
     //verificar que se muestra el dialogo de control
@@ -110,7 +105,6 @@ describe("test relacionados con kanbans", () => {
 
   //borrar un Kanban, pero dar al botón de no eliminar
   it("Eliminar un Kanban, pero no aceptar cambios", () => {
-    cy.login();
     //pinmchar en el botón eliminar
     cy.get(".mat-warn > .mat-button-wrapper > .mat-icon").click();
     //verificar que se muestra el dialogo
@@ -121,7 +115,6 @@ describe("test relacionados con kanbans", () => {
 
   //generar enlace de "Compartir"
   it("Generar enlace", () => {
-    cy.login();
     //pinchar en shared
     cy.get(".mat-tooltip-trigger").click();
     //verificar que se muestra snack bar
@@ -132,7 +125,6 @@ describe("test relacionados con kanbans", () => {
 
   //Editar un kanban y aceptar
   it("Editar Kanban", () => {
-    cy.login();
     //pinchar en edit
     cy.get(".mat-card-actions > .mat-primary").click();
     //Verificar que se muestra el dialógo
@@ -153,7 +145,6 @@ describe("test relacionados con kanbans", () => {
 
   //Editar un kanban, pero darle al botón cancelar
   it("Editar y cancelar", () => {
-    cy.login();
     //pinchar en edit
     cy.get(".mat-card-actions > .mat-primary").click();
     //Verificar que se muestra el dialógo

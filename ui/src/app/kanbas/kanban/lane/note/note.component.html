@@ -1,6 +1,6 @@
 <div [ngClass]="{'block': item.usersBlock !=null}">
 
-    <mat-card class="mt-1" cdkDrag (cdkDragStarted)="emit(true)"  >     
+    <mat-card class="mt-1" id="{{item.id}}" cdkDrag (cdkDragStarted)="emit(true)"  >     
         <mat-card-header style="display: block;" > 
             
             <div class="space-between">
@@ -30,7 +30,7 @@
         
         
         <mat-card-content class="pad">
-            <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+            <input type="file" id="file{{item.id}}" class="file-input" (change)="onFileSelected($event)" #fileUpload>
 
 
             <div class="noteContent">

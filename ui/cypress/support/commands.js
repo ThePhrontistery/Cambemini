@@ -12,7 +12,6 @@ Cypress.Commands.add("login", () => {
 
 //comando para entrar en el kanban My first Kanban
 Cypress.Commands.add("kanban", () => {
-  cy.login();
   cy.get('.mat-card').click()
   //verifica que la url actual del navegador sea la que quiero
   cy.url().should("contain", "/kanbans/1")
@@ -20,3 +19,9 @@ Cypress.Commands.add("kanban", () => {
 
 //necesario para el drag and drop
 require("@4tw/cypress-drag-drop");
+
+//necesario para descargar archivos
+require('cypress-downloadfile/lib/downloadFileCommand');
+
+//necesario para verificar la descarga
+require('cy-verify-downloads');

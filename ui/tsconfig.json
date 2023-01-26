@@ -36,7 +36,8 @@
       "es2020",
       "dom"
     
-    ]
+    ],
+    "types": ["cypress", "@4tw/cypress-drag-drop"]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

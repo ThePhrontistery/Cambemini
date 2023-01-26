@@ -1,9 +1,10 @@
 //Hacer login
 describe('Login form', () => {
- 
+ beforeEach(()=>{
+cy.visit('/login');
+ });
 //define una prueba individual que verifica si el formulario de inicio de sesión se muestra correctamente en la página.
   it('Comprueba que se muestra el formulario de inicio de sesión', () => {
-    cy.visit ('/login')
     //busca  un elemento con la clase "login-form" y verifica si es visible
     cy.get('.login-form').should('be.visible');
     //las siguientes líneas de código realizan comprobaciones para verificar si otros elementos del formulario tienen el texto, los atributos y los placeholders correctos.
@@ -19,7 +20,6 @@ describe('Login form', () => {
   
 //defino otra prueba individual que verifica si se muestran mensajes de error cuando el usuario envía el formulario sin completar los campos
   it('debería mostrar mensajes de error cuando el formulario se envía con campos vacíos', () => {
-    cy.visit ('/login')
     //esta función es la que realiza click en el botón de envío de formulario
     cy.get('button[type=submit]').click();
     //verifico si se muestran los mensajes de error correctos
@@ -30,7 +30,6 @@ describe('Login form', () => {
 
   //defino una prueba individual que me muestre la contraseña
   it('debería mostrar la constraseña al pulsar en el botón', ()=>{
-    cy.visit('/login')
     //escribe el email
     cy.get("input[name=email]").type("cesar@email.com");
     //escribe la contraseña
@@ -44,14 +43,12 @@ describe('Login form', () => {
   /*defino una prueba individual que haga click en el checkbox de remeber me, lo correcto sería hacer .check
   pero en este caso no me dejaba*/
   it('Recuérdame', ()=>{
-    cy.visit('/login')
     cy.get('.mat-checkbox-inner-container').click()
     cy.wait(1000)
   });
 
   //defino una prueba que me compruebe que cierra sesión correctamente
   it('Cerrar sesión', ()=>{
-    cy.visit('/login')
     cy.login()
     //compruebo que he entrado a la página de "/kanbans"
     cy.url().should('contain', '/kanbans');
