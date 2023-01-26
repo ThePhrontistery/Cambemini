@@ -110,6 +110,24 @@ You can also run the Canbemini Spring Boot application as follows:
 
 <img width="958" alt="image" src="https://user-images.githubusercontent.com/102371536/210052568-d769220b-7616-42a6-8b29-a8d5f1a23f1c.png">
 
+## TESTING
+
+The application has been tested with end-to-end tests using [Cypress](https://www.cypress.io/how-it-works/). 
+
+**The following functionality has been tested:**
+
+-**Login:** error messages on the login form, displaying the password on the form, clicking the "remember me" button, logging out, and logging in with multiple users.</br>
+-**Kanbans:** the existence of a kanban, creating a new kanban, displaying error messages on the creation form, clicking on a kanban, entering and exiting a kanban to the main page, changing roles (one saving and one exiting), deleting a kanban (accepting and canceling), generating the sharing link, editing a kanban (accepting and canceling).</br>
+-**Notes:** verifying that at least one note exists in a specific swimlane, modifying a note, deleting a note (accepting and canceling), adding a note, clicking the attach button on a note.</br>
+-**Swimlanes:** adding a swimlane, verifying error messages, editing a swimlane (accepting and canceling), deleting a swimlane (accepting and canceling).
+It has not been possible to test the drag and drop functionality for both swimlanes and notes. The .drag() and .triggers() functions have been attempted but have not been successful.
+
+* *Currently in development:* testing the **attachment** feature and the different actions associated with it.
+
+**To test the application with Cypress on your computer**, you need to [install Cypress](https://docs.cypress.io/guides/getting-started/installing-cypress), and then run the Cypress tests by executing the command 'npm test run' in your terminal. (Remember to run the command 'ng serve' to launch the UI and the command 'gradle bootRun' to launch the API before running the Cypress tests)
+
+
+
 ## Contributing Guidelines
 
 We welcome contributions to Canbemini! If you would like to report a bug or request a new feature, please open an issue on the [GitHub repository](https://github.com/ThePhrontistery/Canbemini).
