@@ -119,10 +119,10 @@ The application has been tested with end-to-end tests using [Cypress](https://ww
 -**Login:** error messages on the login form, displaying the password on the form, clicking the "remember me" button, logging out, and logging in with multiple users.</br>
 -**Kanbans:** the existence of a kanban, creating a new kanban, displaying error messages on the creation form, clicking on a kanban, entering and exiting a kanban to the main page, changing roles (one saving and one exiting), deleting a kanban (accepting and canceling), generating the sharing link, editing a kanban (accepting and canceling).</br>
 -**Notes:** verifying that at least one note exists in a specific swimlane, modifying a note, deleting a note (accepting and canceling), adding a note, clicking the attach button on a note.</br>
--**Swimlanes:** adding a swimlane, verifying error messages, editing a swimlane (accepting and canceling), deleting a swimlane (accepting and canceling).
-It has not been possible to test the drag and drop functionality for both swimlanes and notes. The .drag() and .triggers() functions have been attempted but have not been successful.
+-**Swimlanes:** adding a swimlane, verifying error messages, editing a swimlane (accepting and canceling), deleting a swimlane (accepting and canceling).</br>
+-**Attachment:**  the following functionality has been tested and confirmed to work: uploading files (including .jpg, .pdf, and .txt), downloading, viewing (pdf only properly), and deleting attachments.
 
-* *Currently in development:* testing the **attachment** feature and the different actions associated with it.
+* *Currently in development:* Despite several attempts, testing for drag and drop functionality for both swimlanes and notes has not been successful. The .drag() and .triggers() functions have been attempted but have not produced the desired outcome.
 
 **To test the application with Cypress on your computer**, you need to [install Cypress](https://docs.cypress.io/guides/getting-started/installing-cypress), and then run the Cypress tests by executing the command 'npm test run' in your terminal. (Remember to run the command 'ng serve' to launch the UI and the command 'gradle bootRun' to launch the API before running the Cypress tests)
 
@@ -152,7 +152,8 @@ We follow the [Angular Style Guide](https://angular.io/guide/styleguide) for Ang
 
 ## Known issues
 
-Currently, it has been reported that the sharing option creates the share url, but the Kanban does not appear in the list of the person who logs in with that url.
+Currently, it has been reported that the sharing option creates the share url, but the Kanban does not appear in the list of the person who logs in with that url.</br>
+It has been found that while viewing attachments, only .pdf files are displayed satisfactorily, while images and plain text files are not properly displayed.
 
 
 ## License
