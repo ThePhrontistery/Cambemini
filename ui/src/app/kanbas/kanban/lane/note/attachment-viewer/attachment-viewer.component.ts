@@ -29,9 +29,7 @@ export class AttachmentViewerComponent implements OnInit {
       const file = response.body as Blob;
       blobUrl = URL.createObjectURL(file);
       this.src = blobUrl;
-      
       this.attType = this.attachment.type;
-      debugger
     });
   }
 

@@ -20,8 +20,3 @@ Cypress.Commands.add("kanban", () => {
 //necesario para el drag and drop
 require("@4tw/cypress-drag-drop");
 
-//necesario para descargar archivos
-require('cypress-downloadfile/lib/downloadFileCommand');
-
-//necesario para verificar la descarga
-require('cy-verify-downloads');

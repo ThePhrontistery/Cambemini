@@ -66,17 +66,17 @@
                             <div>{{att.name}}</div>
                             
                             <div class="flex-start">
-                                <button mat-icon-button color="warn" *ngIf="isEditorOwner" (click)="attachmentDelete(att)">
+                                <button mat-icon-button id="attachmentDelete{{att.id}}" color="warn" *ngIf="isEditorOwner" (click)="attachmentDelete(att)">
                                     <mat-icon>delete</mat-icon>            
                                 </button>
 
-                                <button mat-icon-button color="disabled" (click)="viewFile(att)">
+                                <button mat-icon-button id="attachmentViewFile{{att.id}}" color="disabled" (click)="viewFile(att)">
                                     <mat-icon>visibility</mat-icon>            
                                 </button>
                             
                             
 
-                                <button mat-icon-button color="disabled" (click)="downloadFile(att)">
+                                <button mat-icon-button id="attachmentDownload{{att.id}}" color="disabled" (click)="downloadFile(att)">
                                     <mat-icon>download</mat-icon>            
                                 </button>
                             </div>                        
