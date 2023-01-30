@@ -36,7 +36,9 @@ describe('LoginGuard', () => {
 
   describe('when the user is logged in', () => {
     beforeEach(() => {
+      if (serviceStub.loggedIn){
       serviceStub.loggedIn.next(true);
+      }
     });
 
     it('grants access', () => {
@@ -58,7 +60,11 @@ describe('LoginGuard', () => {
 
   describe('when the user is logged out', () => {
     beforeEach(() => {
+      if(serviceStub.loggedIn){
       serviceStub.loggedIn.next(false);
+      }else {
+        console.log("serviceStub.loggedIn does not exist");
+      }
     });
 
     it('grants access', () => {

@@ -1,5 +1,5 @@
 import { Kanban } from './model/Kanban';
-import { KanbasService } from 'src/app/kanbas/kanbas.service';
+import { KanbasService } from './kanbas.service';
 import { TestBed } from '@angular/core/testing';
 
 import {
@@ -52,6 +52,7 @@ describe('KanbasService', () => {
 			title: 'Escape',
 			description: 'Phasellus et lectus nec est vulputate semper in cursus metus. Nam eu odio lacus. Etiam elementum elementum enim a tempus. Quisque id pretium metus. Cras malesuada tellus sed urna placerat commodo.',
 			select: true,
+			code: "", 
 			userKanbanPermission:[
 			  {id:1, users:{id:1,email:'mercedes@escape.com', online:false}, permission:{id:1,rol:"Owner"}},
 			  {id:2, users:{id:2,email:'raul@escape.com', online:false}, permission:{id:2,rol:"Editor"}}

@@ -10,20 +10,24 @@ import { NoteEditComponent } from './note-edit.component';
 const mockTask: Notes =  {
   id: 1,
   content: 'Cloud design',
+  order: 1
 };
 
 const mockLane: Lane = {
   id: 1,
   title: 'To do',
+  order: 1,
   notes: [
     {
       id: 1,
       content: 'Cloud design',
+      order: 1,
     },
     {
       id: 2,        
       content:
         'Think and design how clients will interact with notes at the same time',
+      order:2
     },
   ],
 }
@@ -77,7 +81,7 @@ describe('NoteEditComponent(edit)', () => {
       component = fixture.componentInstance;
       httpMock = TestBed.inject(HttpTestingController);
       kanbanService = TestBed.inject(KanbasService);
-      spyService = spyOn(kanbanService, 'saveNote').and.callFake(() => of(true));
+      spyService = spyOn(kanbanService, 'saveNote').and.callFake(() => of(mockTask));
       
       
       fixture.detectChanges();

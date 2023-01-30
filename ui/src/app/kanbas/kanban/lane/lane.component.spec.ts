@@ -73,7 +73,7 @@ describe('LaneComponent', () => {
     component.lane = {
       id: 1,
       title: 'To do',
-      order:1,
+      order: 1,
       notes: [
         {
           id: 1,
@@ -84,7 +84,7 @@ describe('LaneComponent', () => {
           id: 2,        
           content:
             'Think and design how clients will interact with notes at the same time',
-            order:2
+          order:2
         },
       ],
     };

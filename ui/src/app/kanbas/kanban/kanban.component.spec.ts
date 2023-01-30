@@ -53,7 +53,11 @@ describe('KanbaComponent', () => {
     kanbasService = TestBed.inject(KanbasService);
     httpMock = TestBed.inject(HttpTestingController);
     
-    spy=spyOn(kanbasService, 'getKanban').and.callFake(() => of(KANBAS_DATA_LIST));
+    /*estaba dando un error al devolver una lista de kanbans (Type 'Observable<Kanban[]>' 
+    is not assignable to type 'Observable<Kanban>'.), esto hará que el 
+    spy devuelva sólo el primer elemento de KANBAS_DATA_LIST, y se esperará 
+    que sea de tipo Kanban*/
+    spy=spyOn(kanbasService, 'getKanban').and.callFake(() => of(KANBAS_DATA_LIST[0]));
     
     fixture.detectChanges();
     console.log('lanes', component.lanes);
@@ -77,15 +81,18 @@ describe('KanbaComponent', () => {
     let lane:Lane = {
       id: 1,
       title: 'To do',
+      order: 1, 
       notes: [
         {
           id: 1,
           content: 'Cloud design',
+          order: 1,
         },
         {
           id: 2,        
           content:
             'Think and design how clients will interact with notes at the same time',
+            order: 2,
         },
       ],
     };
