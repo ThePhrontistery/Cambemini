@@ -1,30 +1,16 @@
-/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
   "compileOnSave": false,
+  //añado include porque estaba dando errores
+  "include": [
+    "src/**/*.ts"
+  ],
   "exclude": [
-    "**/*.spec.ts"
+    "node_modules",//excluímos para acelerar la compilación
+    "**/*.cy.js",
+    "**/*.cy.ts",
+    "cypress"
   ],
   "compilerOptions": {
-    // "baseUrl": "./",
-    // "outDir": "./dist/out-tsc",
-    // "forceConsistentCasingInFileNames": true,
-    // "strict": true,
-    // "declarationMap": false,
-    // "noImplicitOverride": true,
-    // "noPropertyAccessFromIndexSignature": true,
-    // "noImplicitReturns": true,
-    // "noFallthroughCasesInSwitch": true,
-    // "sourceMap": true,
-    // "declaration": false,
-    // "downlevelIteration": true,
-    // "experimentalDecorators": true,
-    // "moduleResolution": "node",
-    // "importHelpers": true,
-    // "target": "es2020",
-    // "module": "es2020",
-    // "lib": [
-    //   "es2020",
-    //   "dom"
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
@@ -40,7 +26,8 @@
       "dom"
     
     ],
-    "types": ["cypress", "@4tw/cypress-drag-drop"]
+    //"types": ["cypress"], para poder ejecutar los tests de karma
+    
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
