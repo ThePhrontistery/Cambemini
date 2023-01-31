@@ -9,6 +9,7 @@ import { KanbanComponent } from './kanban.component';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 const MatDialogMock = {
   open() {
@@ -36,6 +37,7 @@ describe('KanbaComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
+        MatSnackBarModule
       ],
       declarations: [KanbanComponent],
       providers: [

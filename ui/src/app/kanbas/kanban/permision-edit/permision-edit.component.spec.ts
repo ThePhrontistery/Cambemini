@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { PermisionEditComponent } from './permision-edit.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing'; 
+
 
 describe('PermisionEditComponent', () => {
   let component: PermisionEditComponent;
@@ -8,7 +10,14 @@ describe('PermisionEditComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PermisionEditComponent ]
+      declarations: [ PermisionEditComponent ],
+      imports: [ 
+        HttpClientTestingModule,
+        MatDialogModule
+      ],
+      providers: [
+        {provide: MatDialogRef, useValue:{}},
+        {provide: MAT_DIALOG_DATA, useValue:{}}]
     })
     .compileComponents();
 

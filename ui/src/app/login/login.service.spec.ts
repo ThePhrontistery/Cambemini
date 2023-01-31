@@ -1,7 +1,7 @@
-import { HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
-import { LoginService } from './login.service';
+import { LoginService } from './login.service'; 
 import { BehaviorSubject, of } from 'rxjs';
 import { User } from '../kanbas/model/User';
 import { Router } from '@angular/router';
@@ -32,7 +32,7 @@ describe('LoginService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
     imports: [
-        // HttpClientTestingModule
+     HttpClientTestingModule
     ],
     providers: [
       LoginService,

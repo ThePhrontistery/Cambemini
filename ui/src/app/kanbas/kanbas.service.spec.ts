@@ -38,7 +38,7 @@ describe('KanbasService', () => {
 			//3/api/kanban/1
 	    const req = httpController.expectOne({
 	      method: 'GET',
-	      url: `${url}/kanban/${userId}`,
+	      url: `${url}/kanban`,
 	    });
 
 			//4
